@@ -10,6 +10,8 @@
     </parent>
 
     <artifactId>app-API</artifactId>
+    <packaging>jar</packaging>
+
 
     <dependencies>
         <dependency>

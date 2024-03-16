@@ -10,6 +10,8 @@
     </parent>
 
     <artifactId>app-entity</artifactId>
+    <packaging>jar</packaging>
+
     <dependencies>
         <dependency>
             <groupId>com.wxs.code</groupId>

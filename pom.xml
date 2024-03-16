@@ -22,8 +22,8 @@
     <module>app-common</module>
     <module>app-biz</module>
     <module>app-h5</module>
-      <module>app-API</module>
-      <module>app-entity</module>
+    <module>app-API</module>
+    <module>app-entity</module>
   </modules>
 
 </project>

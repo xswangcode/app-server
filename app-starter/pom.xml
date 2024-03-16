@@ -6,12 +6,12 @@
         <groupId>com.wxs.code</groupId>
         <artifactId>app-server</artifactId>
         <version>1.0</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
 
-    <groupId>com.wxs.code</groupId>
     <artifactId>app-starter</artifactId>
+    <packaging>jar</packaging>
     <version>1.0</version>
     <name>app-starter</name>
     <description>app-starter</description>
@@ -40,6 +40,10 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <!--main class com.wxs.code.AppStarterApplication-->
+                <configuration>
+                    <mainClass>com.wxs.code.AppStarterApplication</mainClass>
+                </configuration>
             </plugin>
         </plugins>
     </build>
