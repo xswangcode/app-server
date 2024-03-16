@@ -15,16 +15,17 @@ import org.springframework.web.bind.annotation.*;
 public class APIController {
 
 
+    @SuppressWarnings("rawtypes")
     @PostMapping(value = "in")
     @Operation(summary = "API接口入口", description = "API接口入参")
-    RspMsg apiIn(@RequestBody  ApiRequestParam param, HttpServletRequest request){
+    RspMsg apiIn(@RequestBody ApiRequestParam param, HttpServletRequest request) {
 
-        ApiBaseService svc =   ApiBaseService.getServiceByApi(param.getApi());
+        ApiBaseService svc = ApiBaseService.getServiceByApi(param.getApi());
         Object result = null;
-        if(svc != null){
+        if (svc != null) {
             result = svc.process(param.getData());
-        }else {
-            return RspMsg.error(param.getApi()+"找不到对应的服务类");
+        } else {
+            return RspMsg.error(param.getApi() + "找不到对应的服务类");
         }
         return RspMsg.OK(result);
     }
