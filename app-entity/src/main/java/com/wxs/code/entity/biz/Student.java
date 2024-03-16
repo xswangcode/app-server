@@ -1,4 +1,4 @@
-package com.wxs.code.entity;
+package com.wxs.code.entity.biz;
 
 import com.wxs.code.core.entity.CoreEntity;
 import io.swagger.v3.oas.annotations.media.Schema;

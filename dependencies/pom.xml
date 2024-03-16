@@ -140,6 +140,16 @@
                 <artifactId>app-h5</artifactId>
                 <version>1.0</version>
             </dependency>
+            <dependency>
+                <groupId>com.wxs.code</groupId>
+                <artifactId>app-API</artifactId>
+                <version>1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>com.wxs.code</groupId>
+                <artifactId>app-entity</artifactId>
+                <version>1.0</version>
+            </dependency>
 
 
             <!--Imports-->

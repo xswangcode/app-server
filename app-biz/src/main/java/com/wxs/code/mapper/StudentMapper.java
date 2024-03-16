@@ -1,7 +1,7 @@
 package com.wxs.code.mapper;
 
 import com.wxs.code.core.mapper.BaseMapper;
-import com.wxs.code.entity.Student;
+import com.wxs.code.entity.biz.Student;
 import org.apache.ibatis.annotations.Mapper;
 
 

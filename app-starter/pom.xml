@@ -28,6 +28,10 @@
             <groupId>com.wxs.code</groupId>
             <artifactId>app-h5</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.wxs.code</groupId>
+            <artifactId>app-API</artifactId>
+        </dependency>
 
     </dependencies>
 

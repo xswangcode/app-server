@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.wxs.code.core.api.VO.RspMsg;
 import com.wxs.code.core.controller.BaseController;
-import com.wxs.code.entity.User;
+import com.wxs.code.entity.biz.User;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;

@@ -1,9 +1,7 @@
-package com.wxs.code.entity;
+package com.wxs.code.entity.biz;
 
 import com.wxs.code.core.entity.CoreEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
-
-import java.io.Serializable;
 
 public class User extends CoreEntity {
     @Schema(name = "id", description = "id")

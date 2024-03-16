@@ -1,8 +1,7 @@
 package com.wxs.code.controller;
 
 import com.wxs.code.core.controller.BaseController;
-import com.wxs.code.entity.Student;
-import com.wxs.code.entity.User;
+import com.wxs.code.entity.biz.Student;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.models.annotations.OpenAPI30;
 import org.springframework.web.bind.annotation.RequestMapping;

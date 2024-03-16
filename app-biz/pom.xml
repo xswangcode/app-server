@@ -41,6 +41,10 @@
             <groupId>com.wxs.code</groupId>
             <artifactId>app-common</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.wxs.code</groupId>
+            <artifactId>app-entity</artifactId>
+        </dependency>
 
 
 

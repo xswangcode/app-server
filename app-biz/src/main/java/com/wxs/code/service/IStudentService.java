@@ -1,5 +1,8 @@
 package com.wxs.code.service;
 
 
-public interface IStudentService {
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.wxs.code.entity.biz.Student;
+
+public interface IStudentService extends IService<Student> {
 }
