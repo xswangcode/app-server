@@ -83,6 +83,13 @@
             <groupId>org.dromara.hutool</groupId>
             <artifactId>hutool-all</artifactId>
         </dependency>
+
+        <!-- auth / jwt -->
+        <dependency>
+            <groupId>com.auth0</groupId>
+            <artifactId>java-jwt</artifactId>
+        </dependency>
+
     </dependencies>
 
     <properties>

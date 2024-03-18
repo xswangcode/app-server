@@ -23,7 +23,6 @@ public class OpenAPIConfig {
         }
 
         private Info info(){
-
             return new Info()
                     .title("App server API")
                     .description("后端接口文档")
@@ -39,9 +38,9 @@ public class OpenAPIConfig {
             SecurityRequirement securityRequirement = new SecurityRequirement();
             securityRequirement.addList("X-Access-Token");
             return new OpenAPI()
-//                    .addSecurityItem(securityRequirement)
+                    .addSecurityItem(securityRequirement)
                     .components(new Components()
-                            .addSecuritySchemes("X-Access-Token", new SecurityScheme()
+                    .addSecuritySchemes("X-Access-Token", new SecurityScheme()
                                     .name("X-Access-Token")
                                     .type(SecurityScheme.Type.HTTP)
                                     .scheme("bearer")
