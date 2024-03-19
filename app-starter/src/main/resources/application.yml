@@ -1,8 +1,8 @@
 app:
   token:
     secretKey: xswang.code # 签名
-    refreshTime: 30 # 无感刷新时间
-    expiresTime: 60 # 超期时间
+    refreshTime: 900 # 无感刷新时间 /s
+    expiresTime: 1800 # 超期时间 /s
 
 
 server:
@@ -52,6 +52,9 @@ springdoc:
     - group: 'api'
       paths-to-match: '/**'
       packages-to-scan: com.wxs.code.api.controller
+    - group: 'system'
+      paths-to-match: '/**'
+      packages-to-scan: com.wxs.code.system.controller
 # knife4j的增强配置，不需要增强可以不配
 knife4j:
   enable: true

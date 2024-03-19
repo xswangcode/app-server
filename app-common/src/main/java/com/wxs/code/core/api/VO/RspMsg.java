@@ -79,7 +79,6 @@ public class RspMsg<T> implements Serializable {
         RspMsg<T> r = new RspMsg<T>();
         r.setSuccess(true);
         r.setCode(CommonConstants.HTTP_STATUS.OK);
-        r.setResult((T) msg);
         r.setMessage(msg);
         return r;
     }

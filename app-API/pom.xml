@@ -20,7 +20,7 @@
         </dependency>
         <dependency>
             <groupId>com.wxs.code</groupId>
-            <artifactId>app-biz</artifactId>
+            <artifactId>app-system</artifactId>
         </dependency>
         <dependency>
             <groupId>com.wxs.code</groupId>

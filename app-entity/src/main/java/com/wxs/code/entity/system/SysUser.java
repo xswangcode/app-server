@@ -1,5 +1,8 @@
-package com.wxs.code.entity.biz;
+package com.wxs.code.entity.system;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.wxs.code.core.entity.CoreEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
@@ -10,9 +13,12 @@ import lombok.*;
 @Getter
 @Setter
 @Schema(description = "用户类")
-public class User extends CoreEntity {
+@Builder
+@TableName("sys_user")
+public class SysUser extends CoreEntity {
+    @TableId(value = "id", type = IdType.AUTO)
     @Schema(name = "id", description = "id")
-    Integer id;
+    Long id;
     @Schema(name = "name", description = "名称")
     String name;
     @Schema(name = "age", description = "年龄")

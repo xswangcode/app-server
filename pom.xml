@@ -24,6 +24,7 @@
     <module>app-h5</module>
     <module>app-API</module>
     <module>app-entity</module>
+      <module>app-system</module>
   </modules>
 
 </project>

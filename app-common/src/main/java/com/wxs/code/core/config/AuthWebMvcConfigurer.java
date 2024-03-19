@@ -1,6 +1,6 @@
 package com.wxs.code.core.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.wxs.code.core.interceptor.AuthHandlerInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -22,6 +22,7 @@ public class AuthWebMvcConfigurer implements WebMvcConfigurer {
                 .addPathPatterns("/**")
                 // swagger
                 .excludePathPatterns("/swagger-resources/", "/webjars/", "/v3/**", "/swagger-ui.html/**","doc.html","/error")
+                .excludePathPatterns("/user/register")
                 .excludePathPatterns("/user/login");
     }
 }
