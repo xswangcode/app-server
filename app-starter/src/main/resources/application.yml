@@ -3,6 +3,10 @@ app:
     secretKey: xswang.code # 签名
     refreshTime: 900 # 无感刷新时间 /s
     expiresTime: 1800 # 超期时间 /s
+  login:
+    github:
+      client_id: xxxxxxxxxxxxxxxxxxxx
+      client_secret: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 
 server:
@@ -13,9 +17,9 @@ spring:
     name: app-starter
 
   datasource:
-    url: jdbc:mysql://172.25.28.23:3306/test?useUnicode=true&characterEncoding=utf8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
-    username: root
-    password: root
+    url: jdbc:mysql://172.25.21.189:3306/app-server?useUnicode=true&characterEncoding=utf8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
+    username: app-server
+    password: app-server-pwd
     driver-class-name: com.mysql.cj.jdbc.Driver
 
 

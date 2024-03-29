@@ -80,7 +80,7 @@ public class AuthHandlerInterceptor implements HandlerInterceptor {
         // 1. 获取请求头中的  X-Auth-Token
         String token = request.getHeader(AUTHORIZATION);
         if (null == token || token.trim().isEmpty()) {
-            return false;
+            throw new AuthExecption("token无效,不能为空");
         }
 
         log.info("Token:{} ", token);
@@ -90,7 +90,7 @@ public class AuthHandlerInterceptor implements HandlerInterceptor {
 
         //2.1  token 验证失败
         if (!verify) {
-            return false;
+            throw new AuthExecption("token无效,验证失败");
         }
         // 2.2 获取原始内容
         JWT jwt_content = JWTUtil.parseToken(token);

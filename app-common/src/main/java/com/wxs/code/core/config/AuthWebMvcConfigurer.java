@@ -23,6 +23,6 @@ public class AuthWebMvcConfigurer implements WebMvcConfigurer {
                 // swagger
                 .excludePathPatterns("/swagger-resources/", "/webjars/", "/v3/**", "/swagger-ui.html/**","doc.html","/error")
                 .excludePathPatterns("/user/register")
-                .excludePathPatterns("/user/login");
+                .excludePathPatterns("/**/login");
     }
 }

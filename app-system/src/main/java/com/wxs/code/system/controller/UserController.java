@@ -35,7 +35,7 @@ public class UserController extends BaseController<SysUser> {
     @Value("${app.token.secretKey}")
     public String sign;
     @PostMapping("login")
-    public RspMsg login(@RequestBody SysUser sysUser) {
+    public RspMsg<?> login(@RequestBody SysUser sysUser) {
         logger.info("用户名：[{}]", sysUser.getName());
         logger.info("邮件：[{}]", sysUser.getEmail());
         SysUser dbu = baseService.getOne(Wrappers.lambdaQuery(sysUser));
