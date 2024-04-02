@@ -11,13 +11,19 @@ import org.dromara.hutool.json.jwt.JWT;
 import org.dromara.hutool.json.jwt.JWTUtil;
 import org.dromara.hutool.json.jwt.signers.JWTSigner;
 import org.dromara.hutool.json.jwt.signers.JWTSignerUtil;
+import org.redisson.api.RedissonClient;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.support.RequestContext;
 
 import java.lang.invoke.VarHandle;
 import java.time.temporal.ChronoUnit;
+
+import static com.wxs.code.core.constant.CommonConstants.FRONT_FIELD.AUTHORIZATION;
 
 
 @Component
@@ -44,10 +50,6 @@ public class AuthHandlerInterceptor implements HandlerInterceptor {
     @Value("${server.port}")
     public Long port;
 
-    /**
-     * 保存签名的头部字段
-     */
-    private static final String AUTHORIZATION = "X-Auth-Token";
 
     private JWTSigner JWT_SIGNER ;
 
@@ -55,6 +57,13 @@ public class AuthHandlerInterceptor implements HandlerInterceptor {
     void init(){
         JWT_SIGNER = JWTSignerUtil.hs512(sign.getBytes());
     }
+
+    @Autowired
+    RedisTemplate redisTemplate;
+
+    @Autowired
+    RedissonClient redissonClient;
+
 
     /**
      * 校验token方法

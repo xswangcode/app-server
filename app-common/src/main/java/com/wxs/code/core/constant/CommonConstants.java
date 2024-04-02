@@ -12,4 +12,11 @@ public class CommonConstants {
         public static final int NOT_FOUND = 404;
         public static final int SERVER_ERROR = 500;
     }
+
+    public static final class FRONT_FIELD{
+        /**
+         * 保存签名的头部字段
+         */
+        public static final String AUTHORIZATION = "X-Auth-Token";
+    }
 }

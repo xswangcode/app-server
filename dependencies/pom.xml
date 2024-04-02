@@ -72,7 +72,6 @@
         <!-- 阿里巴巴开源工具依赖 -->
         <fastjson.version>1.2.83</fastjson.version>
         <fastjson2.version>2.0.47</fastjson2.version>
-        <jetcache.version>2.7.5</jetcache.version>
         <nacos.version>2.3.1</nacos.version>
         <transmittable-thread-local.version>2.14.5</transmittable-thread-local.version>
         <druid.spring.boot.version>1.2.19</druid.spring.boot.version>
@@ -241,7 +240,7 @@
             </dependency>
             <dependency>
                 <groupId>org.redisson</groupId>
-                <artifactId>redisson</artifactId>
+                <artifactId>redisson-spring-boot-starter</artifactId>
                 <version>${redisson.version}</version>
             </dependency>
             <!--日志-->
@@ -278,26 +277,6 @@
                 <groupId>org.apache.skywalking</groupId>
                 <artifactId>apm-toolkit-trace</artifactId>
                 <version>${skywalking.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.alicp.jetcache</groupId>
-                <artifactId>jetcache-starter-redis-lettuce</artifactId>
-                <version>${jetcache.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.alicp.jetcache</groupId>
-                <artifactId>jetcache-autoconfigure</artifactId>
-                <version>${jetcache.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.alicp.jetcache</groupId>
-                <artifactId>jetcache-anno</artifactId>
-                <version>${jetcache.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.alicp.jetcache</groupId>
-                <artifactId>jetcache-redis-lettuce</artifactId>
-                <version>${jetcache.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.dromara.hutool</groupId>
