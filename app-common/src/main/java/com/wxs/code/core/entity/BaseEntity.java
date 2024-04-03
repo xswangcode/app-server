@@ -5,7 +5,7 @@ import java.lang.reflect.Field;
 
 public class BaseEntity implements Serializable {
 
-    public boolean isEmpty() {
+    public boolean ifEmpty() {
         try {
             for (Field field : this.getClass().getDeclaredFields()) {
                 field.setAccessible(true);

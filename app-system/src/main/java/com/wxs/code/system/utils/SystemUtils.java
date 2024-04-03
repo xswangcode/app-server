@@ -2,11 +2,13 @@ package com.wxs.code.system.utils;
 
 import com.wxs.code.core.constant.CommonConstants;
 import com.wxs.code.core.exception.AuthExecption;
+import com.wxs.code.core.utils.SpringUtils;
 import com.wxs.code.entity.system.SysUser;
+import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.constraints.NotNull;
 import org.dromara.hutool.json.JSONUtil;
 import org.redisson.api.RedissonClient;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -15,47 +17,44 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 @Component
 public class SystemUtils {
 
-    @Autowired
-    RedissonClient redissonClient;
+    static RedissonClient redissonClient;
 
-    private HttpServletRequest request;
-    private static String token;
-    private  static SysUser user;
-
-    public SystemUtils() {
-        ServletRequestAttributes requestAttributes =  (ServletRequestAttributes)RequestContextHolder.getRequestAttributes();
-        if(requestAttributes!=null) {
-            HttpServletRequest request = requestAttributes.getRequest();
-            token = request.getHeader(CommonConstants.FRONT_FIELD.AUTHORIZATION);
-            getCurrentUser();
+    @NotNull
+    private static HttpServletRequest getRequest() {
+        ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        if (requestAttributes != null) {
+            return requestAttributes.getRequest();
         }
+        throw new RuntimeException("找不到HttpServletRequest对象");
     }
 
-    public SystemUtils(HttpServletRequest request) {
-        if(request!=null) {
-            token = request.getHeader(CommonConstants.FRONT_FIELD.AUTHORIZATION);
-            getCurrentUser();
-        }
-    }
-
-    private SysUser getCurrentUser() {
-        if (user == null) {
-            String json_user = redissonClient.getBucket(token).get().toString();
-            user = JSONUtil.toBean(json_user, SysUser.class);
-        }
-        if(user == null)
+    private static SysUser getCurrentUser() {
+        HttpServletRequest request = getRequest();
+        String token = request.getHeader(CommonConstants.FRONT_FIELD.AUTHORIZATION);
+        String json_user = redissonClient.getBucket(token).get().toString();
+        SysUser user = JSONUtil.toBean(json_user, SysUser.class);
+        if (user == null)
             throw new AuthExecption("用户未登录");
         return user;
     }
 
-    public static Long getUserId(){
+    public static Long getUserId() {
+        SysUser user = getCurrentUser();
         return user.getId();
     }
 
-    public static String getUserName(){
+    public static String getUserName() {
+        SysUser user = getCurrentUser();
         return user.getName();
     }
-    public static String getUserEmail(){
+
+    public static String getUserEmail() {
+        SysUser user = getCurrentUser();
         return user.getEmail();
+    }
+
+    @PostConstruct
+    void init() {
+        redissonClient = SpringUtils.get(RedissonClient.class);
     }
 }

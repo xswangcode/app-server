@@ -1,16 +1,13 @@
 package com.wxs.code.system.service.impl;
 
-import com.baomidou.mybatisplus.core.toolkit.BeanUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.wxs.code.core.api.VO.RspMsg;
-import com.wxs.code.core.entity.BaseEntity;
 import com.wxs.code.core.service.BaseService;
 import com.wxs.code.entity.system.SysUser;
 import com.wxs.code.entity.system.SysUserPassword;
 import com.wxs.code.system.entity.DTO.SysUserDTO;
 import com.wxs.code.system.service.ISysUserPasswordService;
 import com.wxs.code.system.service.ISysUserService;
-import org.dromara.hutool.core.util.ObjUtil;
 import org.dromara.hutool.crypto.SecureUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,7 +43,7 @@ public class SysUserServiceImpl extends BaseService<SysUser> implements ISysUser
     @Override
     public RspMsg register(SysUserDTO dto) {
         // 字段是否为空
-        boolean empty = dto.isEmpty();
+        boolean empty = dto.ifEmpty();
         if(empty){
             return RspMsg.error("参数不能为空");
         }
