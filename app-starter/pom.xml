@@ -47,6 +47,20 @@
                     <mainClass>com.wxs.code.AppStarterApplication</mainClass>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <configuration>
+                    <!-- 避免压缩指定类型的文件导致文件损坏 -->
+                    <nonFilteredFileExtensions>
+                        <nonFilteredFileExtension>xls</nonFilteredFileExtension>
+                        <nonFilteredFileExtension>xlsx</nonFilteredFileExtension>
+                        <nonFilteredFileExtension>md</nonFilteredFileExtension>
+                        <nonFilteredFileExtension>txt</nonFilteredFileExtension>
+                    </nonFilteredFileExtensions>
+                </configuration>
+
+            </plugin>
         </plugins>
     </build>
 

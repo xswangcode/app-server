@@ -7,6 +7,7 @@ import com.wxs.code.entity.system.SysUser;
 import com.wxs.code.system.entity.DTO.SysUserDTO;
 import com.wxs.code.system.service.ISysUserService;
 import com.wxs.code.system.utils.SystemUtils;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import org.dromara.hutool.core.collection.CollUtil;
@@ -53,6 +54,7 @@ public class UserController extends BaseController<SysUser> {
 
 
     @PostMapping("login")
+    @Operation(summary = "系统账户登录")
     public RspMsg<?> login(SysUserDTO sysUser, Long timespan) {
         if (!StrUtil.isAllNotEmpty(sysUser.getName(), sysUser.getEmail())) {
             return RspMsg.error("用户名和密码不能为空");
