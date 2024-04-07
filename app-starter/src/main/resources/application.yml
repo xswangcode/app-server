@@ -17,10 +17,18 @@ spring:
     name: app-starter
 
   datasource:
-    url: jdbc:mysql://172.25.21.189:3306/app-server?useUnicode=true&characterEncoding=utf8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://172.24.130.73:3306/app-server?useUnicode=true&characterEncoding=utf8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
     username: app-server
     password: app-server-pwd
     driver-class-name: com.mysql.cj.jdbc.Driver
+  data:
+    redis:
+      host: 172.24.130.73
+      port: 6677
+      password: admin@pwdpwd
+      timeout: 5s  # 读超时
+      connect-timeout: 5s # 连接超时
+      database: 3
 
 
 #mybatis plus 设置
@@ -36,7 +44,7 @@ mybatis-plus:
       table-underline: true
   configuration:
     # 这个配置会将执行的sql打印出来，在开发或测试的时候可以用
-    #    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     # 返回类型为Map,显示null对应的字段
     call-setters-on-nulls: true
 
@@ -59,8 +67,16 @@ springdoc:
     - group: 'system'
       paths-to-match: '/**'
       packages-to-scan: com.wxs.code.system.controller
+  default-flat-param-object: true
 # knife4j的增强配置，不需要增强可以不配
 knife4j:
   enable: true
+  # 开启Swagger的Basic认证功能,默认是false
+  basic:
+    enable: true
+    # Basic认证用户名
+    username: test
+    # Basic认证密码
+    password: test
   setting:
     language: zh_cn

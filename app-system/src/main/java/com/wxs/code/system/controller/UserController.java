@@ -1,6 +1,5 @@
 package com.wxs.code.system.controller;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.wxs.code.core.api.VO.RspMsg;
 import com.wxs.code.core.controller.BaseController;
@@ -9,24 +8,24 @@ import com.wxs.code.system.entity.DTO.SysUserDTO;
 import com.wxs.code.system.service.ISysUserService;
 import com.wxs.code.system.utils.SystemUtils;
 import io.swagger.v3.oas.annotations.tags.Tag;
-
 import jakarta.servlet.http.HttpServletRequest;
+import org.dromara.hutool.core.collection.CollUtil;
 import org.dromara.hutool.core.date.DateTime;
+import org.dromara.hutool.core.text.StrUtil;
 import org.dromara.hutool.json.JSONUtil;
 import org.dromara.hutool.json.jwt.JWTUtil;
 import org.dromara.hutool.json.jwt.signers.JWTSignerUtil;
-import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.codec.json.Jackson2CodecSupport;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.time.Duration;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 
 @RestController
@@ -54,12 +53,16 @@ public class UserController extends BaseController<SysUser> {
 
 
     @PostMapping("login")
-    public RspMsg<?> login(@RequestBody SysUser sysUser) {
-        logger.info("用户名：[{}]", sysUser.getName());
-        logger.info("邮件：[{}]", sysUser.getEmail());
-        SysUser dbu = baseService.getOne(Wrappers.lambdaQuery(sysUser));
-        if(dbu== null)
+    public RspMsg<?> login(SysUserDTO sysUser, Long timespan) {
+        if (!StrUtil.isAllNotEmpty(sysUser.getName(), sysUser.getEmail())) {
+            return RspMsg.error("用户名和密码不能为空");
+        }
+
+        List<SysUser> dbuList = baseService.list(Wrappers.lambdaQuery(SysUser.class).eq(SysUser::getName, sysUser.getName()).eq(SysUser::getEmail, sysUser.getEmail()));
+        if (CollUtil.isEmpty(dbuList))
             return RspMsg.error("账户或密码错误");
+        SysUser dbu = dbuList.getFirst();
+
         Map<String, Object> map = new HashMap<>();
         // id-name-email
         map.put("iss",sign);
@@ -88,7 +91,7 @@ public class UserController extends BaseController<SysUser> {
      * @return
      */
     @PostMapping("/register")
-    public RspMsg register(@RequestBody SysUserDTO dto) {
+    public RspMsg register(SysUserDTO dto) {
         return baseService.register(dto);
     }
 

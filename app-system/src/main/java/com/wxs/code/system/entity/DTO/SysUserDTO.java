@@ -1,14 +1,8 @@
 package com.wxs.code.system.entity.DTO;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
 import com.wxs.code.core.entity.BaseEntity;
-import com.wxs.code.entity.system.SysUser;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
-
-import java.time.LocalDateTime;
 
 
 @EqualsAndHashCode(callSuper = false)
@@ -16,7 +10,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Builder
-@Schema(description = "用户注册类")
+@Schema(description = "用户注册-登录类")
 public class SysUserDTO extends BaseEntity {
 
     @Schema(name = "name", description = "名称")
