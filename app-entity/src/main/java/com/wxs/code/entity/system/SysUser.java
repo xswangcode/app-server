@@ -25,4 +25,6 @@ public class SysUser extends CoreEntity {
     Integer age;
     @Schema(name = "email", description = "邮箱")
     String email;
+    @Schema(name = "password", description = "密码")
+    String password;
 }

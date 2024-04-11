@@ -23,6 +23,7 @@ public class SysUserDTO extends BaseEntity {
     /**
      * 明文密码
      */
+    @Schema(name = "password", description = "密码")
     String password;
 
 }

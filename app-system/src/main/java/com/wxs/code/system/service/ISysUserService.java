@@ -8,9 +8,9 @@ import com.wxs.code.system.entity.DTO.SysUserDTO;
 
 public interface ISysUserService extends IService<SysUser> {
 
-    RspMsg resetPassword(String userId, String oldPassword, String newPassword);
+    RspMsg<?> resetPassword(String userId, String oldPassword, String newPassword);
 
-    RspMsg register(SysUserDTO user);
+    RspMsg<?> register(SysUserDTO user);
 
 
 

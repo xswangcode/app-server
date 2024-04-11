@@ -55,24 +55,28 @@ public class UserController extends BaseController<SysUser> {
 
     @PostMapping("login")
     @Operation(summary = "系统账户登录")
-    public RspMsg<?> login(SysUserDTO sysUser, Long timespan) {
-        if (!StrUtil.isAllNotEmpty(sysUser.getName(), sysUser.getEmail())) {
+    public RspMsg<?> login(String name, String password) {
+        if (!StrUtil.isAllNotEmpty(name, password)) {
             return RspMsg.error("用户名和密码不能为空");
         }
+        //todo 密码加密
+        List<SysUser> dbuList = baseService.list(Wrappers.lambdaQuery(SysUser.class).eq(SysUser::getName, password).eq(SysUser::getPassword, password));
+        if (CollUtil.isEmpty(dbuList)) {
+            dbuList = baseService.list(Wrappers.lambdaQuery(SysUser.class).eq(SysUser::getEmail, password).eq(SysUser::getPassword, password));
+        }
 
-        List<SysUser> dbuList = baseService.list(Wrappers.lambdaQuery(SysUser.class).eq(SysUser::getName, sysUser.getName()).eq(SysUser::getEmail, sysUser.getEmail()));
-        if (CollUtil.isEmpty(dbuList))
+        if (CollUtil.isEmpty(dbuList)) {
             return RspMsg.error("账户或密码错误");
-        SysUser dbu = dbuList.getFirst();
+        }
 
+        SysUser dbu = dbuList.getFirst();
         Map<String, Object> map = new HashMap<>();
         // id-name-email
-        map.put("iss",sign);
-        map.put("name",dbu.getName());
-        map.put("email",dbu.getEmail());
+        map.put("iss", sign);
+        map.put("name", dbu.getName());
+        map.put("email", dbu.getEmail());
         map.put("jti", dbu.getId());
         map.put("iat", DateTime.now().getTime());
-
         logger.info(map.get("iat").toString());
         String token = JWTUtil.createToken(map, JWTSignerUtil.hs512(sign.getBytes()));
         redissonClient.getBucket(token).set(JSONUtil.toJsonStr(dbu), Duration.ofSeconds(expiresTime));
@@ -89,6 +93,7 @@ public class UserController extends BaseController<SysUser> {
 
     /**
      * 用户注册功能
+     *
      * @param dto
      * @return
      */
@@ -96,8 +101,6 @@ public class UserController extends BaseController<SysUser> {
     public RspMsg register(SysUserDTO dto) {
         return baseService.register(dto);
     }
-
-
 
 
 }
