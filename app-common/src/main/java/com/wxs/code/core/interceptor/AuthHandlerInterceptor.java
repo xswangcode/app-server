@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 
 import static com.wxs.code.core.constant.CommonConstants.FRONT_FIELD.AUTHORIZATION;
@@ -90,6 +91,7 @@ public class AuthHandlerInterceptor implements HandlerInterceptor {
             //超过token刷新时间，刷新 token
             jwt_content.setPayload("iat", DateTime.now().getTime());
             String new_token = JWTUtil.createToken(jwt_content.getPayloads(), authConfig.JWT_SIGNER);
+            redissonClient.getBucket(new_token).set(redissonClient.getBucket(token).get(), Duration.ofSeconds(authConfig.expiresTime));
             response.setHeader(AUTHORIZATION, new_token);
             log.error("token无感刷新成功,最新token:{}", new_token);
             return true;

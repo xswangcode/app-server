@@ -12,3 +12,14 @@ if(code==200){
     ke.global.setHeader("X-Auth-Token",token); 
 }
 ```
+
+POST /user/jwttest 自动刷新token
+
+`AfterScript`
+
+``` AfterScript
+let token =  ke.response.headers['x-auth-token']
+if(token){
+ke.global.setHeader("X-Auth-Token",token);
+}
+```
