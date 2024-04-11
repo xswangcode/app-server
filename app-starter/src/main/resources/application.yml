@@ -1,8 +1,11 @@
 app:
+  server:
+    host: 172.24.130.73
+
   token:
     secretKey: xswang.code # 签名
-    refreshTime: 900 # 无感刷新时间 /s
-    expiresTime: 1800 # 超期时间 /s
+    refreshTime: 30 # 无感刷新时间 /s
+    expiresTime: 50 # 超期时间 /s
   login:
     github:
       client_id: xxxxxxxxxxxxxxxxxxxx
@@ -17,13 +20,13 @@ spring:
     name: app-starter
 
   datasource:
-    url: jdbc:mysql://172.24.130.73:3306/app-server?useUnicode=true&characterEncoding=utf8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://${app.server.host}:3306/app-server?useUnicode=true&characterEncoding=utf8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
     username: app-server
     password: app-server-pwd
     driver-class-name: com.mysql.cj.jdbc.Driver
   data:
     redis:
-      host: 172.24.130.73
+      host: ${app.server.host}
       port: 6677
       password: admin@pwdpwd
       timeout: 5s  # 读超时
