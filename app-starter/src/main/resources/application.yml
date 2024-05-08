@@ -8,8 +8,8 @@ app:
     expiresTime: 5000 # 超期时间 /s
   login:
     github:
-      client_id: 7d3908b8f4105cafa37d
-      client_secret: 79853fdbbd416bdc501c6a379c53f5e24644b43e
+      client_id: xxxxxxxxxxxxxxxxxxxx
+      client_secret: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 
 server:
