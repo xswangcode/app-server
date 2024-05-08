@@ -1,19 +1,19 @@
 app:
   server:
-    host: 172.24.130.73
+    host: 192.168.0.132
 
   token:
     secretKey: xswang.code # 签名
-    refreshTime: 30 # 无感刷新时间 /s
-    expiresTime: 50 # 超期时间 /s
+    refreshTime: 3000 # 无感刷新时间 /s
+    expiresTime: 5000 # 超期时间 /s
   login:
     github:
-      client_id: xxxxxxxxxxxxxxxxxxxx
-      client_secret: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+      client_id: 7d3908b8f4105cafa37d
+      client_secret: 79853fdbbd416bdc501c6a379c53f5e24644b43e
 
 
 server:
-  port: 8080
+  port: 28080
 
 spring:
   application:

@@ -2,6 +2,9 @@ package com.wxs.code.core.constant;
 
 public class CommonConstants {
 
+    public static final String YES = "Y";
+    public static final String NO = "N";
+
     public static final class HTTP_STATUS{
         public static final int OK = 200;
         public static final int CREATED = 201;
