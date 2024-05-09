@@ -4,14 +4,14 @@
  Source Server         : vm2-app-server
  Source Server Type    : MySQL
  Source Server Version : 50743 (5.7.43-log)
- Source Host           : 172.24.130.73:3306
+ Source Host           : 192.168.0.132:3306
  Source Schema         : app-server
 
  Target Server Type    : MySQL
  Target Server Version : 50743 (5.7.43-log)
  File Encoding         : 65001
 
- Date: 11/04/2024 17:52:24
+ Date: 09/05/2024 15:30:26
 */
 
 SET NAMES utf8mb4;
@@ -25,14 +25,18 @@ CREATE TABLE `sys_menu`
 (
     `id`            bigint(20) UNSIGNED                                           NOT NULL AUTO_INCREMENT,
     `name`          varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '展示的名',
+    `path`          varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '前端的href',
     `title`         varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+    `redirect`      varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '重定向URL',
     `icon`          varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
     `order_idx`     int(11)                                                       NULL DEFAULT NULL COMMENT '排序字段',
     `component_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '子组件地址',
+    `common`        tinyint(1)                                                    NULL DEFAULT 0 COMMENT '是否无token可用',
+    `visible`       tinyint(1)                                                    NULL DEFAULT 1 COMMENT '是否可见',
     `parent_id`     bigint(20)                                                    NULL DEFAULT NULL,
     PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 1
+  AUTO_INCREMENT = 37
   CHARACTER SET = utf8mb4
   COLLATE = utf8mb4_general_ci
   ROW_FORMAT = Dynamic;
@@ -40,6 +44,76 @@ CREATE TABLE `sys_menu`
 -- ----------------------------
 -- Records of sys_menu
 -- ----------------------------
+INSERT INTO `sys_menu`
+VALUES (1, '数据面板', '/dashboard', 'dashboard', NULL, 'Apple', 111, 'dashboard/dashboard', 0, 1, NULL);
+INSERT INTO `sys_menu`
+VALUES (2, '首页', '/home', 'Home', NULL, 'Iphone', 11, 'HomeView', 1, 1, NULL);
+INSERT INTO `sys_menu`
+VALUES (3, '用户管理', '/user', 'User', NULL, 'ChatDotRound', 12, '', 0, 1, NULL);
+INSERT INTO `sys_menu`
+VALUES (4, '用户管理-1', '/user/user1', 'User1', NULL, 'MessageBox', 33, 'common/404', 0, 1, 3);
+INSERT INTO `sys_menu`
+VALUES (5, '用户管理-2', '/user/user2', 'User2', NULL, 'MessageBox', 44, 'common/404', 0, 1, 3);
+INSERT INTO `sys_menu`
+VALUES (6, '登录', '/login', 'Login', NULL, 'Apple', 2, 'common/LoginView', 1, 0, NULL);
+INSERT INTO `sys_menu`
+VALUES (7, '默认', '/', 'default', '/login', 'Apple', 1, 'common/LoginView', 1, 0, NULL);
+INSERT INTO `sys_menu`
+VALUES (8, '404', '/404', '404', NULL, 'Apple', 9999, 'common/404', 1, 1, NULL);
+INSERT INTO `sys_menu`
+VALUES (9, '用户管理-3', '/user/user3', 'User3', NULL, 'MessageBox', 48, 'common/404', 0, 1, 3);
+INSERT INTO `sys_menu`
+VALUES (10, '用户管理-4', '/user/user4', 'User4', NULL, 'MessageBox', 49, 'common/404', 0, 1, 3);
+INSERT INTO `sys_menu`
+VALUES (11, '用户管理-5', '/user/user5', 'User5', NULL, 'MessageBox', 50, 'common/404', 0, 1, 3);
+INSERT INTO `sys_menu`
+VALUES (12, '用户管理-6', '/user/user6', 'User6', NULL, 'MessageBox', 51, 'common/404', 0, 1, 3);
+INSERT INTO `sys_menu`
+VALUES (13, '用户管理-7', '/user/user7', 'User7', NULL, 'MessageBox', 52, 'common/404', 0, 1, 3);
+INSERT INTO `sys_menu`
+VALUES (14, '用户管理-8', '/user/user8', 'User8', NULL, 'MessageBox', 53, 'common/404', 0, 1, 3);
+INSERT INTO `sys_menu`
+VALUES (15, '用户管理-9', '/user/user9', 'User9', NULL, 'MessageBox', 54, 'common/404', 0, 1, 3);
+INSERT INTO `sys_menu`
+VALUES (16, '用户管理-10', '/user/user10', 'User10', NULL, 'MessageBox', 55, 'common/404', 0, 1, 3);
+INSERT INTO `sys_menu`
+VALUES (17, '用户管理-11', '/user/user11', 'User11', NULL, 'MessageBox', 56, 'common/404', 0, 1, 3);
+INSERT INTO `sys_menu`
+VALUES (18, '用户管理-12', '/user/user12', 'User12', NULL, 'MessageBox', 57, 'common/404', 0, 1, 3);
+INSERT INTO `sys_menu`
+VALUES (19, '用户管理-13', '/user/user13', 'User13', NULL, 'MessageBox', 58, 'common/404', 0, 1, 3);
+INSERT INTO `sys_menu`
+VALUES (20, '用户管理-14', '/user/user14', 'User14', NULL, 'MessageBox', 59, 'common/404', 0, 1, 3);
+INSERT INTO `sys_menu`
+VALUES (21, '用户管理-15', '/user/user15', 'User15', NULL, 'MessageBox', 60, 'common/404', 0, 1, 3);
+INSERT INTO `sys_menu`
+VALUES (22, '用户管理-16', '/user/user16', 'User16', NULL, 'MessageBox', 61, 'common/404', 0, 1, 10);
+INSERT INTO `sys_menu`
+VALUES (23, '用户管理-17', '/user/user17', 'User17', NULL, 'MessageBox', 62, 'common/404', 0, 1, 10);
+INSERT INTO `sys_menu`
+VALUES (24, '用户管理-18', '/user/user18', 'User18', NULL, 'MessageBox', 63, 'common/404', 0, 1, 10);
+INSERT INTO `sys_menu`
+VALUES (25, '用户管理-19', '/user/user19', 'User19', NULL, 'MessageBox', 64, 'common/404', 0, 1, 23);
+INSERT INTO `sys_menu`
+VALUES (26, '用户管理-20', '/user/user20', 'User20', NULL, 'MessageBox', 65, 'common/404', 0, 1, 25);
+INSERT INTO `sys_menu`
+VALUES (27, '用户管理-21', '/user/user21', 'User21', NULL, 'MessageBox', 66, 'common/404', 0, 1, 25);
+INSERT INTO `sys_menu`
+VALUES (28, '用户管理-22', '/user/user22', 'User22', NULL, 'MessageBox', 67, 'common/404', 0, 1, 25);
+INSERT INTO `sys_menu`
+VALUES (29, '用户管理-23', '/user/user23', 'User23', NULL, 'MessageBox', 68, 'common/404', 0, 1, 25);
+INSERT INTO `sys_menu`
+VALUES (30, '用户管理-24', '/user/user24', 'User24', NULL, 'MessageBox', 69, 'common/404', 0, 1, 25);
+INSERT INTO `sys_menu`
+VALUES (31, '用户管理-25', '/user/user25', 'User25', NULL, 'MessageBox', 70, 'common/404', 0, 1, 25);
+INSERT INTO `sys_menu`
+VALUES (32, '用户管理-26', '/user/user26', 'User26', NULL, 'MessageBox', 71, 'common/404', 0, 1, 25);
+INSERT INTO `sys_menu`
+VALUES (33, '用户管理-27', '/user/user27', 'User27', NULL, 'MessageBox', 72, 'common/404', 0, 1, 25);
+INSERT INTO `sys_menu`
+VALUES (34, 'AAAAA', '/AAAAA', 'AAAAA', NULL, 'Apple', 99, 'common/404', 0, 1, NULL);
+INSERT INTO `sys_menu`
+VALUES (36, 'test-tabs', '/ttab', 'testtabs', NULL, NULL, 1, 'common/test/tabs', 1, 0, NULL);
 
 -- ----------------------------
 -- Table structure for sys_role
@@ -88,7 +162,7 @@ CREATE TABLE `sys_user`
     `update_by`    varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
     PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 1021
+  AUTO_INCREMENT = 2
   CHARACTER SET = utf8mb4
   COLLATE = utf8mb4_general_ci
   ROW_FORMAT = Dynamic;
