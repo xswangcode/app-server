@@ -19,7 +19,7 @@
 <!--  <url>http://maven.apache.org</url>-->
   <modules>
     <module>app-starter</module>
-    <module>app-common</module>
+    <module>app-core</module>
     <module>app-biz</module>
     <module>app-h5</module>
     <module>app-API</module>

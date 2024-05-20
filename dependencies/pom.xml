@@ -127,7 +127,7 @@
             <!-- 自定义模块  -->
             <dependency>
                 <groupId>com.wxs.code</groupId>
-                <artifactId>app-common</artifactId>
+                <artifactId>app-core</artifactId>
                 <version>1.0</version>
             </dependency>
             <dependency>
@@ -492,11 +492,12 @@
                 <artifactId>java-jwt</artifactId>
                 <version>${java.jwt.version}</version>
             </dependency>
+            <!-- aop -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-aop</artifactId>
+                <version>${spring-boot-dependencies.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
-
-
-    <dependencies>
-
-    </dependencies>
 </project>

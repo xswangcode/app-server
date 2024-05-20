@@ -20,7 +20,7 @@
     <dependencies>
         <dependency>
             <groupId>com.wxs.code</groupId>
-            <artifactId>app-common</artifactId>
+            <artifactId>app-core</artifactId>
         </dependency>
         <dependency>
             <groupId>com.wxs.code</groupId>
