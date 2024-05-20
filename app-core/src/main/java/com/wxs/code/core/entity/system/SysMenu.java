@@ -1,4 +1,4 @@
-package com.wxs.code.entity.system;
+package com.wxs.code.core.entity.system;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;

@@ -7,8 +7,10 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.dromara.hutool.core.date.DateTime;
 import org.dromara.hutool.core.date.TimeUtil;
+import org.dromara.hutool.core.text.StrUtil;
 import org.dromara.hutool.json.jwt.JWT;
 import org.dromara.hutool.json.jwt.JWTUtil;
+import org.redisson.api.RBucket;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -55,8 +57,6 @@ public class AuthHandlerInterceptor implements HandlerInterceptor {
             return true;
         }
 
-        System.out.println(request.getRequestURI());
-
         // 1. 获取请求头中的  X-Auth-Token
         String token = request.getHeader(AUTHORIZATION);
         if (null == token || token.trim().isEmpty()) {
@@ -74,7 +74,14 @@ public class AuthHandlerInterceptor implements HandlerInterceptor {
         }
         // 2.2 获取原始内容
         JWT jwt_content = JWTUtil.parseToken(token);
-
+        // 2.2.1 校验redis是否存在
+        String user_id = jwt_content.getPayload("jti").toString();
+        // 使用redis存储token
+        String key = StrUtil.format("SysUser.{}", user_id);
+        RBucket<Object> bucket = redissonClient.getBucket(key);
+        if (!bucket.isExists()) {
+            throw new AuthExecption("token无效,请重新登录");
+        }
         // 2.3 获取当前token可用时间
         long now = DateTime.now().getTime();
         long signAt = Long.parseLong(jwt_content.getPayloads().get("iat").toString());
@@ -87,11 +94,13 @@ public class AuthHandlerInterceptor implements HandlerInterceptor {
             log.error("token验证成功");
             return true;
         }
+
         if (timeOfUse >= authConfig.refreshTime && timeOfUse < authConfig.expiresTime) {
             //超过token刷新时间，刷新 token
             jwt_content.setPayload("iat", DateTime.now().getTime());
             String new_token = JWTUtil.createToken(jwt_content.getPayloads(), authConfig.JWT_SIGNER);
-            redissonClient.getBucket(new_token).set(redissonClient.getBucket(token).get(), Duration.ofSeconds(authConfig.expiresTime));
+            //更新 redis 中的 token, 不会更新用户信息
+            redissonClient.getBucket(key).expire(Duration.ofSeconds(authConfig.expiresTime));
             response.setHeader(AUTHORIZATION, new_token);
             log.error("token无感刷新成功,最新token:{}", new_token);
             return true;

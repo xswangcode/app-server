@@ -1,4 +1,4 @@
-package com.wxs.code.system.entity.DTO;
+package com.wxs.code.core.entity.system.DTO;
 
 import com.wxs.code.core.entity.BaseEntity;
 import io.swagger.v3.oas.annotations.media.Schema;

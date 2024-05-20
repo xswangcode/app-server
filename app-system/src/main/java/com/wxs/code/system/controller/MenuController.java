@@ -1,10 +1,12 @@
 package com.wxs.code.system.controller;
 
 
+import com.wxs.code.core.annotation.AutoLog;
 import com.wxs.code.core.api.VO.RspMsg;
+import com.wxs.code.core.constant.LogConstant;
 import com.wxs.code.core.controller.BaseController;
-import com.wxs.code.entity.system.SysMenu;
-import com.wxs.code.system.service.ISysMenuService;
+import com.wxs.code.core.entity.system.SysMenu;
+import com.wxs.code.core.service.system.ISysMenuService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +28,16 @@ public class MenuController extends BaseController<SysMenu> {
 
     @Operation(summary = "查询所有菜单树", description = "查询菜单树")
     @GetMapping("getMenuTreeList")
-    public RspMsg<List<SysMenu>> getAllMenuList() {
+    @AutoLog(title = "查询菜单树", type = LogConstant.LogType.SELECT, value = true)
+    public RspMsg<List<SysMenu>> getAllMenuList() throws Exception {
+        try {
+            if (1 == 1)
+                throw new Exception("AAAAAAAAAAAAAAAA");
+
+        } catch (Exception e) {
+            throw new Exception(e);
+        }
+
         return RspMsg.ok(baseService.getAllMenuList());
     }
 

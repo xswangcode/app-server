@@ -1,11 +1,11 @@
-package com.wxs.code.system.service.impl;
+package com.wxs.code.core.service.system.impl;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.wxs.code.core.api.VO.RspMsg;
+import com.wxs.code.core.entity.system.DTO.SysUserDTO;
+import com.wxs.code.core.entity.system.SysUser;
 import com.wxs.code.core.service.BaseService;
-import com.wxs.code.entity.system.SysUser;
-import com.wxs.code.system.entity.DTO.SysUserDTO;
-import com.wxs.code.system.service.ISysUserService;
+import com.wxs.code.core.service.system.ISysUserService;
 import org.dromara.hutool.crypto.SecureUtil;
 import org.springframework.stereotype.Service;
 

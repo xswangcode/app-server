@@ -1,10 +1,10 @@
-package com.wxs.code.system.service;
+package com.wxs.code.core.service.system;
 
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.wxs.code.core.api.VO.RspMsg;
-import com.wxs.code.entity.system.SysUser;
-import com.wxs.code.system.entity.DTO.SysUserDTO;
+import com.wxs.code.core.entity.system.DTO.SysUserDTO;
+import com.wxs.code.core.entity.system.SysUser;
 
 public interface ISysUserService extends IService<SysUser> {
 

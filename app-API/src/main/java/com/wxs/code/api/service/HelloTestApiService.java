@@ -2,9 +2,9 @@ package com.wxs.code.api.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.wxs.code.api.constant.ApiConstant;
+import com.wxs.code.core.entity.system.SysUser;
 import com.wxs.code.core.service.ApiBaseService;
-import com.wxs.code.entity.system.SysUser;
-import com.wxs.code.system.service.ISysUserService;
+import com.wxs.code.core.service.system.ISysUserService;
 import org.dromara.hutool.core.bean.BeanUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

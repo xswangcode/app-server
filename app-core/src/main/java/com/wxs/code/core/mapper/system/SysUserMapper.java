@@ -1,7 +1,7 @@
-package com.wxs.code.system.mapper;
+package com.wxs.code.core.mapper.system;
 
+import com.wxs.code.core.entity.system.SysUser;
 import com.wxs.code.core.mapper.BaseMapper;
-import com.wxs.code.entity.system.SysUser;
 import org.apache.ibatis.annotations.Mapper;
 
 

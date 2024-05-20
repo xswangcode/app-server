@@ -3,9 +3,9 @@ package com.wxs.code.system.controller;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.wxs.code.core.api.VO.RspMsg;
 import com.wxs.code.core.controller.BaseController;
-import com.wxs.code.entity.system.SysUser;
-import com.wxs.code.system.entity.DTO.SysUserDTO;
-import com.wxs.code.system.service.ISysUserService;
+import com.wxs.code.core.entity.system.DTO.SysUserDTO;
+import com.wxs.code.core.entity.system.SysUser;
+import com.wxs.code.core.service.system.ISysUserService;
 import com.wxs.code.system.utils.SystemUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -79,7 +79,9 @@ public class UserController extends BaseController<SysUser> {
         map.put("iat", DateTime.now().getTime());
         logger.info(map.get("iat").toString());
         String token = JWTUtil.createToken(map, JWTSignerUtil.hs512(sign.getBytes()));
-        redissonClient.getBucket(token).set(JSONUtil.toJsonStr(dbu), Duration.ofSeconds(expiresTime));
+        // 使用redis存储token
+        String key = StrUtil.format("SysUser.{}", dbu.getId());
+        redissonClient.getBucket(key).set(JSONUtil.toJsonStr(dbu), Duration.ofSeconds(expiresTime));
         return RspMsg.ok(token);
     }
 
