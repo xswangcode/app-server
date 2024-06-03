@@ -8,7 +8,9 @@ import com.wxs.code.core.service.system.ISysLogService;
 import com.wxs.code.core.utils.SystemUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.*;
+import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Pointcut;
 import org.dromara.hutool.core.array.ArrayUtil;
 import org.dromara.hutool.json.JSONUtil;
 import org.springframework.stereotype.Component;
@@ -21,13 +23,13 @@ import java.time.LocalDateTime;
 @Component
 @Aspect
 @Slf4j
-public class AutoTimeAOP {
+public class AutoLogAOP {
 
     final ISysLogService logSvc;
     long start;
     long end;
 
-    public AutoTimeAOP(ISysLogService logSvc) {
+    public AutoLogAOP(ISysLogService logSvc) {
         this.logSvc = logSvc;
     }
 
@@ -36,22 +38,6 @@ public class AutoTimeAOP {
      */
     @Pointcut(value = "@annotation(com.wxs.code.core.annotation.AutoLog)")
     public void pointCut() {
-    }
-
-
-    /**
-     * 前置方法
-     */
-    @Before(value = "pointCut()")
-    public void before() {
-        start = System.currentTimeMillis();
-    }
-
-
-    //方法执行后的点
-    @After(value = "pointCut()")
-    public void after() {
-        end = System.currentTimeMillis();
     }
 
     // 环绕点
