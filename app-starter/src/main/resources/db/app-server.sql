@@ -1,21 +1,51 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : vm2-app-server
+ Source Server         : app-server
  Source Server Type    : MySQL
- Source Server Version : 50743 (5.7.43-log)
+ Source Server Version : 50744
  Source Host           : 192.168.0.132:3306
  Source Schema         : app-server
 
  Target Server Type    : MySQL
- Target Server Version : 50743 (5.7.43-log)
+ Target Server Version : 50744
  File Encoding         : 65001
 
- Date: 09/05/2024 15:30:26
+ Date: 25/06/2024 18:03:13
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for sys_log
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_log`;
+CREATE TABLE `sys_log`
+(
+    `id`           bigint(20) UNSIGNED                                   NOT NULL AUTO_INCREMENT,
+    `client_ip`    varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '客户端地址',
+    `type`         varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '日志类型',
+    `spend_time`   bigint(20)                                            NULL DEFAULT NULL COMMENT '耗时',
+    `log_level`    varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '日志等级',
+    `response`     text CHARACTER SET utf8mb4 COLLATE utf8mb4_bin        NULL COMMENT '返回信息',
+    `timespan`     timestamp                                             NULL DEFAULT NULL COMMENT '创建时间',
+    `create_by`    varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '创建人',
+    `create_by_id` bigint(20)                                            NULL DEFAULT NULL COMMENT '创建人id',
+    PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB
+  AUTO_INCREMENT = 2
+  CHARACTER SET = utf8mb4
+  COLLATE = utf8mb4_bin
+  ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of sys_log
+-- ----------------------------
+INSERT INTO `sys_log`
+VALUES (1, '192.168.0.44', 'SELECT', 6, 'DEFAULT',
+        '{\"success\":true,\"message\":\"\",\"code\":200,\"result\":[{\"id\":7,\"path\":\"/\",\"name\":\"默认\",\"title\":\"default\",\"redirect\":\"/login\",\"icon\":\"Apple\",\"orderIdx\":1,\"componentUrl\":\"common/LoginView\",\"common\":true,\"visible\":false},{\"id\":36,\"path\":\"/ttab\",\"name\":\"test-tabs\",\"title\":\"testtabs\",\"orderIdx\":1,\"componentUrl\":\"common/test/tabs\",\"common\":true,\"visible\":false},{\"id\":6,\"path\":\"/login\",\"name\":\"登录\",\"title\":\"Login\",\"icon\":\"Apple\",\"orderIdx\":2,\"componentUrl\":\"common/LoginView\",\"common\":true,\"visible\":false},{\"id\":2,\"path\":\"/home\",\"name\":\"首页\",\"title\":\"Home\",\"icon\":\"Iphone\",\"orderIdx\":11,\"componentUrl\":\"HomeView\",\"common\":true,\"visible\":true},{\"id\":3,\"path\":\"/user\",\"name\":\"用户管理\",\"title\":\"User\",\"icon\":\"ChatDotRound\",\"orderIdx\":12,\"componentUrl\":\"\",\"common\":false,\"visible\":true,\"children\":[{\"id\":4,\"path\":\"/user/user1\",\"name\":\"用户管理-1\",\"title\":\"User1\",\"icon\":\"MessageBox\",\"orderIdx\":33,\"componentUrl\":\"common/404\",\"parentId\":3,\"common\":false,\"visible\":true},{\"id\":5,\"path\":\"/user/user2\",\"name\":\"用户管理-2\",\"title\":\"User2\",\"icon\":\"MessageBox\",\"orderIdx\":44,\"componentUrl\":\"common/404\",\"parentId\":3,\"common\":false,\"visible\":true},{\"id\":9,\"path\":\"/user/user3\",\"name\":\"用户管理-3\",\"title\":\"User3\",\"icon\":\"MessageBox\",\"orderIdx\":48,\"componentUrl\":\"common/404\",\"parentId\":3,\"common\":false,\"visible\":true},{\"id\":10,\"path\":\"/user/user4\",\"name\":\"用户管理-4\",\"title\":\"User4\",\"icon\":\"MessageBox\",\"orderIdx\":49,\"componentUrl\":\"common/404\",\"parentId\":3,\"common\":false,\"visible\":true,\"children\":[{\"id\":22,\"path\":\"/user/user16\",\"name\":\"用户管理-16\",\"title\":\"User16\",\"icon\":\"MessageBox\",\"orderIdx\":61,\"componentUrl\":\"common/404\",\"parentId\":10,\"common\":false,\"visible\":true},{\"id\":23,\"path\":\"/user/user17\",\"name\":\"用户管理-17\",\"title\":\"User17\",\"icon\":\"MessageBox\",\"orderIdx\":62,\"componentUrl\":\"common/404\",\"parentId\":10,\"common\":false,\"visible\":true,\"children\":[{\"id\":25,\"path\":\"/user/user19\",\"name\":\"用户管理-19\",\"title\":\"User19\",\"icon\":\"MessageBox\",\"orderIdx\":64,\"componentUrl\":\"common/404\",\"parentId\":23,\"common\":false,\"visible\":true,\"children\":[{\"id\":26,\"path\":\"/user/user20\",\"name\":\"用户管理-20\",\"title\":\"User20\",\"icon\":\"MessageBox\",\"orderIdx\":65,\"componentUrl\":\"common/404\",\"parentId\":25,\"common\":false,\"visible\":true},{\"id\":27,\"path\":\"/user/user21\",\"name\":\"用户管理-21\",\"title\":\"User21\",\"icon\":\"MessageBox\",\"orderIdx\":66,\"componentUrl\":\"common/404\",\"parentId\":25,\"common\":false,\"visible\":true},{\"id\":28,\"path\":\"/user/user22\",\"name\":\"用户管理-22\",\"title\":\"User22\",\"icon\":\"MessageBox\",\"orderIdx\":67,\"componentUrl\":\"common/404\",\"parentId\":25,\"common\":false,\"visible\":true},{\"id\":29,\"path\":\"/user/user23\",\"name\":\"用户管理-23\",\"title\":\"User23\",\"icon\":\"MessageBox\",\"orderIdx\":68,\"componentUrl\":\"common/404\",\"parentId\":25,\"common\":false,\"visible\":true},{\"id\":30,\"path\":\"/user/user24\",\"name\":\"用户管理-24\",\"title\":\"User24\",\"icon\":\"MessageBox\",\"orderIdx\":69,\"componentUrl\":\"common/404\",\"parentId\":25,\"common\":false,\"visible\":true},{\"id\":31,\"path\":\"/user/user25\",\"name\":\"用户管理-25\",\"title\":\"User25\",\"icon\":\"MessageBox\",\"orderIdx\":70,\"componentUrl\":\"common/404\",\"parentId\":25,\"common\":false,\"visible\":true},{\"id\":32,\"path\":\"/user/user26\",\"name\":\"用户管理-26\",\"title\":\"User26\",\"icon\":\"MessageBox\",\"orderIdx\":71,\"componentUrl\":\"common/404\",\"parentId\":25,\"common\":false,\"visible\":true},{\"id\":33,\"path\":\"/user/user27\",\"name\":\"用户管理-27\",\"title\":\"User27\",\"icon\":\"MessageBox\",\"orderIdx\":72,\"componentUrl\":\"common/404\",\"parentId\":25,\"common\":false,\"visible\":true}]}]},{\"id\":24,\"path\":\"/user/user18\",\"name\":\"用户管理-18\",\"title\":\"User18\",\"icon\":\"MessageBox\",\"orderIdx\":63,\"componentUrl\":\"common/404\",\"parentId\":10,\"common\":false,\"visible\":true}]},{\"id\":11,\"path\":\"/user/user5\",\"name\":\"用户管理-5\",\"title\":\"User5\",\"icon\":\"MessageBox\",\"orderIdx\":50,\"componentUrl\":\"common/404\",\"parentId\":3,\"common\":false,\"visible\":true},{\"id\":12,\"path\":\"/user/user6\",\"name\":\"用户管理-6\",\"title\":\"User6\",\"icon\":\"MessageBox\",\"orderIdx\":51,\"componentUrl\":\"common/404\",\"parentId\":3,\"common\":false,\"visible\":true},{\"id\":13,\"path\":\"/user/user7\",\"name\":\"用户管理-7\",\"title\":\"User7\",\"icon\":\"MessageBox\",\"orderIdx\":52,\"componentUrl\":\"common/404\",\"parentId\":3,\"common\":false,\"visible\":true},{\"id\":14,\"path\":\"/user/user8\",\"name\":\"用户管理-8\",\"title\":\"User8\",\"icon\":\"MessageBox\",\"orderIdx\":53,\"componentUrl\":\"common/404\",\"parentId\":3,\"common\":false,\"visible\":true},{\"id\":15,\"path\":\"/user/user9\",\"name\":\"用户管理-9\",\"title\":\"User9\",\"icon\":\"MessageBox\",\"orderIdx\":54,\"componentUrl\":\"common/404\",\"parentId\":3,\"common\":false,\"visible\":true},{\"id\":16,\"path\":\"/user/user10\",\"name\":\"用户管理-10\",\"title\":\"User10\",\"icon\":\"MessageBox\",\"orderIdx\":55,\"componentUrl\":\"common/404\",\"parentId\":3,\"common\":false,\"visible\":true},{\"id\":17,\"path\":\"/user/user11\",\"name\":\"用户管理-11\",\"title\":\"User11\",\"icon\":\"MessageBox\",\"orderIdx\":56,\"componentUrl\":\"common/404\",\"parentId\":3,\"common\":false,\"visible\":true},{\"id\":18,\"path\":\"/user/user12\",\"name\":\"用户管理-12\",\"title\":\"User12\",\"icon\":\"MessageBox\",\"orderIdx\":57,\"componentUrl\":\"common/404\",\"parentId\":3,\"common\":false,\"visible\":true},{\"id\":19,\"path\":\"/user/user13\",\"name\":\"用户管理-13\",\"title\":\"User13\",\"icon\":\"MessageBox\",\"orderIdx\":58,\"componentUrl\":\"common/404\",\"parentId\":3,\"common\":false,\"visible\":true},{\"id\":20,\"path\":\"/user/user14\",\"name\":\"用户管理-14\",\"title\":\"User14\",\"icon\":\"MessageBox\",\"orderIdx\":59,\"componentUrl\":\"common/404\",\"parentId\":3,\"common\":false,\"visible\":true},{\"id\":21,\"path\":\"/user/user15\",\"name\":\"用户管理-15\",\"title\":\"User15\",\"icon\":\"MessageBox\",\"orderIdx\":60,\"componentUrl\":\"common/404\",\"parentId\":3,\"common\":false,\"visible\":true}]},{\"id\":34,\"path\":\"/AAAAA\",\"name\":\"AAAAA\",\"title\":\"AAAAA\",\"icon\":\"Apple\",\"orderIdx\":99,\"componentUrl\":\"common/404\",\"common\":false,\"visible\":true},{\"id\":1,\"path\":\"/dashboard\",\"name\":\"数据面板\",\"title\":\"dashboard\",\"icon\":\"Apple\",\"orderIdx\":111,\"componentUrl\":\"dashboard/dashboard\",\"common\":false,\"visible\":true},{\"id\":8,\"path\":\"/404\",\"name\":\"404\",\"title\":\"404\",\"icon\":\"Apple\",\"orderIdx\":9999,\"componentUrl\":\"common/404\",\"common\":true,\"visible\":true}],\"timestamp\":1719281149988}',
+        '2024-06-25 10:05:50', 'xs', 1);
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -39,7 +69,7 @@ CREATE TABLE `sys_menu`
   AUTO_INCREMENT = 37
   CHARACTER SET = utf8mb4
   COLLATE = utf8mb4_general_ci
-  ROW_FORMAT = Dynamic;
+  ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_menu
@@ -135,7 +165,7 @@ CREATE TABLE `sys_role`
   AUTO_INCREMENT = 2
   CHARACTER SET = utf8mb4
   COLLATE = utf8mb4_general_ci
-  ROW_FORMAT = Dynamic;
+  ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_role
@@ -165,7 +195,7 @@ CREATE TABLE `sys_user`
   AUTO_INCREMENT = 2
   CHARACTER SET = utf8mb4
   COLLATE = utf8mb4_general_ci
-  ROW_FORMAT = Dynamic;
+  ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_user
@@ -197,7 +227,18 @@ CREATE TABLE `task_config`
   AUTO_INCREMENT = 4
   CHARACTER SET = utf8mb4
   COLLATE = utf8mb4_bin
-  ROW_FORMAT = Dynamic;
+  ROW_FORMAT = DYNAMIC;
+
+/*
+ *  @description: app-server.sql
+ *
+ *  @author: xswang
+ *  @email: wxs_code@126.com
+ *  @version: 1.0
+ *  @last update: 2024/6/25 下午6:03
+ *  @date: 2024-6-25 18:3
+ *
+ */
 
 -- ----------------------------
 -- Records of task_config
