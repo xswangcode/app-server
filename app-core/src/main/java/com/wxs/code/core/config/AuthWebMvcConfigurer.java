@@ -1,3 +1,14 @@
+/*
+ *  @description: AuthWebMvcConfigurer.java
+ *
+ *  @author: xswang
+ *  @email: wxs_code@126.com
+ *  @version: 1.0
+ *  @last update: 2024/5/7 上午11:53
+ *  @date: 2024-6-25 11:13
+ *
+ */
+
 package com.wxs.code.core.config;
 
 import com.wxs.code.core.interceptor.AuthHandlerInterceptor;

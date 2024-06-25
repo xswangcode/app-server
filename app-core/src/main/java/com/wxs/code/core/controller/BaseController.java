@@ -1,3 +1,14 @@
+/*
+ *  @description: BaseController.java
+ *
+ *  @author: xswang
+ *  @email: wxs_code@126.com
+ *  @version: 1.0
+ *  @last update: 2024/5/20 下午2:17
+ *  @date: 2024-6-25 11:13
+ *
+ */
+
 package com.wxs.code.core.controller;
 
 

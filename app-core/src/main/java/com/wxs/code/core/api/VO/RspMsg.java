@@ -1,3 +1,14 @@
+/*
+ *  @description: RspMsg.java
+ *
+ *  @author: xswang
+ *  @email: wxs_code@126.com
+ *  @version: 1.0
+ *  @last update: 2024/3/19 上午10:57
+ *  @date: 2024-6-25 11:13
+ *
+ */
+
 package com.wxs.code.core.api.VO;
 
 import com.wxs.code.core.constant.CommonConstants;

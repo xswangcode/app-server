@@ -1,3 +1,14 @@
+/*
+ *  @description: OperationEnum.java
+ *
+ *  @author: xswang
+ *  @email: wxs_code@126.com
+ *  @version: 1.0
+ *  @last update: 2024/3/16 上午10:52
+ *  @date: 2024-6-25 11:13
+ *
+ */
+
 package com.wxs.code.api.entity;
 
 public enum OperationEnum {
@@ -17,5 +28,5 @@ public enum OperationEnum {
     /**
      * 查询
      */
-    QUERY;
+    QUERY
 }

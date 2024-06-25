@@ -1,3 +1,14 @@
+/*
+ *  @description: MybatisAddUpdateHandler.java
+ *
+ *  @author: xswang
+ *  @email: wxs_code@126.com
+ *  @version: 1.0
+ *  @last update: 2024/4/2 下午2:13
+ *  @date: 2024-6-25 11:13
+ *
+ */
+
 package com.wxs.code.core.handler;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;

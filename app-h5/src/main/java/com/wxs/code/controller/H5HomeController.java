@@ -1,3 +1,14 @@
+/*
+ *  @description: H5HomeController.java
+ *
+ *  @author: xswang
+ *  @email: wxs_code@126.com
+ *  @version: 1.0
+ *  @last update: 2024/3/18 上午10:42
+ *  @date: 2024-6-25 11:13
+ *
+ */
+
 package com.wxs.code.controller;
 
 import io.swagger.v3.oas.annotations.Operation;

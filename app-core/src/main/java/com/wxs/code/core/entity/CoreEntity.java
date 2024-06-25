@@ -1,3 +1,14 @@
+/*
+ *  @description: CoreEntity.java
+ *
+ *  @author: xswang
+ *  @email: wxs_code@126.com
+ *  @version: 1.0
+ *  @last update: 2024/4/3 下午1:54
+ *  @date: 2024-6-25 11:13
+ *
+ */
+
 package com.wxs.code.core.entity;
 
 import io.swagger.v3.oas.annotations.media.Schema;

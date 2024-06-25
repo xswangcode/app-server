@@ -1,3 +1,14 @@
+/*
+ *  @description: Student.java
+ *
+ *  @author: xswang
+ *  @email: wxs_code@126.com
+ *  @version: 1.0
+ *  @last update: 2024/5/20 上午10:33
+ *  @date: 2024-6-25 11:13
+ *
+ */
+
 package com.wxs.code.entity.biz;
 
 import com.wxs.code.core.entity.CoreEntity;

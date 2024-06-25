@@ -1,3 +1,14 @@
+/*
+ *  @description: AppStarterApplication.java
+ *
+ *  @author: xswang
+ *  @email: wxs_code@126.com
+ *  @version: 1.0
+ *  @last update: 2024/4/7 下午5:33
+ *  @date: 2024-6-25 11:13
+ *
+ */
+
 package com.wxs.code;
 
 import lombok.SneakyThrows;

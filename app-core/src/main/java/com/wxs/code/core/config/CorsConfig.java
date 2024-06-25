@@ -1,3 +1,14 @@
+/*
+ *  @description: CorsConfig.java
+ *
+ *  @author: xswang
+ *  @email: wxs_code@126.com
+ *  @version: 1.0
+ *  @last update: 2024/4/10 下午3:32
+ *  @date: 2024-6-25 11:13
+ *
+ */
+
 package com.wxs.code.core.config;
 
 import org.springframework.boot.SpringBootConfiguration;
