@@ -4,8 +4,8 @@
  *  @author: xswang
  *  @email: wxs_code@126.com
  *  @version: 1.0
- *  @last update: 2024/4/7 下午5:33
- *  @date: 2024-6-25 11:13
+ *  @last update: 2024/6/25 下午5:59
+ *  @date: 2024-6-25 18:2
  *
  */
 
@@ -22,12 +22,11 @@ import java.net.InetAddress;
 
 @SpringBootApplication
 @Log4j2
-public class AppStarterApplication  {
+public class AppStarterApplication {
 
     @SneakyThrows
     public static void main(String[] args) {
-        ApplicationContext ctx=  SpringApplication.run(AppStarterApplication.class, args);
-//        System.out.println(Arrays.stream(ctx.getBeanDefinitionNames()).toList());
+        ApplicationContext ctx = SpringApplication.run(AppStarterApplication.class, args);
 
         Environment env = ctx.getEnvironment();
         log.info("""
@@ -44,6 +43,8 @@ public class AppStarterApplication  {
                 env.getProperty("server.port"),
                 InetAddress.getLocalHost().getHostAddress(),
                 env.getProperty("server.port"));
+
+
     }
 
 }

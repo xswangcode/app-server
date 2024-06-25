@@ -4,12 +4,12 @@
  *  @author: xswang
  *  @email: wxs_code@126.com
  *  @version: 1.0
- *  @last update: 2024/3/16 下午3:40
- *  @date: 2024-6-25 11:13
+ *  @last update: 2024/6/25 下午2:18
+ *  @date: 2024-6-25 18:2
  *
  */
 
-package com.wxs.code.config;
+package com.wxs.code.core.config;
 
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;

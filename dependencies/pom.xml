@@ -4,8 +4,8 @@
   ~  @author: xswang
   ~  @email: wxs_code@126.com
   ~  @version: 1.0
-  ~  @last update: 2024/6/25 上午11:57
-  ~  @date: 2024-6-25 11:59
+  ~  @last update: 2024/6/25 下午12:04
+  ~  @date: 2024-6-25 18:2
   ~
   -->
 
@@ -197,6 +197,7 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-test</artifactId>
+                <version>${spring-boot-dependencies.version}</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
