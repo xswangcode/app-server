@@ -1,12 +1,23 @@
+/*
+ *  @description: UserController.java
+ *
+ *  @author: xswang
+ *  @email: wxs_code@126.com
+ *  @version: 1.0
+ *  @last update: 2024/6/25 上午9:53
+ *  @date: 2024-6-25 10:51
+ *
+ */
+
 package com.wxs.code.system.controller;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.wxs.code.core.api.VO.RspMsg;
 import com.wxs.code.core.controller.BaseController;
-import com.wxs.code.core.entity.system.DTO.SysUserDTO;
-import com.wxs.code.core.entity.system.SysUser;
-import com.wxs.code.core.service.system.ISysUserService;
-import com.wxs.code.system.utils.SystemUtils;
+import com.wxs.code.entity.system.DTO.SysUserDTO;
+import com.wxs.code.entity.system.SysUser;
+import com.wxs.code.system.service.ISysUserService;
+import com.wxs.code.system.utils.SystemUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
@@ -88,7 +99,7 @@ public class UserController extends BaseController<SysUser> {
     @PostMapping("/jwttest")
     public String test(HttpServletRequest request) {
         logger.info("当前token为：[{}]", request.getHeader("X-Auth-Token"));
-        System.out.println(SystemUtils.getUserEmail());
+        System.out.println(SystemUtil.getUserEmail());
         return request.getHeader("X-Auth-Token");
     }
 
