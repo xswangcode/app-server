@@ -1,3 +1,14 @@
+<!--
+  ~  @description: pom.xml
+  ~
+  ~  @author: xswang
+  ~  @email: wxs_code@126.com
+  ~  @version: 1.0
+  ~  @last update: 2024/6/27 上午11:40
+  ~  @date: 2024-6-27 11:40
+  ~
+  -->
+
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
@@ -105,6 +116,15 @@
             <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
 
+        <!-- 模板 -->
+        <!--        <dependency>-->
+        <!--            <groupId>com.jfinal</groupId>-->
+        <!--            <artifactId>jfinal</artifactId>-->
+        <!--        </dependency>-->
+        <dependency>
+            <groupId>com.jfinal</groupId>
+            <artifactId>enjoy</artifactId>
+        </dependency>
     </dependencies>
 
     <properties>

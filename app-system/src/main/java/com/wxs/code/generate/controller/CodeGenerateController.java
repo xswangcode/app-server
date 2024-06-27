@@ -4,15 +4,15 @@
  *  @author: xswang
  *  @email: wxs_code@126.com
  *  @version: 1.0
- *  @last update: 2024/6/25 下午5:57
- *  @date: 2024-6-25 18:2
+ *  @last update: 2024/6/27 上午11:40
+ *  @date: 2024-6-27 11:40
  *
  */
 
 package com.wxs.code.generate.controller;
 
 
-import com.jfinal.template.ext.spring.JFinalViewResolver;
+import com.wxs.code.core.ext.spring.JFinalViewResolver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

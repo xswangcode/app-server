@@ -5,8 +5,8 @@
   ~  @author: xswang
   ~  @email: wxs_code@126.com
   ~  @version: 1.0
-  ~  @last update: 2024/6/25 下午2:09
-  ~  @date: 2024-6-25 18:2
+  ~  @last update: 2024/6/27 上午11:40
+  ~  @date: 2024-6-27 11:40
   ~
   -->
 
@@ -38,11 +38,6 @@
             <artifactId>app-entity</artifactId>
         </dependency>
 
-        <!-- 模板 -->
-        <dependency>
-            <groupId>com.jfinal</groupId>
-            <artifactId>enjoy</artifactId>
-        </dependency>
         <!-- test -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

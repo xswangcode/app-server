@@ -4,8 +4,8 @@
  *  @author: xswang
  *  @email: wxs_code@126.com
  *  @version: 1.0
- *  @last update: 2024/6/25 下午6:02
- *  @date: 2024-6-25 18:2
+ *  @last update: 2024/6/27 上午11:40
+ *  @date: 2024-6-27 11:40
  *
  */
 
@@ -13,14 +13,14 @@ package com.wxs.code.generate.configs;
 
 
 import com.jfinal.template.Engine;
-import com.jfinal.template.ext.spring.JFinalViewResolver;
+import com.wxs.code.core.ext.spring.JFinalViewResolver;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class JFinalEnjoyConfig {
 
-    @Bean
+    @Bean(name = "jfinalViewResolver")
     public JFinalViewResolver jFinalViewResolver() {
         // 创建用于整合 spring boot 的 ViewResolver 扩展对象
         JFinalViewResolver jfr = new JFinalViewResolver();
