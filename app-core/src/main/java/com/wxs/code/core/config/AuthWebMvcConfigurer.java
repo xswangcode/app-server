@@ -4,14 +4,15 @@
  *  @author: xswang
  *  @email: wxs_code@126.com
  *  @version: 1.0
- *  @last update: 2024/5/7 上午11:53
- *  @date: 2024-6-25 11:13
+ *  @last update: 2024/7/5 下午5:59
+ *  @date: 2024-7-5 17:59
  *
  */
 
 package com.wxs.code.core.config;
 
 import com.wxs.code.core.interceptor.AuthHandlerInterceptor;
+import com.wxs.code.core.utils.ConfigUtil;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -29,7 +30,8 @@ public class AuthWebMvcConfigurer implements WebMvcConfigurer {
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(authHandlerInterceptor)
+        if (!ConfigUtil.appConfig().getDebug().getEnable())
+            registry.addInterceptor(authHandlerInterceptor)
                 .addPathPatterns("/**")
                 // swagger
                 .excludePathPatterns("/swagger-resources/", "/webjars/", "/v3/**", "/swagger-ui.html/**","doc.html","/error")
