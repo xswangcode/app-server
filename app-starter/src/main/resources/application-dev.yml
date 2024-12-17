@@ -32,8 +32,8 @@ spring:
   data:
     redis:
       host: ${app.server.host}
-      port: 6679
-      password: admin@pwdpwd
+      port: 6379
+      #      password:
       timeout: 5s  # 读超时
       connect-timeout: 5s # 连接超时
       database: 3
@@ -67,17 +67,20 @@ springdoc:
     path: /v3/api-docs
   group-configs:
     - group: 'default'
-      paths-to-match: '/**'
-      packages-to-scan: com.wxs.code.controller
+      paths-to-match: '/*/**'
+      packages-to-scan: com.wxs.code
     - group: 'api'
-      paths-to-match: '/**'
-      packages-to-scan: com.wxs.code.api.controller
+      paths-to-match: '/*/**'
+      packages-to-scan: com.wxs.code.api
     - group: 'system'
-      paths-to-match: '/**'
-      packages-to-scan: com.wxs.code.system.controller
+      paths-to-match: '/*/**'
+      packages-to-scan: com.wxs.code.system
     - group: 'code'
-      paths-to-match: '/**'
-      packages-to-scan: com.wxs.code.generate.controller
+      paths-to-match: '/*/**'
+      packages-to-scan: com.wxs.code.generate
+    - group: 'biz'
+      paths-to-match: '/*/**'
+      packages-to-scan: com.wxs.code.biz
   default-flat-param-object: true
 # knife4j的增强配置，不需要增强可以不配
 knife4j:

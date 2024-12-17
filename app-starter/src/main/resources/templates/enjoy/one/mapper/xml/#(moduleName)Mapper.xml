@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~  @description: #(moduleName)Mapper.xml
+  ~
+  ~  @author: xswang
+  ~  @email: wxs_code@126.com
+  ~  @version: 1.0
+  ~  @last update: 2024/12/17 下午3:15
+  ~  @date: 2024-12-17 15:26
+  ~
+  -->
+
+<!--
+
+ ~  @description: #(moduleName).xml
+ ~
+ ~  @author: #(author)
+ ~  @email:  #(email)
+ ~  @version: #(version)
+ ~  @last update: #date(time, "yyyy-MM-dd HH:mm:ss")
+ ~  @date: #date(time, "yyyy-MM-dd HH:mm:ss")
+ ~/
+  -->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="#(packageName).#(entityPackage).#(moduleName.toLowerCase()).mapper.#(moduleName)Mapper">
+
+</mapper>

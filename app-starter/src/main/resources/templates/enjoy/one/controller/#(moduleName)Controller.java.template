@@ -4,26 +4,25 @@
  *  @author:  #(author)
  *  @email: #(email)
  *  @version: #(version)
- *  @last update:  #(now)
- *  @date:  #(now)
- *
+ *  @last update: #date(time, "yyyy-MM-dd HH:mm:ss")
+ *  @date: #date(time, "yyyy-MM-dd HH:mm:ss")
  */
 
-package com.wxs.code.controller;
+package #(packageName).#(entityPackage).#(moduleName.toLowerCase()).controller;
 
 import com.wxs.code.core.controller.BaseController;
-import com.wxs.code.entity.biz.Student;
+import #(packageName).#(entityPackage).#(moduleName.toLowerCase()).entity.#(moduleName);
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.models.annotations.OpenAPI30;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
-@RestController
-@RequestMapping("/student")
-@Tag(name = "学生接口", description = "BIZ模块-学生接口")
 @OpenAPI30
-public class StudentController extends  BaseController<Student>{
+@RestController
+@RequestMapping("/#(entityPackage)/#(moduleName.toLowerCase())")
+@Tag(name = "#(remark)", description = "#(entityPackage)模块-#(remark)")
+public class #(moduleName)Controller extends  BaseController<#(moduleName)>{
 
 
 }

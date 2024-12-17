@@ -4,14 +4,20 @@
  *  @author: xswang
  *  @email: wxs_code@126.com
  *  @version: 1.0
- *  @last update: 2024/7/5 下午5:59
- *  @date: 2024-7-5 17:59
+ *  @last update: 2024/12/17 下午3:26
+ *  @date: 2024-12-17 15:26
  *
  */
 
 package com.wxs.code.generate.service;
 
+import com.wxs.code.generate.entity.DTO.CommonOptionDTO;
+import com.wxs.code.generate.entity.DTO.DB.TableField;
+import com.wxs.code.generate.mapper.TableFiledMapper;
 import com.wxs.code.generate.utils.FinalEnjoyUtils;
+import lombok.extern.slf4j.Slf4j;
+import org.dromara.hutool.core.bean.BeanUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +28,12 @@ import java.util.Map;
 import java.util.Objects;
 
 @Service
+@Slf4j
 public class CodeGenerateService {
+
+    @Autowired
+    TableFiledMapper tableFiledMapper;
+
 
     /**
      * 渲染文件名
@@ -56,22 +67,29 @@ public class CodeGenerateService {
      *
      * @param fromPath 来源文件夹
      * @param data     渲染值
-     * @param toPath   目标目录
      */
-    public void renderFolder(String fromPath, Map data, String toPath) {
+    public void renderFolder(String fromPath, CommonOptionDTO data) {
         try {
             ClassPathResource resource = new ClassPathResource(FinalEnjoyUtils.getBasePath() + fromPath);
             File file = resource.getFile();
-            List<File> files = listFileCore(file, new ArrayList<>());
+            List<File> files = listFileCore(file, new ArrayList<>(), 0);
+            String toPath = "";
+            Map<String, Object> map_data = BeanUtil.beanToMap(data);
             for (File item : files) {
                 // eg: /template/enjoy/a.txt -> a.txt
                 String relativePath = FinalEnjoyUtils.getRelativePath(item.getAbsolutePath());
-                String target_full_path = toPath + File.separator + fromPath + File.separator + String.valueOf(data.get("packageName")).replace(".", "/") + File.separator + FinalEnjoyUtils.renderStr(relativePath.replace(fromPath, ""), data);
+                if (data.getPath() != null) {
+                    toPath = data.getPath();
+                }
+
+                String target_full_path = toPath + (data.getPackageName() + "." + data.getEntityPackage() + "." + data.getModuleName().toLowerCase()).replace(".", "/") + "/" + relativePath.replace(fromPath, "").replace("\\", "/");
                 if (item.isDirectory()) {
                     new File(target_full_path).mkdirs();
                     continue;
                 }
-                FinalEnjoyUtils.renderFile(relativePath, data, target_full_path);
+                String path = target_full_path.substring(0, target_full_path.lastIndexOf("/") + 1);
+                String filename = FinalEnjoyUtils.renderStr(target_full_path.substring(target_full_path.lastIndexOf("/") + 1), map_data).replace(FinalEnjoyUtils.getTemplateSuffix(), "");
+                FinalEnjoyUtils.renderFile(relativePath, map_data, path + filename);
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -85,14 +103,19 @@ public class CodeGenerateService {
      * @param file
      * @return result
      */
-    public List<File> listFileCore(File file, List<File> result) {
-        result.add(file);
+    public List<File> listFileCore(File file, List<File> result, int level) {
+        if (level > 0)
+            result.add(file);
         if (file.isDirectory()) {
             File[] childrenFile = Objects.requireNonNull(file.listFiles());
             for (File childFile : childrenFile) {
-                listFileCore(childFile, result);
+                listFileCore(childFile, result, level + 1);
             }
         }
         return result;
+    }
+
+    public List<TableField> getTableFields(String tableName) {
+        return tableFiledMapper.getTableFiled(tableName);
     }
 }

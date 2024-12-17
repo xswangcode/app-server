@@ -4,8 +4,8 @@
  *  @author: xswang
  *  @email: wxs_code@126.com
  *  @version: 1.0
- *  @last update: 2024/6/25 上午11:12
- *  @date: 2024-6-25 11:13
+ *  @last update: 2024/12/16 下午3:27
+ *  @date: 2024-12-17 15:26
  *
  */
 
@@ -13,8 +13,8 @@ package com.wxs.code.system.aspect;
 
 import com.wxs.code.core.annotation.AutoLog;
 import com.wxs.code.core.constant.LogConstant;
-import com.wxs.code.entity.system.SysLog;
-import com.wxs.code.entity.system.SysUser;
+import com.wxs.code.system.entity.SysLog;
+import com.wxs.code.system.entity.SysUser;
 import com.wxs.code.system.service.ISysLogService;
 import com.wxs.code.system.utils.SystemUtil;
 import lombok.extern.slf4j.Slf4j;

@@ -4,8 +4,8 @@
  *  @author: xswang
  *  @email: wxs_code@126.com
  *  @version: 1.0
- *  @last update: 2024/6/27 上午11:40
- *  @date: 2024-6-27 11:40
+ *  @last update: 2024/12/17 下午3:26
+ *  @date: 2024-12-17 15:26
  *
  */
 
@@ -14,6 +14,7 @@ package com.wxs.code.generate.configs;
 
 import com.jfinal.template.Engine;
 import com.wxs.code.core.ext.spring.JFinalViewResolver;
+import com.wxs.code.generate.directive.TransformedIntoSmallHumpNomenclatureDirective;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -25,6 +26,7 @@ public class JFinalEnjoyConfig {
         // 创建用于整合 spring boot 的 ViewResolver 扩展对象
         JFinalViewResolver jfr = new JFinalViewResolver();
 
+        jfr.addDirective("toSmallHumpName", TransformedIntoSmallHumpNomenclatureDirective.class);
         // 对 spring boot 进行配置
         jfr.setSuffix(".template");
         jfr.setContentType("text/html;charset=UTF-8");

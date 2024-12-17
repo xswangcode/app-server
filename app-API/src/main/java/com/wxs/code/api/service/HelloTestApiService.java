@@ -4,8 +4,8 @@
  *  @author: xswang
  *  @email: wxs_code@126.com
  *  @version: 1.0
- *  @last update: 2024/6/25 上午10:51
- *  @date: 2024-6-25 11:13
+ *  @last update: 2024/12/16 下午3:27
+ *  @date: 2024-12-17 15:26
  *
  */
 
@@ -14,7 +14,7 @@ package com.wxs.code.api.service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.wxs.code.api.constant.ApiConstant;
 import com.wxs.code.core.service.ApiBaseService;
-import com.wxs.code.entity.system.SysUser;
+import com.wxs.code.system.entity.SysUser;
 import com.wxs.code.system.service.ISysUserService;
 import org.dromara.hutool.core.bean.BeanUtil;
 import org.slf4j.Logger;

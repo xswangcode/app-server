@@ -4,8 +4,8 @@
  *  @author: xswang
  *  @email: wxs_code@126.com
  *  @version: 1.0
- *  @last update: 2024/7/5 下午5:59
- *  @date: 2024-7-5 17:59
+ *  @last update: 2024/12/17 下午3:26
+ *  @date: 2024-12-17 15:26
  *
  */
 
@@ -27,6 +27,15 @@ import java.util.Map;
 public class FinalEnjoyUtils {
     private static final JFinalViewResolver FINAL_VIEW_RESOLVER = SpringUtils.get(JFinalViewResolver.class);
 
+
+    /**
+     * 模板文件后缀名
+     */
+    private static final String TEMPLATE_SUFFIX = ".template";
+
+    public static String getTemplateSuffix() {
+        return TEMPLATE_SUFFIX;
+    }
     /**
      * 获取FINAL_VIEW_RESOLVER中的引擎
      *

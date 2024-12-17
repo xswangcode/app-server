@@ -6,8 +6,6 @@
 
 ## app-core `核心通用模块，通常用作定义`
 
-## app-entity  `实体类`
-
 ## app-h5  `H5页面模块`
 
 ## app-starter `SpringBoot启动模块`
