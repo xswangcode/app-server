@@ -4,8 +4,8 @@
   ~  @author: xswang
   ~  @email: wxs_code@126.com
   ~  @version: 1.0
-  ~  @last update: 2024/6/27 上午11:40
-  ~  @date: 2024-6-27 11:40
+  ~  @last update: 2024/12/20 上午11:25
+  ~  @date: 2024-12-20 17:24
   ~
   -->
 
@@ -124,6 +124,11 @@
         <dependency>
             <groupId>com.jfinal</groupId>
             <artifactId>enjoy</artifactId>
+        </dependency>
+        <!-- 定时任务  -->
+        <dependency>
+            <groupId>org.quartz-scheduler</groupId>
+            <artifactId>quartz</artifactId>
         </dependency>
     </dependencies>
 

@@ -4,8 +4,8 @@
  *  @author: xswang
  *  @email: wxs_code@126.com
  *  @version: 1.0
- *  @last update: 2024/12/20 上午10:26
- *  @date: 2024-12-20 10:28
+ *  @last update: 2024/12/20 上午10:41
+ *  @date: 2024-12-20 17:24
  *
  */
 
@@ -43,7 +43,7 @@ public class CodeGenerateController {
     public RspMsg<?> test() {
 
 //      查询表结构
-        List<TableField> fields = codeSvc.getTableFields("student");
+        List<TableField> fields = codeSvc.getTableFields("task_config");
 
         CommonOptionDTO ta = CommonOptionDTO.builder()
                 .moduleName("TaskConfig")

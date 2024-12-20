@@ -74,10 +74,10 @@ springdoc:
       packages-to-scan: com.wxs.code.api
     - group: 'system'
       paths-to-match: '/*/**'
-      packages-to-scan: com.wxs.code.system
-    - group: 'code'
-      paths-to-match: '/*/**'
-      packages-to-scan: com.wxs.code.generate
+      packages-to-scan:
+        - com.wxs.code.system
+        - com.wxs.code.schedule
+        - com.wxs.code.generate
     - group: 'biz'
       paths-to-match: '/*/**'
       packages-to-scan: com.wxs.code.biz

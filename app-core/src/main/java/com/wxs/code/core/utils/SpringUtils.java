@@ -4,8 +4,8 @@
  *  @author: xswang
  *  @email: wxs_code@126.com
  *  @version: 1.0
- *  @last update: 2024/4/3 下午2:01
- *  @date: 2024-6-25 11:13
+ *  @last update: 2024/12/20 下午5:12
+ *  @date: 2024-12-20 17:24
  *
  */
 
@@ -24,6 +24,16 @@ public class SpringUtils implements ApplicationContextAware {
     public static <T> T get(Class<T> clazz) {
         return applicationContext.getBean(clazz);
     }
+
+    public static <T> T getByFullname(String fullName) {
+        try {
+            Class<?> clazz = Class.forName(fullName);
+            return (T) applicationContext.getBean(clazz);
+        } catch (ClassNotFoundException e) {
+            return null;
+        }
+    }
+
 
     public static Object get(String name) {
         return applicationContext.getBean(name);

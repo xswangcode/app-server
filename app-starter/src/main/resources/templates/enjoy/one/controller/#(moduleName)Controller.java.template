@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/#(entityPackage)/#(moduleName.toLowerCase())")
 @Tag(name = "#(remark)", description = "#(entityPackage)模块-#(remark)")
-public class #(moduleName)Controller extends  BaseController<#(moduleName)>{
+public class #(moduleName)Controller extends  #(entityOption.isCoreEntity ? "CoreController" : "BaseController")<#(moduleName)>{
 
 
 }

@@ -4,8 +4,8 @@
   ~  @author: xswang
   ~  @email: wxs_code@126.com
   ~  @version: 1.0
-  ~  @last update: 2024/12/16 下午3:27
-  ~  @date: 2024-12-17 15:26
+  ~  @last update: 2024/12/20 上午10:54
+  ~  @date: 2024-12-20 17:24
   ~
   -->
 
@@ -121,6 +121,10 @@
         <aliyun-sdk-oss.version>3.17.4</aliyun-sdk-oss.version>
         <alipay-sdk-java.version>4.38.221.ALL</alipay-sdk-java.version>
         <com.baidu.aip.version>4.16.18</com.baidu.aip.version>
+        <!-- 第三方包的版本-->
+
+        <quartz.version>2.3.0</quartz.version>
+
         <!--以下为特殊处理, 统一版本处理漏洞等-->
         <commons-text.version>1.10.0</commons-text.version>
         <mysql.version>8.3.0</mysql.version>
@@ -524,6 +528,13 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-aop</artifactId>
                 <version>${spring-boot-dependencies.version}</version>
+            </dependency>
+
+            <!-- 定时任务  -->
+            <dependency>
+                <groupId>org.quartz-scheduler</groupId>
+                <artifactId>quartz</artifactId>
+                <version>${quartz.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

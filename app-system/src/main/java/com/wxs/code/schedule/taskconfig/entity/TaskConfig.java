@@ -4,8 +4,8 @@
  *  @author: xswang
  *  @email: wxs_code@126.com
  *  @version: 1.0
- *  @last update: 2024/12/20 上午10:28
- *  @date: 2024-12-20 10:28
+ *  @last update: 2024/12/20 下午5:24
+ *  @date: 2024-12-20 17:24
  *
  */
 
@@ -14,14 +14,11 @@ package com.wxs.code.schedule.taskconfig.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.wxs.code.core.entity.BaseEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-
-import java.time.LocalDateTime;
 
 
 @Data
@@ -32,28 +29,41 @@ import java.time.LocalDateTime;
 public class TaskConfig extends BaseEntity {
 
 
-    @TableId(type = IdType.AUTO)
-    @Schema(name = "id", description = "id")
-    private Integer id;
+        @TableId(type = IdType.AUTO)
+        @Schema(name = "id", description = "id")
+        private Integer id;
 
-    @Schema(name = "name", description = "姓名")
-    private String name;
+        @Schema(name = "code", description = "任务编码")
+        private String code;
 
-    @Schema(name = "age", description = "年龄")
-    private Integer age;
+        @Schema(name = "name", description = "任务名称")
+        private String name;
 
-    @Schema(name = "email", description = "邮箱")
-    private String email;
+        @Schema(name = "job", description = "job类名")
+        private String job;
 
-    @Schema(name = "userPassword", description = "明文密码")
-    private String userPassword;
+        @Schema(name = "groupName", description = "组名")
+        private String groupName;
 
-    @Schema(name = "createTime", description = "创建时间")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime createTime;
+        @Schema(name = "description", description = "任务描述")
+        private String description;
 
-    @Schema(name = "ts", description = "创建时间2")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime ts;
+        @Schema(name = "cronText", description = "定时表达式")
+        private String cronText;
+
+        @Schema(name = "params", description = "参数，值类型为json")
+        private String params;
+
+        @Schema(name = "status", description = "任务状态")
+        private Boolean status;
+
+        @Schema(name = "isDoNow", description = "是否立即执行")
+        private Boolean isDoNow;
+
+        @Schema(name = "isAllowConcurrent", description = "是否允许并发执行")
+        private Boolean isAllowConcurrent;
+
+        @Schema(name = "isWorking", description = "是否正在执行")
+        private Boolean isWorking;
 
 }

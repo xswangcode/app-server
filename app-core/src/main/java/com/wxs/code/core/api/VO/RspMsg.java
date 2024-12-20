@@ -4,8 +4,8 @@
  *  @author: xswang
  *  @email: wxs_code@126.com
  *  @version: 1.0
- *  @last update: 2024/3/19 上午10:57
- *  @date: 2024-6-25 11:13
+ *  @last update: 2024/12/20 下午5:24
+ *  @date: 2024-12-20 17:24
  *
  */
 
@@ -29,42 +29,38 @@ public class RspMsg<T> implements Serializable {
     /**
      * 成功标志
      */
-    @Schema(name = "success",description = "成功标志")
+    @Schema(name = "success", description = "成功标志")
     private boolean success = true;
 
     /**
      * 返回处理消息
      */
-    @Schema(name = "message",description = "返回处理消息")
+    @Schema(name = "message", description = "返回处理消息")
     private String message = "";
 
     /**
      * 返回代码
      */
-    @Schema(name = "code",description = "返回代码")
+    @Schema(name = "code", description = "返回代码")
     private Integer code = 0;
 
     /**
      * 返回数据对象 data
      */
-    @Schema(name = "result",description = "返回数据对象")
+    @Schema(name = "result", description = "返回数据对象")
     private T result;
 
     /**
      * 时间戳
      */
-    @Schema(name = "timestamp",description = "时间戳")
+    @Schema(name = "timestamp", description = "时间戳")
     private long timestamp = System.currentTimeMillis();
 
     public RspMsg() {
     }
 
-    /**
-     * 是否有错误
-     * @return
-     */
-    public Boolean hasError(){
-        return !success;
+    public static <T> RspMsg<T> error() {
+        return error(CommonConstants.HTTP_STATUS.SERVER_ERROR, "");
     }
 
     public RspMsg(Integer code, String message) {
@@ -155,6 +151,10 @@ public class RspMsg<T> implements Serializable {
         return error(CommonConstants.HTTP_STATUS.SERVER_ERROR, msg);
     }
 
+    public static RspMsg response(Boolean bool) {
+        return bool ? RspMsg.OK() : RspMsg.error();
+    }
+
     public static <T> RspMsg<T> error(int code, String msg) {
         RspMsg<T> r = new RspMsg<T>();
         r.setCode(code);
@@ -168,6 +168,19 @@ public class RspMsg<T> implements Serializable {
         this.code = CommonConstants.HTTP_STATUS.SERVER_ERROR;
         this.success = false;
         return this;
+    }
+
+    public static RspMsg deprecated() {
+        return RspMsg.error("该接口已废弃，请使用其他接口或联系管理员");
+    }
+
+    /**
+     * 是否有错误
+     *
+     * @return
+     */
+    public Boolean hasError() {
+        return !success;
     }
 
 

@@ -4,8 +4,8 @@
  *  @author: xswang
  *  @email: wxs_code@126.com
  *  @version: 1.0
- *  @last update: 2024/12/16 下午3:27
- *  @date: 2024-12-17 15:26
+ *  @last update: 2024/12/20 下午5:24
+ *  @date: 2024-12-20 17:24
  *
  */
 
@@ -13,7 +13,7 @@ package com.wxs.code.system.controller;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.wxs.code.core.api.VO.RspMsg;
-import com.wxs.code.core.controller.BaseController;
+import com.wxs.code.core.controller.CoreController;
 import com.wxs.code.system.entity.DTO.SysUserDTO;
 import com.wxs.code.system.entity.SysUser;
 import com.wxs.code.system.service.ISysUserService;
@@ -43,7 +43,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/user")
 @Tag(name = "用户接口", description = "BIZ模块-用户接口")
-public class UserController extends BaseController<SysUser> {
+public class UserController extends CoreController<SysUser> {
 
     @Autowired
     ISysUserService baseService;
