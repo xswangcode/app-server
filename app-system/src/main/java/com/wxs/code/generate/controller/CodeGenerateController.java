@@ -4,8 +4,8 @@
  *  @author: xswang
  *  @email: wxs_code@126.com
  *  @version: 1.0
- *  @last update: 2024/12/17 下午3:26
- *  @date: 2024-12-17 15:26
+ *  @last update: 2024/12/20 上午10:26
+ *  @date: 2024-12-20 10:28
  *
  */
 
@@ -46,16 +46,16 @@ public class CodeGenerateController {
         List<TableField> fields = codeSvc.getTableFields("student");
 
         CommonOptionDTO ta = CommonOptionDTO.builder()
-                .moduleName("Student")
+                .moduleName("TaskConfig")
                 .packageName("com.wxs.code")
-                .entityPackage("biz")
+                .entityPackage("schedule")
                 .email("xswang.code@126.com")
 //                .path("D://tmp//")
-                .path("D:\\code\\git\\app-server\\app-biz\\src\\main\\java\\")
+                .path("D:\\code\\git\\app-server\\app-system\\src\\main\\java\\")
                 .author("xswang")
-                .table("student")
+                .table("task_config")
                 .version("1.0.0")
-                .remark("学生信息表")
+                .remark("定时任务配置表")
                 .entityOption(Map.of("fields", fields, "isCoreEntity", false))
                 .build();
         codeSvc.renderFolder("one", ta);
