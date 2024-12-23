@@ -4,8 +4,8 @@
  *  @author: xswang
  *  @email: wxs_code@126.com
  *  @version: 1.0
- *  @last update: 2024/5/20 下午4:18
- *  @date: 2024-6-25 11:13
+ *  @last update: 2024/12/23 下午12:58
+ *  @date: 2024-12-23 12:58
  *
  */
 
@@ -13,6 +13,7 @@ package com.wxs.code.core.interceptor;
 
 import com.wxs.code.core.config.AuthConfig;
 import com.wxs.code.core.exception.AuthExecption;
+import com.wxs.code.core.utils.RedisUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -21,15 +22,11 @@ import org.dromara.hutool.core.date.TimeUtil;
 import org.dromara.hutool.core.text.StrUtil;
 import org.dromara.hutool.json.jwt.JWT;
 import org.dromara.hutool.json.jwt.JWTUtil;
-import org.redisson.api.RBucket;
-import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
-import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 
 import static com.wxs.code.core.constant.CommonConstants.FRONT_FIELD.AUTHORIZATION;
@@ -40,13 +37,6 @@ import static com.wxs.code.core.constant.CommonConstants.FRONT_FIELD.AUTHORIZATI
 public class AuthHandlerInterceptor implements HandlerInterceptor {
     @Autowired
     AuthConfig authConfig;
-
-    @Autowired
-    RedisTemplate redisTemplate;
-
-    @Autowired
-    RedissonClient redissonClient;
-
 
     /**
      * 校验token方法
@@ -89,8 +79,7 @@ public class AuthHandlerInterceptor implements HandlerInterceptor {
         String user_id = jwt_content.getPayload("jti").toString();
         // 使用redis存储token
         String key = StrUtil.format("SysUser.{}", user_id);
-        RBucket<Object> bucket = redissonClient.getBucket(key);
-        if (!bucket.isExists()) {
+        if (!RedisUtil.exists(key)) {
             throw new AuthExecption("token无效,请重新登录");
         }
         // 2.3 获取当前token可用时间
@@ -111,7 +100,7 @@ public class AuthHandlerInterceptor implements HandlerInterceptor {
             jwt_content.setPayload("iat", DateTime.now().getTime());
             String new_token = JWTUtil.createToken(jwt_content.getPayloads(), authConfig.JWT_SIGNER);
             //更新 redis 中的 token, 不会更新用户信息
-            redissonClient.getBucket(key).expire(Duration.ofSeconds(authConfig.expiresTime));
+            RedisUtil.set(key, new_token, authConfig.expiresTime);
             response.setHeader(AUTHORIZATION, new_token);
             log.error("token无感刷新成功,最新token:{}", new_token);
             return true;

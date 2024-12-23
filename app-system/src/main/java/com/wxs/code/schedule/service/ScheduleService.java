@@ -4,8 +4,8 @@
  *  @author: xswang
  *  @email: wxs_code@126.com
  *  @version: 1.0
- *  @last update: 2024/12/20 下午5:24
- *  @date: 2024-12-20 17:24
+ *  @last update: 2024/12/23 下午12:58
+ *  @date: 2024-12-23 12:58
  *
  */
 
@@ -37,12 +37,23 @@ public class ScheduleService {
     @Autowired
     Scheduler scheduler;
 
+    /**
+     * 启动之前，请务必保证该task的配置信息为数据库中最新的task
+     *
+     * @param taskConfig
+     * @return
+     * @throws SystemException
+     */
     // 启动服务【单】
     public Boolean start(TaskConfig taskConfig) throws SystemException {
         log.info("启动服务【单】");
         if (taskConfig == null)
             throw new SystemException("不存在ID为【" + taskConfig.getId() + "】的任务！");
 
+        // 任务 状态为false, 说明不执行
+        if (!taskConfig.getStatus()) {
+            return true;
+        }
         // 构建定时任务
         JobAbstract job = SpringUtils.getByFullname(taskConfig.getJob());
 
