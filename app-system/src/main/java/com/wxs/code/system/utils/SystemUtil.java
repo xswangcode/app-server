@@ -14,7 +14,7 @@ package com.wxs.code.system.utils;
 import com.wxs.code.core.constant.CommonConstants;
 import com.wxs.code.core.exception.AuthExecption;
 import com.wxs.code.core.utils.SpringUtils;
-import com.wxs.code.system.entity.SysUser;
+import com.wxs.code.system.sysuser.entity.SysUser;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.constraints.NotNull;

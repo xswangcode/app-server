@@ -15,5 +15,4 @@ package com.wxs.code.constant;
 public class SystemConstants {
     public static final String REDIS_KEY = "";
 
-
 }

@@ -11,7 +11,7 @@
 
 package com.wxs.code.generate.service;
 
-import com.wxs.code.generate.entity.DTO.CommonOptionDTO;
+import com.wxs.code.generate.entity.DTO.CodeOption;
 import com.wxs.code.generate.entity.DTO.DB.TableField;
 import com.wxs.code.generate.mapper.TableFiledMapper;
 import com.wxs.code.generate.utils.FinalEnjoyUtils;
@@ -68,7 +68,7 @@ public class CodeGenerateService {
      * @param fromPath 来源文件夹
      * @param data     渲染值
      */
-    public void renderFolder(String fromPath, CommonOptionDTO data) {
+    public void renderFolder(String fromPath, CodeOption data) {
         try {
             ClassPathResource resource = new ClassPathResource(FinalEnjoyUtils.getBasePath() + fromPath);
             File file = resource.getFile();

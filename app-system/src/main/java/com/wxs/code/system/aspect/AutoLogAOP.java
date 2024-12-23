@@ -13,9 +13,9 @@ package com.wxs.code.system.aspect;
 
 import com.wxs.code.core.annotation.AutoLog;
 import com.wxs.code.core.constant.LogConstant;
-import com.wxs.code.system.entity.SysLog;
-import com.wxs.code.system.entity.SysUser;
-import com.wxs.code.system.service.ISysLogService;
+import com.wxs.code.system.syslog.entity.SysLog;
+import com.wxs.code.system.syslog.service.ISysLogService;
+import com.wxs.code.system.sysuser.entity.SysUser;
 import com.wxs.code.system.utils.SystemUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
