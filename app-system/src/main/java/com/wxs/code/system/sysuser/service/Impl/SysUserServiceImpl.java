@@ -68,6 +68,14 @@ public class SysUserServiceImpl extends BaseService<SysUser> implements ISysUser
         return RspMsg.ok("注册成功");
     }
 
+    @Override
+    public SysUser getByName(String name) {
+        List<SysUser> list = list(Wrappers.lambdaQuery(SysUser.class).eq(SysUser::getName, name));
+        if (list.isEmpty())
+            return null;
+        return list.get(0);
+    }
+
     private String getPasswordByKey(String key, String password) {
         return SecureUtil.md5(key + password);
     }

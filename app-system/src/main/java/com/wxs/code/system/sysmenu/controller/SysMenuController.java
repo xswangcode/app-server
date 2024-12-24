@@ -11,7 +11,6 @@
 package com.wxs.code.system.sysmenu.controller;
 
 import com.wxs.code.core.annotation.AutoLog;
-import com.wxs.code.core.annotation.HasPermissions;
 import com.wxs.code.core.api.VO.RspMsg;
 import com.wxs.code.core.constant.LogConstant;
 import com.wxs.code.core.controller.BaseController;
@@ -37,15 +36,12 @@ public class SysMenuController extends BaseController<SysMenu> {
     @Autowired
     ISysMenuService baseService;
 
-
     @Operation(summary = "查询所有菜单树", description = "查询菜单树")
     @GetMapping("getMenuTreeList")
     @AutoLog(title = "查询菜单树", type = LogConstant.LogType.SELECT, value = true)
-    @HasPermissions(value = "sys:menu:list")
-    public RspMsg<List<SysMenu>> getAllMenuList() throws Exception {
+    public RspMsg<List<SysMenu>> getAllMenuList() {
         return RspMsg.ok(baseService.getAllMenuList());
     }
-
 
     @Operation(summary = "未登录时候查询菜单树", description = "查询菜单树")
     @CrossOrigin

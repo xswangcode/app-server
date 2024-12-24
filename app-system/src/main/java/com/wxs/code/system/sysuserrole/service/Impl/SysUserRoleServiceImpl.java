@@ -13,12 +13,20 @@
 package com.wxs.code.system.sysuserrole.service.Impl;
 
 
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.wxs.code.core.service.BaseService;
 import com.wxs.code.system.sysuserrole.entity.SysUserRole;
 import com.wxs.code.system.sysuserrole.service.ISysUserRoleService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class SysUserRoleServiceImpl extends BaseService<SysUserRole> implements ISysUserRoleService {
 
+    @Override
+    public List<SysUserRole> getByUserId(Long userId) {
+        List<SysUserRole> list = list(Wrappers.lambdaQuery(SysUserRole.class).eq(SysUserRole::getUserId, userId));
+        return list;
+    }
 }

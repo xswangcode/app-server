@@ -23,4 +23,6 @@ public interface ISysUserService extends IService<SysUser> {
     RspMsg<?> resetPassword(String userId, String oldPassword, String newPassword);
 
     RspMsg<?> register(SysUserDTO user);
+
+    SysUser getByName(String name);
 }
