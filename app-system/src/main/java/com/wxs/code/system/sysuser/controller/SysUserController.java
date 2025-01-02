@@ -10,6 +10,8 @@
 
 package com.wxs.code.system.sysuser.controller;
 
+
+import cn.dev33.satoken.annotation.SaCheckPermission;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.wxs.code.core.api.VO.RspMsg;
 import com.wxs.code.core.controller.CoreController;
@@ -22,12 +24,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
 @OpenAPI30
 @RestController
 @RequestMapping("/system/sysuser")
 @Tag(name = "系统用户表", description = "system模块-系统用户表")
 public class SysUserController extends CoreController<SysUser> {
+
 
     /**
      * 查询接口
@@ -38,6 +40,7 @@ public class SysUserController extends CoreController<SysUser> {
      */
     @GetMapping("list")
     @Operation(summary = "获取列表")
+    @SaCheckPermission(type = "system:sys_user:list")
     protected RspMsg<List<SysUser>> list(SysUser entity, HttpServletRequest req) {
         return super.list(entity, req);
     }
@@ -53,6 +56,7 @@ public class SysUserController extends CoreController<SysUser> {
      */
     @GetMapping("pagelist")
     @Operation(summary = "获取分页列表")
+    @SaCheckPermission(type = "system:sys_user:queryPageList")
     protected RspMsg<IPage<SysUser>> queryPageList(SysUser entity, Integer pageNo, Integer pageSize, HttpServletRequest req) {
         return super.queryPageList(entity, pageNo, pageSize, req);
     }
@@ -66,6 +70,7 @@ public class SysUserController extends CoreController<SysUser> {
      */
     @GetMapping("queryById")
     @Operation(operationId = "根据ID查询数据", summary = "根据ID查询数据")
+    @SaCheckPermission(type = "system:sys_user:queryById")
     protected RspMsg<SysUser> queryById(String id, HttpServletRequest req) {
         return super.queryById(id, req);
     }
@@ -79,6 +84,7 @@ public class SysUserController extends CoreController<SysUser> {
      */
     @Operation(summary = "批量删除")
     @DeleteMapping(value = "/deleteBatch")
+    @SaCheckPermission(type = "system:sys_user:deleteBatch")
     protected RspMsg<String> deleteBatch(String ids) {
         return super.deleteBatch(ids);
     }
@@ -91,6 +97,7 @@ public class SysUserController extends CoreController<SysUser> {
      */
     @Operation(summary = "通过id删除")
     @DeleteMapping(value = "/delete")
+    @SaCheckPermission(type = "system:sys_user:delete")
     protected RspMsg<String> delete(String id) {
         return super.delete(id);
     }
@@ -104,7 +111,7 @@ public class SysUserController extends CoreController<SysUser> {
      */
     @Operation(operationId = "单行编辑", summary = "单行编辑")
     @RequestMapping(value = "/edit", method = {RequestMethod.PUT, RequestMethod.POST})
-    @Override
+    @SaCheckPermission(type = "system:sys_user:edit")
     protected RspMsg<String> edit(SysUser entity, HttpServletRequest req) {
         return super.edit(entity, req);
     }
@@ -118,6 +125,7 @@ public class SysUserController extends CoreController<SysUser> {
      */
     @Operation(summary = "单行新增")
     @RequestMapping(value = "/add", method = {RequestMethod.PUT, RequestMethod.POST})
+    @SaCheckPermission(type = "system:sys_user:add")
     protected RspMsg<String> add(SysUser entity, HttpServletRequest req) {
         return super.add(entity, req);
     }
@@ -131,7 +139,9 @@ public class SysUserController extends CoreController<SysUser> {
      */
     @Operation(summary = "批量新增")
     @RequestMapping(value = "/addBatch", method = {RequestMethod.PUT, RequestMethod.POST})
+    @SaCheckPermission(type = "system:sys_user:addBatch")
     protected RspMsg<String> addBatch(List<SysUser> entity, HttpServletRequest req) {
         return super.addBatch(entity, req);
     }
+
 }

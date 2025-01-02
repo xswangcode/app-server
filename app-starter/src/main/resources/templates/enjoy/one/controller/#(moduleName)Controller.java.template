@@ -10,14 +10,20 @@
 
 package #(packageName).#(entityPackage).#(moduleName.toLowerCase()).controller;
 
+
+import cn.dev33.satoken.annotation.SaCheckPermission;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.wxs.code.core.api.VO.RspMsg;
+import io.swagger.v3.oas.annotations.Operation;
 import com.wxs.code.core.controller.BaseController;
 import com.wxs.code.core.controller.CoreController;
 import #(packageName).#(entityPackage).#(moduleName.toLowerCase()).entity.#(moduleName);
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.models.annotations.OpenAPI30;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 
 @OpenAPI30
 @RestController
@@ -35,7 +41,7 @@ public class #(moduleName)Controller extends CoreController<#(moduleName)>{
      */
     @GetMapping("list")
     @Operation(summary = "获取列表")
-    @CheckPermission(module = "#(entityPackage)", type = "#(table):list")
+    @SaCheckPermission(type = "#(entityPackage):#(table):list")
     protected RspMsg<List<#(moduleName)>> list(#(moduleName) entity, HttpServletRequest req) {
         return super.list(entity, req);
     }
@@ -51,8 +57,8 @@ public class #(moduleName)Controller extends CoreController<#(moduleName)>{
      */
     @GetMapping("pagelist")
     @Operation(summary = "获取分页列表")
-    @CheckPermission(module = "#(entityPackage)", type = "#(table):queryPageList")
-    protected RspMsg<IPage<#(entityPackage)>> queryPageList(#(entityPackage) entity, Integer pageNo, Integer pageSize, HttpServletRequest req) {
+    @SaCheckPermission(type = "#(entityPackage):#(table):queryPageList")
+    protected RspMsg<IPage<#(moduleName)>> queryPageList(#(moduleName) entity, Integer pageNo, Integer pageSize, HttpServletRequest req) {
         return super.queryPageList(entity, pageNo, pageSize, req);
     }
 
@@ -65,8 +71,8 @@ public class #(moduleName)Controller extends CoreController<#(moduleName)>{
      */
     @GetMapping("queryById")
     @Operation(operationId = "根据ID查询数据", summary = "根据ID查询数据")
-    @CheckPermission(module = "#(entityPackage)", type = "#(table):queryById")
-    protected RspMsg<#(entityPackage)> queryById(String id, HttpServletRequest req) {
+    @SaCheckPermission(type = "#(entityPackage):#(table):queryById")
+    protected RspMsg<#(moduleName)> queryById(String id, HttpServletRequest req) {
         return super.queryById(id, req);
     }
 
@@ -79,7 +85,7 @@ public class #(moduleName)Controller extends CoreController<#(moduleName)>{
      */
     @Operation(summary = "批量删除")
     @DeleteMapping(value = "/deleteBatch")
-    @CheckPermission(module = "#(entityPackage)", type = "#(table):deleteBatch")
+    @SaCheckPermission(type = "#(entityPackage):#(table):deleteBatch")
     protected RspMsg<String> deleteBatch(String ids) {
         return super.deleteBatch(ids);
     }
@@ -92,7 +98,7 @@ public class #(moduleName)Controller extends CoreController<#(moduleName)>{
      */
     @Operation(summary = "通过id删除")
     @DeleteMapping(value = "/delete")
-    @CheckPermission(module = "#(entityPackage)", type = "#(table):delete")
+    @SaCheckPermission(type = "#(entityPackage):#(table):delete")
     protected RspMsg<String> delete(String id) {
         return super.delete(id);
     }
@@ -106,8 +112,8 @@ public class #(moduleName)Controller extends CoreController<#(moduleName)>{
      */
     @Operation(operationId = "单行编辑", summary = "单行编辑")
     @RequestMapping(value = "/edit", method = {RequestMethod.PUT, RequestMethod.POST})
-    @CheckPermission(module = "#(entityPackage)", type = "#(table):edit")
-    protected RspMsg<String> edit(#(entityPackage) entity, HttpServletRequest req) {
+    @SaCheckPermission(type = "#(entityPackage):#(table):edit")
+    protected RspMsg<String> edit(#(moduleName) entity, HttpServletRequest req) {
         return super.edit(entity, req);
     }
 
@@ -120,8 +126,8 @@ public class #(moduleName)Controller extends CoreController<#(moduleName)>{
      */
     @Operation(summary = "单行新增")
     @RequestMapping(value = "/add", method = {RequestMethod.PUT, RequestMethod.POST})
-    @CheckPermission(module = "#(entityPackage)", type = "#(table):add")
-    protected RspMsg<String> add(#(entityPackage) entity, HttpServletRequest req) {
+    @SaCheckPermission(type = "#(entityPackage):#(table):add")
+    protected RspMsg<String> add(#(moduleName) entity, HttpServletRequest req) {
         return super.add(entity, req);
     }
 
@@ -134,8 +140,8 @@ public class #(moduleName)Controller extends CoreController<#(moduleName)>{
      */
     @Operation(summary = "批量新增")
     @RequestMapping(value = "/addBatch", method = {RequestMethod.PUT, RequestMethod.POST})
-    @CheckPermission(module = "#(entityPackage)", type = "#(table):addBatch")
-    protected RspMsg<String> addBatch(List<#(entityPackage)> entity, HttpServletRequest req) {
+    @SaCheckPermission(type = "#(entityPackage):#(table):addBatch")
+    protected RspMsg<String> addBatch(List<#(moduleName)> entity, HttpServletRequest req) {
         return super.addBatch(entity, req);
     }
 

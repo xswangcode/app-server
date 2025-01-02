@@ -51,7 +51,7 @@ public class CodeGenerateController {
         dto.setTable(dto.getTable().toLowerCase());
         // 数据库表名转成大驼峰命名法
         String _up = TransformedIntoSmallHumpNomenclatureDirective.transformToSmall(dto.getTable());
-        String up = _up.toCharArray()[0] + _up.substring(1);
+        String up = String.valueOf(_up.toCharArray()[0]).toUpperCase() + _up.substring(1);
 
         dto.setModuleName(up);
         dto.setEntityOption(option);

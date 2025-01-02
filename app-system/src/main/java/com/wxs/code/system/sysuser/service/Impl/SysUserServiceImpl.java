@@ -10,6 +10,7 @@
  */
 
 
+
 package com.wxs.code.system.sysuser.service.Impl;
 
 
@@ -20,7 +21,6 @@ import com.wxs.code.core.service.BaseService;
 import com.wxs.code.system.sysuser.entity.DTO.SysUserRegisterDTO;
 import com.wxs.code.system.sysuser.entity.SysUser;
 import com.wxs.code.system.sysuser.service.ISysUserService;
-import org.dromara.hutool.crypto.SecureUtil;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -98,10 +98,4 @@ public class SysUserServiceImpl extends BaseService<SysUser> implements ISysUser
         boolean update = update(Wrappers.lambdaUpdate(SysUser.class).set(SysUser::getPassword, password).eq(SysUser::getId, sysUser.getId()));
         return update;
     }
-
-    private String getPasswordByKey(String key, String password) {
-        return SecureUtil.md5(key + password);
-    }
-
-
 }

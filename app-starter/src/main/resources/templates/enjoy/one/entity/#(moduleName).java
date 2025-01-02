@@ -29,8 +29,7 @@ import java.time.LocalDateTime;
 @ToString
 @TableName("#(table)")
 @Schema(description = "#(remark)")
-@EqualsAndHashCode(callSuper = true)
-public class #(moduleName) extends #(entityOption.isCoreEntity ? "CoreEntity" : "BaseEntity") {
+public class #(moduleName) extends BaseEntity{
 
 #for (item : entityOption.fields)
     #if (item.field == "id")

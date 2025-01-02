@@ -25,7 +25,4 @@ import java.util.List;
 public class EntityOption {
     @Schema(name = "fields", description = "表中的字段,不需要传参")
     List<TableField> fields;
-    @Schema(name = "isCoreEntity", description = "是否生核心实体类，会有创建更新时间等字段")
-    @Builder.Default
-    Boolean isCoreEntity = false;
 }

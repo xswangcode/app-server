@@ -17,25 +17,24 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.wxs.code.core.entity.BaseEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 
 @Data
 @ToString
 @TableName("sys_user_role")
-@Schema(description = "用户角色表")
-@EqualsAndHashCode(callSuper = true)
+@Schema(description = "系统用户角色表")
 public class SysUserRole extends BaseEntity {
 
-    @TableId(type = IdType.AUTO)
-    @Schema(name = "id", description = "id")
-    private Long id;
 
-    @Schema(name = "userId", description = "用户id")
-    private Long userId;
+        @TableId(type = IdType.AUTO)
+        @Schema(name = "id", description = "id")
+        private Long id;
 
-    @Schema(name = "roleId", description = "角色id")
-    private Long roleId;
+        @Schema(name = "userId", description = "用户id")
+        private Long userId;
+
+        @Schema(name = "roleId", description = "角色id")
+        private Long roleId;
 
 }

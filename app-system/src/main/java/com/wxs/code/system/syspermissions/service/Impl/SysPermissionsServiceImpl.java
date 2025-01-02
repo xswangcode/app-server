@@ -30,7 +30,7 @@ public class SysPermissionsServiceImpl extends BaseService<SysPermissions> imple
      */
     @Override
     public List<SysPermissions> getByIds(List<Long> ids) {
-        List<SysPermissions> permissions = list(Wrappers.lambdaQuery(SysPermissions.class).in(SysPermissions::getId, ids));
-        return permissions;
+        return list(Wrappers.lambdaQuery(SysPermissions.class).in(SysPermissions::getId, ids));
     }
+
 }
