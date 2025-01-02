@@ -16,7 +16,11 @@ package com.wxs.code.system.sysrole.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.wxs.code.system.sysrole.entity.SysRole;
 
+import java.util.List;
+
 
 public interface ISysRoleService extends IService<SysRole> {
+
+    List<SysRole> getByIds(List<Long> ids);
 
 }

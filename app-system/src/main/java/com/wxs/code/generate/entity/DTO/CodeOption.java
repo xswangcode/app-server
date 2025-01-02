@@ -27,7 +27,8 @@ import java.util.Date;
 public class CodeOption {
     @Schema(name = "table", description = "表名,eg: task_config", defaultValue = "task_config")
     String table; // 表名
-    @Schema(name = "moduleName", description = "模块名,eg: TaskConfig", defaultValue = "TaskConfig")
+    //自动通过表名转换，不需要传入
+    //  @Schema(name = "moduleName", description = "模块名,eg: TaskConfig", defaultValue = "TaskConfig")
     String moduleName; // 模块名
     @Schema(name = "packageName", description = "包名,eg: com.wxs.code", defaultValue = "com.wxs.code")
     String packageName; // 包名

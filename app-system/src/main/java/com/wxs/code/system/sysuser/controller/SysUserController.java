@@ -10,106 +10,128 @@
 
 package com.wxs.code.system.sysuser.controller;
 
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.wxs.code.core.api.VO.RspMsg;
-import com.wxs.code.core.controller.BaseController;
-import com.wxs.code.system.sysuser.entity.DTO.SysUserDTO;
+import com.wxs.code.core.controller.CoreController;
 import com.wxs.code.system.sysuser.entity.SysUser;
-import com.wxs.code.system.sysuser.service.ISysUserService;
-import com.wxs.code.system.utils.SystemUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.models.annotations.OpenAPI30;
 import jakarta.servlet.http.HttpServletRequest;
-import org.dromara.hutool.core.collection.CollUtil;
-import org.dromara.hutool.core.date.DateTime;
-import org.dromara.hutool.core.text.StrUtil;
-import org.dromara.hutool.json.JSONUtil;
-import org.dromara.hutool.json.jwt.JWTUtil;
-import org.dromara.hutool.json.jwt.signers.JWTSignerUtil;
-import org.redisson.api.RedissonClient;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.time.Duration;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 @OpenAPI30
 @RestController
 @RequestMapping("/system/sysuser")
 @Tag(name = "系统用户表", description = "system模块-系统用户表")
-public class SysUserController extends BaseController<SysUser> {
-    /**
-     * 私人密钥
-     */
-    @Value("${app.token.secretKey}")
-    public String sign;
-    /**
-     * 超期时间，超过指定时长，无法无感刷新
-     */
-    @Value("${app.token.expiresTime}")
-    public Long expiresTime;
-    @Autowired
-    ISysUserService baseService;
-    @Autowired
-    RedissonClient redissonClient;
-
-    @PostMapping("login")
-    @Operation(summary = "系统账户登录")
-    public RspMsg<?> login(String name, String password) {
-        if (!StrUtil.isAllNotEmpty(name, password)) {
-            return RspMsg.error("用户名和密码不能为空");
-        }
-        //todo 密码加密
-        List<SysUser> dbuList = baseService.list(Wrappers.lambdaQuery(SysUser.class).eq(SysUser::getName, password).eq(SysUser::getPassword, password));
-        if (CollUtil.isEmpty(dbuList)) {
-            dbuList = baseService.list(Wrappers.lambdaQuery(SysUser.class).eq(SysUser::getEmail, password).eq(SysUser::getPassword, password));
-        }
-
-        if (CollUtil.isEmpty(dbuList)) {
-            return RspMsg.error("账户或密码错误");
-        }
-
-        SysUser dbu = dbuList.getFirst();
-        Map<String, Object> map = new HashMap<>();
-        // id-name-email
-        map.put("iss", sign);
-        map.put("name", dbu.getName());
-        map.put("email", dbu.getEmail());
-        map.put("jti", dbu.getId());
-        map.put("iat", DateTime.now().getTime());
-        logger.info(map.get("iat").toString());
-        String token = JWTUtil.createToken(map, JWTSignerUtil.hs512(sign.getBytes()));
-        // 使用redis存储token
-        String key = StrUtil.format("SysUser.{}", dbu.getId());
-        redissonClient.getBucket(key).set(JSONUtil.toJsonStr(dbu), Duration.ofSeconds(expiresTime));
-        return RspMsg.ok(token);
-    }
-
-    @PostMapping("/jwttest")
-    public String test(HttpServletRequest request) {
-        logger.info("当前token为：[{}]", request.getHeader("X-Auth-Token"));
-        System.out.println(SystemUtil.getUserEmail());
-        return request.getHeader("X-Auth-Token");
-    }
-
+public class SysUserController extends CoreController<SysUser> {
 
     /**
-     * 用户注册功能
+     * 查询接口
      *
-     * @param dto
+     * @param entity 实例参数化
+     * @param req    http请求
      * @return
      */
-    @PostMapping("/register")
-    public RspMsg register(SysUserDTO dto) {
-        return baseService.register(dto);
+    @GetMapping("list")
+    @Operation(summary = "获取列表")
+    protected RspMsg<List<SysUser>> list(SysUser entity, HttpServletRequest req) {
+        return super.list(entity, req);
     }
 
+    /**
+     * 分页查询
+     *
+     * @param entity   实例参数化
+     * @param pageNo   当前页
+     * @param pageSize 分页大小
+     * @param req      http请求
+     * @return
+     */
+    @GetMapping("pagelist")
+    @Operation(summary = "获取分页列表")
+    protected RspMsg<IPage<SysUser>> queryPageList(SysUser entity, Integer pageNo, Integer pageSize, HttpServletRequest req) {
+        return super.queryPageList(entity, pageNo, pageSize, req);
+    }
 
+    /**
+     * 根据ID查询数据
+     *
+     * @param id  实例id
+     * @param req http请求
+     * @return
+     */
+    @GetMapping("queryById")
+    @Operation(operationId = "根据ID查询数据", summary = "根据ID查询数据")
+    protected RspMsg<SysUser> queryById(String id, HttpServletRequest req) {
+        return super.queryById(id, req);
+    }
+
+    /**
+     * 批量删除
+     *
+     * @param ids 实例id集合
+     *            eg: 1,2,3,4
+     * @return
+     */
+    @Operation(summary = "批量删除")
+    @DeleteMapping(value = "/deleteBatch")
+    protected RspMsg<String> deleteBatch(String ids) {
+        return super.deleteBatch(ids);
+    }
+
+    /**
+     * 删除数据
+     *
+     * @param id 实例id
+     * @return
+     */
+    @Operation(summary = "通过id删除")
+    @DeleteMapping(value = "/delete")
+    protected RspMsg<String> delete(String id) {
+        return super.delete(id);
+    }
+
+    /**
+     * 编辑数据
+     *
+     * @param entity 实例参数，需要传入id
+     * @param req    http请求
+     * @return
+     */
+    @Operation(operationId = "单行编辑", summary = "单行编辑")
+    @RequestMapping(value = "/edit", method = {RequestMethod.PUT, RequestMethod.POST})
+    @Override
+    protected RspMsg<String> edit(SysUser entity, HttpServletRequest req) {
+        return super.edit(entity, req);
+    }
+
+    /**
+     * 单行新增
+     *
+     * @param entity 实例参数
+     * @param req    http请求
+     * @return
+     */
+    @Operation(summary = "单行新增")
+    @RequestMapping(value = "/add", method = {RequestMethod.PUT, RequestMethod.POST})
+    protected RspMsg<String> add(SysUser entity, HttpServletRequest req) {
+        return super.add(entity, req);
+    }
+
+    /**
+     * 批量新增
+     *
+     * @param entity 实例参数集合
+     * @param req
+     * @return
+     */
+    @Operation(summary = "批量新增")
+    @RequestMapping(value = "/addBatch", method = {RequestMethod.PUT, RequestMethod.POST})
+    protected RspMsg<String> addBatch(List<SysUser> entity, HttpServletRequest req) {
+        return super.addBatch(entity, req);
+    }
 }

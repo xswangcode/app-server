@@ -13,10 +13,11 @@
 package com.wxs.code.system.sysuser.service.Impl;
 
 
+import cn.dev33.satoken.stp.StpUtil;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.wxs.code.core.api.VO.RspMsg;
 import com.wxs.code.core.service.BaseService;
-import com.wxs.code.system.sysuser.entity.DTO.SysUserDTO;
+import com.wxs.code.system.sysuser.entity.DTO.SysUserRegisterDTO;
 import com.wxs.code.system.sysuser.entity.SysUser;
 import com.wxs.code.system.sysuser.service.ISysUserService;
 import org.dromara.hutool.crypto.SecureUtil;
@@ -48,7 +49,7 @@ public class SysUserServiceImpl extends BaseService<SysUser> implements ISysUser
      * @return
      */
     @Override
-    public RspMsg register(SysUserDTO dto) {
+    public RspMsg register(SysUserRegisterDTO dto) {
         // 字段是否为空
         boolean empty = dto.ifEmpty();
         if (empty) {
@@ -76,8 +77,31 @@ public class SysUserServiceImpl extends BaseService<SysUser> implements ISysUser
         return list.get(0);
     }
 
+    @Override
+    public RspMsg<?> login(String name, String password) {
+        List<SysUser> userList = list(Wrappers.lambdaQuery(SysUser.class).eq(SysUser::getName, name).eq(SysUser::getPassword, password));
+        if (userList.isEmpty()) {
+            return RspMsg.error("用户名或密码错误");
+        }
+        SysUser user = userList.get(0);
+        StpUtil.login(user.getId());
+        return RspMsg.ok();
+    }
+
+    @Override
+    public Boolean forgetPassword(String username, String password) {
+        List<SysUser> list = list(Wrappers.lambdaQuery(SysUser.class).eq(SysUser::getName, username));
+        if (list.isEmpty()) {
+            return false;
+        }
+        SysUser sysUser = list.get(0);
+        boolean update = update(Wrappers.lambdaUpdate(SysUser.class).set(SysUser::getPassword, password).eq(SysUser::getId, sysUser.getId()));
+        return update;
+    }
+
     private String getPasswordByKey(String key, String password) {
         return SecureUtil.md5(key + password);
     }
+
 
 }

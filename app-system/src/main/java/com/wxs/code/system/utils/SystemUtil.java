@@ -14,10 +14,7 @@ package com.wxs.code.system.utils;
 import com.wxs.code.core.constant.CommonConstants;
 import com.wxs.code.core.exception.AuthExecption;
 import com.wxs.code.core.utils.RedisUtil;
-import com.wxs.code.core.utils.SpringUtils;
 import com.wxs.code.system.sysuser.entity.SysUser;
-import com.wxs.code.system.sysuserrole.entity.SysUserRole;
-import com.wxs.code.system.sysuserrole.service.ISysUserRoleService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.constraints.NotNull;
 import org.dromara.hutool.core.text.StrUtil;
@@ -28,7 +25,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import java.util.List;
 import java.util.Objects;
 
 
@@ -59,11 +55,11 @@ public class SystemUtil {
         String user_str = RedisUtil.get(key);
         SysUser user_bean = JSONUtil.toBean(user_str, SysUser.class);
         // 3. 获取用户角色
-        ISysUserRoleService userRoleService = SpringUtils.get(ISysUserRoleService.class);
-        if (userRoleService != null) {
-            List<SysUserRole> roles = userRoleService.getByUserId(user_bean.getId());
-            user_bean.setRoles(roles);
-        }
+//        ISysUserRoleService userRoleService = SpringUtils.get(ISysUserRoleService.class);
+//        if (userRoleService != null) {
+//            List<SysUserRole> roles = userRoleService.getByUserId(user_bean.getId());
+////            user_bean.setRoles(roles);
+//        }
         return user_bean;
     }
 

@@ -45,7 +45,7 @@ public class TaskConfigController extends CoreController<TaskConfig> {
     @Override
     @Transactional(rollbackFor = Exception.class)
     protected RspMsg<String> delete(String id) {
-        TaskConfig byId = baseService.getById(id);
+        TaskConfig byId = service.getById(id);
         scheduleService.stop(byId);
         return super.delete(id);
     }
@@ -53,10 +53,10 @@ public class TaskConfigController extends CoreController<TaskConfig> {
     @Override
     @Transactional(rollbackFor = Exception.class)
     protected RspMsg<String> edit(TaskConfig dto, HttpServletRequest req) {
-        TaskConfig old = baseService.getById(dto.getId());
+        TaskConfig old = service.getById(dto.getId());
         scheduleService.stop(old);
         super.edit(dto, req);
-        dto = baseService.getById(dto.getId());
+        dto = service.getById(dto.getId());
         scheduleService.start(dto);
         return RspMsg.OK("修改成功");
     }
@@ -65,7 +65,7 @@ public class TaskConfigController extends CoreController<TaskConfig> {
     @Transactional(rollbackFor = Exception.class)
     protected RspMsg<String> add(TaskConfig dto, HttpServletRequest req) {
         super.add(dto, req);
-        dto = baseService.getById(dto.getId());
+        dto = service.getById(dto.getId());
         scheduleService.start(dto);
         return RspMsg.OK("新增成功!");
     }

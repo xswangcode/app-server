@@ -19,95 +19,127 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.wxs.code.core.api.VO.RspMsg;
 import com.wxs.code.core.entity.BaseEntity;
 import com.wxs.code.core.service.BaseService;
-import io.swagger.v3.oas.annotations.Operation;
 import jakarta.servlet.http.HttpServletRequest;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Arrays;
 import java.util.List;
 
 public abstract class CoreController<T extends BaseEntity> extends BaseController {
 
-    //日志记录器
-    protected static final Logger logger = LoggerFactory.getLogger(CoreController.class);
     @Autowired
-    protected BaseService<T> baseService;
+    protected BaseService<T> service;
 
-    @GetMapping("list")
-    @Operation(summary = "获取列表")
-    protected RspMsg<List<T>> list(@ModelAttribute T dto, HttpServletRequest req) {
-        LambdaQueryWrapper<T> wrapper = Wrappers.lambdaQuery(dto);
-        List<T> list = baseService.list(wrapper);
+    /**
+     * 查询接口
+     *
+     * @param entity 实例参数化
+     * @param req    http请求
+     * @return
+     */
+    protected RspMsg<List<T>> list(@ModelAttribute T entity, HttpServletRequest req) {
+        LambdaQueryWrapper<T> wrapper = Wrappers.lambdaQuery(entity);
+        List<T> list = service.list(wrapper);
         return RspMsg.OK(list);
     }
 
-    @GetMapping("pagelist")
-    @Operation(summary = "获取分页列表")
-    protected RspMsg<IPage<T>> queryPageList(T dto,
+    /**
+     * 分页查询
+     *
+     * @param entity   实例参数化
+     * @param pageNo   当前页
+     * @param pageSize 分页大小
+     * @param req      http请求
+     * @return
+     */
+
+    protected RspMsg<IPage<T>> queryPageList(T entity,
                                              @RequestParam(name = "pageNo", defaultValue = "1") Integer pageNo,
                                              @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize,
                                              HttpServletRequest req) {
-        LambdaQueryWrapper<T> wrapper = Wrappers.lambdaQuery(dto);
+        LambdaQueryWrapper<T> wrapper = Wrappers.lambdaQuery(entity);
         IPage<T> page = new Page<>(pageNo, pageSize);
-        page = baseService.page(page, wrapper);
+        page = service.page(page, wrapper);
         return RspMsg.OK(page);
     }
 
-    @GetMapping("queryById")
-    @Operation(operationId = "根据ID查询数据", summary = "根据ID查询数据")
-    protected RspMsg<T> queryPageList(@RequestParam(name = "id", required = true) String id,
-                                      HttpServletRequest req) {
+    /**
+     * 根据ID查询数据
+     *
+     * @param id  实例id
+     * @param req http请求
+     * @return
+     */
 
-        T entity = baseService.getById(id);
+    protected RspMsg<T> queryById(@RequestParam(name = "id") String id, HttpServletRequest req) {
+
+        T entity = service.getById(id);
         return RspMsg.OK(entity);
     }
 
     /**
      * 批量删除
      *
-     * @param ids
+     * @param ids 实例id集合
+     *            eg: 1,2,3,4
      * @return
      */
-    @Operation(summary = "批量删除")
-    @DeleteMapping(value = "/deleteBatch")
-    protected RspMsg<String> deleteBatch(@RequestParam(name = "ids", required = true) String ids) {
-        baseService.removeByIds(Arrays.asList(ids.split(",")));
+    protected RspMsg<String> deleteBatch(@RequestParam(name = "ids") String ids) {
+        service.removeByIds(Arrays.asList(ids.split(",")));
         return RspMsg.OK("批量删除成功!");
     }
 
-    @Operation(summary = "通过id删除")
-    @DeleteMapping(value = "/delete")
-    protected RspMsg<String> delete(@RequestParam(name = "id", required = true) String id) {
-        baseService.removeById(id);
+    /**
+     * 删除数据
+     *
+     * @param id 实例id
+     * @return
+     */
+    protected RspMsg<String> delete(@RequestParam(name = "id") String id) {
+        service.removeById(id);
         return RspMsg.OK("删除成功!");
     }
 
-    @Operation(operationId = "单行编辑", summary = "单行编辑")
-    @RequestMapping(value = "/edit", method = {RequestMethod.PUT, RequestMethod.POST})
-    protected RspMsg<String> edit(@RequestBody T dto,
+    /**
+     * 编辑数据
+     *
+     * @param entity 实例参数，需要传入id
+     * @param req    http请求
+     * @return
+     */
+    protected RspMsg<String> edit(@RequestBody T entity,
                                   HttpServletRequest req) {
-        baseService.updateById(dto);
+        service.updateById(entity);
         return RspMsg.OK("编辑成功!");
     }
 
-    @Operation(summary = "单行新增")
-    @RequestMapping(value = "/add", method = {RequestMethod.PUT, RequestMethod.POST})
-    protected RspMsg<String> add(@RequestBody T dto,
+    /**
+     * 单行新增
+     *
+     * @param entity 实例参数
+     * @param req    http请求
+     * @return
+     */
+    protected RspMsg<String> add(@RequestBody T entity,
                                  HttpServletRequest req) {
-        baseService.save(dto);
+        service.save(entity);
         return RspMsg.OK("新增成功!");
     }
 
-    @Operation(summary = "批量新增")
-    @RequestMapping(value = "/addBatch", method = {RequestMethod.PUT, RequestMethod.POST})
-    protected RspMsg<String> addBatch(@RequestBody List<T> dto,
+    /**
+     * 批量新增
+     *
+     * @param entity 实例参数集合
+     * @param req
+     * @return
+     */
+    protected RspMsg<String> addBatch(@RequestBody List<T> entity,
                                       HttpServletRequest req) {
-        baseService.saveBatch(dto);
+        service.saveBatch(entity);
         return RspMsg.OK("批量新增成功!");
     }
-
 
 }

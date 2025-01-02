@@ -1,5 +1,5 @@
 /*
- *  @description: TransformedIntoSmallHumpNomenclatureDirective.java
+ *  @description: TransformedIntoSmall.java
  *
  *  @author: xswang
  *  @email: wxs_code@126.com
@@ -25,7 +25,7 @@ public class TransformedIntoSmallHumpNomenclatureDirective extends Directive {
     /**
      * 将数据库字段转换为小驼峰命名法
      */
-    public static String transformToSmallHumpNomenclature(String fieldName) {
+    public static String transformToSmall(String fieldName) {
         String[] parts = fieldName.split("_");  // 根据下划线分割字符串
         StringBuilder camelCaseNameBuilder = new StringBuilder(); // 用来组合小驼峰字符串
 
@@ -46,7 +46,7 @@ public class TransformedIntoSmallHumpNomenclatureDirective extends Directive {
         System.out.println(scope);
         scope.getData().forEach((k, v) -> {
             if (v instanceof TableField field) {
-                write(writer, transformToSmallHumpNomenclature(field.getField()));
+                write(writer, transformToSmall(field.getField()));
             }
         });
         System.out.println(writer);

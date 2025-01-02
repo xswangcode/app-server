@@ -15,14 +15,18 @@ package com.wxs.code.system.sysuser.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.wxs.code.core.api.VO.RspMsg;
-import com.wxs.code.system.sysuser.entity.DTO.SysUserDTO;
+import com.wxs.code.system.sysuser.entity.DTO.SysUserRegisterDTO;
 import com.wxs.code.system.sysuser.entity.SysUser;
 
 
 public interface ISysUserService extends IService<SysUser> {
     RspMsg<?> resetPassword(String userId, String oldPassword, String newPassword);
 
-    RspMsg<?> register(SysUserDTO user);
+    RspMsg<?> register(SysUserRegisterDTO user);
 
     SysUser getByName(String name);
+
+    RspMsg<?> login(String name, String password);
+
+    Boolean forgetPassword(String username, String password);
 }

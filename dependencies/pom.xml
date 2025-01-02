@@ -124,6 +124,7 @@
         <!-- 第三方包的版本-->
 
         <quartz.version>2.3.0</quartz.version>
+        <satoken.version>1.39.0</satoken.version>
 
         <!--以下为特殊处理, 统一版本处理漏洞等-->
         <commons-text.version>1.10.0</commons-text.version>
@@ -209,6 +210,12 @@
                 <version>3.2.4</version>
             </dependency>
 
+            <!-- Sa-Token 权限认证，在线文档：https://sa-token.cc -->
+            <dependency>
+                <groupId>cn.dev33</groupId>
+                <artifactId>sa-token-spring-boot3-starter</artifactId>
+                <version>${satoken.version}</version>
+            </dependency>
             <!--在线文档-->
             <dependency>
                 <groupId>com.github.xiaoymin</groupId>

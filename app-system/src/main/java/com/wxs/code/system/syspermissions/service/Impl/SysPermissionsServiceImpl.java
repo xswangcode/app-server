@@ -13,12 +13,24 @@
 package com.wxs.code.system.syspermissions.service.Impl;
 
 
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.wxs.code.core.service.BaseService;
 import com.wxs.code.system.syspermissions.entity.SysPermissions;
 import com.wxs.code.system.syspermissions.service.ISysPermissionsService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class SysPermissionsServiceImpl extends BaseService<SysPermissions> implements ISysPermissionsService {
 
+    /**
+     * @param ids
+     * @return
+     */
+    @Override
+    public List<SysPermissions> getByIds(List<Long> ids) {
+        List<SysPermissions> permissions = list(Wrappers.lambdaQuery(SysPermissions.class).in(SysPermissions::getId, ids));
+        return permissions;
+    }
 }

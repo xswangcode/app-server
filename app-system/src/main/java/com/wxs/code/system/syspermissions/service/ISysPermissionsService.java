@@ -16,7 +16,11 @@ package com.wxs.code.system.syspermissions.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.wxs.code.system.syspermissions.entity.SysPermissions;
 
+import java.util.List;
+
 
 public interface ISysPermissionsService extends IService<SysPermissions> {
+
+    List<SysPermissions> getByIds(List<Long> ids);
 
 }

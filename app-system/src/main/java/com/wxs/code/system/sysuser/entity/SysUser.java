@@ -12,18 +12,14 @@
 package com.wxs.code.system.sysuser.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.wxs.code.core.entity.CoreEntity;
-import com.wxs.code.system.sysuserrole.entity.SysUserRole;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-
-import java.util.List;
 
 
 @Data
@@ -50,9 +46,5 @@ public class SysUser extends CoreEntity {
 
     @Schema(name = "password", description = "加密后的密码")
     private String password;
-
-    @TableField(exist = false)
-    private List<SysUserRole> roles;
-
 
 }

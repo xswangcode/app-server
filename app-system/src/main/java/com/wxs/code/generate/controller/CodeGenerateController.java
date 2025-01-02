@@ -14,6 +14,7 @@ package com.wxs.code.generate.controller;
 
 import com.wxs.code.core.api.VO.RspMsg;
 import com.wxs.code.core.ext.spring.JFinalViewResolver;
+import com.wxs.code.generate.directive.TransformedIntoSmallHumpNomenclatureDirective;
 import com.wxs.code.generate.entity.DTO.CodeOption;
 import com.wxs.code.generate.entity.DTO.DB.TableField;
 import com.wxs.code.generate.entity.DTO.EntityOption;
@@ -47,7 +48,14 @@ public class CodeGenerateController {
 
         EntityOption option = EntityOption.builder().fields(fields).build();
 
+        dto.setTable(dto.getTable().toLowerCase());
+        // 数据库表名转成大驼峰命名法
+        String _up = TransformedIntoSmallHumpNomenclatureDirective.transformToSmall(dto.getTable());
+        String up = _up.toCharArray()[0] + _up.substring(1);
+
+        dto.setModuleName(up);
         dto.setEntityOption(option);
+
         /**
          * table: sys_permissions
          * moduleName: SysPermissions

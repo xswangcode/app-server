@@ -10,7 +10,7 @@
 
 package com.wxs.code.system.syspermissions.controller;
 
-import com.wxs.code.core.controller.BaseController;
+import com.wxs.code.core.controller.CoreController;
 import com.wxs.code.system.syspermissions.entity.SysPermissions;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.models.annotations.OpenAPI30;
@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/system/syspermissions")
 @Tag(name = "权限表", description = "system模块-权限表")
-public class SysPermissionsController extends BaseController<SysPermissions> {
+public class SysPermissionsController extends CoreController<SysPermissions> {
 
 
 }

@@ -16,7 +16,10 @@ package com.wxs.code.system.sysrolepermissions.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.wxs.code.system.sysrolepermissions.entity.SysRolePermissions;
 
+import java.util.List;
+
 
 public interface ISysRolePermissionsService extends IService<SysRolePermissions> {
 
+    List<SysRolePermissions> getByRoleIds(List<Long> roleIds);
 }
