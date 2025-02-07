@@ -23,7 +23,6 @@ import org.springframework.context.annotation.Configuration;
 public class AppConfig {
 
     ServerProperties server = new ServerProperties();
-    TokenProperties token = new TokenProperties();
     LoginProperties login = new LoginProperties();
     DebugProperties debug = new DebugProperties();
 
@@ -34,13 +33,6 @@ public class AppConfig {
         String host;
     }
 
-    @Getter
-    @Setter
-    public class TokenProperties {
-        String secretKey; // 签名
-        Long refreshTime; // 无感刷新时间 /s
-        Long expiresTime; // 超期时间 /s
-    }
 
     @Getter
     @Setter
