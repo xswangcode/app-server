@@ -22,7 +22,6 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
-import org.dromara.hutool.core.array.ArrayUtil;
 import org.dromara.hutool.json.JSONUtil;
 import org.springframework.stereotype.Component;
 
@@ -54,7 +53,7 @@ public class AutoLogAOP {
     // 环绕点
     @Around("@annotation(autoLog)")
     public Object around(ProceedingJoinPoint joinPoint, AutoLog autoLog) throws Throwable {
-        log.info("====================AOP 开始执行方法===========================");
+        log.info("====================Auto LOG  AOP 开始执行方法===========================");
         start = System.currentTimeMillis();
         //获取方法参数值数组
         Object[] args = joinPoint.getArgs();
@@ -70,13 +69,12 @@ public class AutoLogAOP {
         }
         end = System.currentTimeMillis();
 
-        //
-        String paramsArgs = ArrayUtil.isEmpty(args) ? null : JSONUtil.toJsonStr(args);
+        String paramsArgs = args.length == 0 ? null : JSONUtil.toJsonStr(args);
         String paramsResult = result == null ? null : JSONUtil.toJsonStr(result);
 
         //如果这里不返回result，则目标对象实际返回值会被置为null
         process(autoLog, paramsLeval, paramsArgs, paramsResult, end - start);
-        log.info("====================AOP 结束执行方法===========================");
+        log.info("====================Auto LOG  AOP 结束执行方法===========================");
         return result;
     }
 
@@ -86,9 +84,13 @@ public class AutoLogAOP {
     private void process(AutoLog autoLog, LogConstant.LogLeval paramsLeval, String params, String response, Long spendTime) {
         SysUser user = SystemUtil.getCurrentUser();
         String ip = SystemUtil.getIpAddr();
-        SysLog log = SysLog.builder().logLevel(paramsLeval).type(autoLog.type()).params(params).response(response).spendTime(spendTime)
+        SysLog syslog = SysLog.builder().logLevel(paramsLeval).type(autoLog.type()).params(params).response(response).spendTime(spendTime)
                 .timespan(LocalDateTime.now()).createBy(user.getName()).createById(user.getId()).clientIp(ip).build();
-        logSvc.save(log);
+        if (autoLog.value()) {
+            logSvc.save(syslog);
+        } else {
+            log.info("打印日志：{}", JSONUtil.toJsonStr(syslog));
+        }
     }
 
 

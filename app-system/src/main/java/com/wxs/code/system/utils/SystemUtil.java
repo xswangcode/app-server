@@ -11,56 +11,36 @@
 
 package com.wxs.code.system.utils;
 
-import com.wxs.code.core.constant.CommonConstants;
-import com.wxs.code.core.exception.AuthExecption;
-import com.wxs.code.core.utils.RedisUtil;
+import cn.dev33.satoken.stp.StpUtil;
+import com.wxs.code.core.exception.SystemException;
+import com.wxs.code.core.utils.SpringUtils;
 import com.wxs.code.system.sysuser.entity.SysUser;
+import com.wxs.code.system.sysuser.service.ISysUserService;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.validation.constraints.NotNull;
-import org.dromara.hutool.core.text.StrUtil;
-import org.dromara.hutool.json.JSONUtil;
-import org.dromara.hutool.json.jwt.JWT;
-import org.dromara.hutool.json.jwt.JWTUtil;
-import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.util.Objects;
 
 
-@Component
 public class SystemUtil {
 
-    @NotNull
-    private static HttpServletRequest getRequest() {
-        ServletRequestAttributes requestAttributes = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes()));
-        return requestAttributes.getRequest();
+    private static ISysUserService userSvc;
+
+    public static ISysUserService getUserSvc() {
+        synchronized (SystemUtil.class) {
+            if (userSvc == null)
+                userSvc = SpringUtils.get(ISysUserService.class);
+            if (userSvc == null)
+                throw new SystemException("未找到用户服务");
+        }
+        return userSvc;
     }
 
     // 获取当前请求用户的信息
     public static SysUser getCurrentUser() {
-        HttpServletRequest request = getRequest();
-        String token = request.getHeader(CommonConstants.FRONT_FIELD.AUTHORIZATION);
-
-        JWT jwt_content = JWTUtil.parseToken(token);
-        // 1 校验redis是否存在
-        String user_id = jwt_content.getPayload("jti").toString();
-        // 使用redis存储token
-        String key = StrUtil.format("SysUser.{}", user_id);
-
-        if (!RedisUtil.exists(key)) {
-            throw new AuthExecption("用户未登录");
-        }
-        // 2. 获取用户信息
-        String user_str = RedisUtil.get(key);
-        SysUser user_bean = JSONUtil.toBean(user_str, SysUser.class);
-        // 3. 获取用户角色
-//        ISysUserRoleService userRoleService = SpringUtils.get(ISysUserRoleService.class);
-//        if (userRoleService != null) {
-//            List<SysUserRole> roles = userRoleService.getByUserId(user_bean.getId());
-////            user_bean.setRoles(roles);
-//        }
-        return user_bean;
+        Long loginId = StpUtil.getLoginIdAsLong();
+        return getUserSvc().getById(loginId);
     }
 
     /**

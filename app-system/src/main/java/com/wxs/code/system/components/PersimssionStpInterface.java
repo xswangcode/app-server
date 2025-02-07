@@ -25,7 +25,6 @@ import com.wxs.code.system.sysuserrole.service.ISysUserRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -51,6 +50,8 @@ public class PersimssionStpInterface implements StpInterface {
 
     @Override
     public List<String> getPermissionList(Object loginId, String loginType) {
+        if (ConfigUtil.appConfig().getDebug().getEnable())
+            return List.of("*");
         List<SysUserRole> userRoles = userRoleSvc.getByUserId(Long.valueOf(loginId.toString()));
         if (userRoles.isEmpty()) {
             return Collections.emptyList();
@@ -58,13 +59,14 @@ public class PersimssionStpInterface implements StpInterface {
         List<SysRolePermissions> role_permissions = rolePermissionsSvc.getByRoleIds(userRoles.stream().map(SysUserRole::getId).toList());
         List<SysPermissions> permissions = permissionsSvc.getByIds(role_permissions.stream().map(SysRolePermissions::getPermissionsId).toList());
         List<String> result = permissions.stream().map(SysPermissions::getCode).collect(Collectors.toList());
-        if (!ConfigUtil.appConfig().getDebug().getEnable())
-            return List.of("*");
         return result;
     }
 
     @Override
     public List<String> getRoleList(Object loginId, String loginType) {
+        if (ConfigUtil.appConfig().getDebug().getEnable())
+            return List.of("*");
+
         List<SysUserRole> userRoles = userRoleSvc.getByUserId(Long.valueOf(loginId.toString()));
         if (userRoles.isEmpty()) {
             return Collections.emptyList();
@@ -72,8 +74,7 @@ public class PersimssionStpInterface implements StpInterface {
         List<SysRole> roles = roleSvc.getByIds(userRoles.stream().map(SysUserRole::getRoleId).toList());
 
         List<String> roleCodes = roles.stream().map(SysRole::getRoleCode).collect(Collectors.toList());
-        if (!ConfigUtil.appConfig().getDebug().getEnable())
-            return List.of("*");
+
         return roleCodes;
     }
 }
