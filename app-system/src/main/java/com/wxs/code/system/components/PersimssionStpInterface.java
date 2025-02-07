@@ -13,6 +13,7 @@ package com.wxs.code.system.components;
 
 
 import cn.dev33.satoken.stp.StpInterface;
+import com.wxs.code.core.utils.ConfigUtil;
 import com.wxs.code.system.syspermissions.entity.SysPermissions;
 import com.wxs.code.system.syspermissions.service.ISysPermissionsService;
 import com.wxs.code.system.sysrole.entity.SysRole;
@@ -24,6 +25,7 @@ import com.wxs.code.system.sysuserrole.service.ISysUserRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -56,6 +58,8 @@ public class PersimssionStpInterface implements StpInterface {
         List<SysRolePermissions> role_permissions = rolePermissionsSvc.getByRoleIds(userRoles.stream().map(SysUserRole::getId).toList());
         List<SysPermissions> permissions = permissionsSvc.getByIds(role_permissions.stream().map(SysRolePermissions::getPermissionsId).toList());
         List<String> result = permissions.stream().map(SysPermissions::getCode).collect(Collectors.toList());
+        if (!ConfigUtil.appConfig().getDebug().getEnable())
+            return List.of("*");
         return result;
     }
 
@@ -68,6 +72,8 @@ public class PersimssionStpInterface implements StpInterface {
         List<SysRole> roles = roleSvc.getByIds(userRoles.stream().map(SysUserRole::getRoleId).toList());
 
         List<String> roleCodes = roles.stream().map(SysRole::getRoleCode).collect(Collectors.toList());
+        if (!ConfigUtil.appConfig().getDebug().getEnable())
+            return List.of("*");
         return roleCodes;
     }
 }

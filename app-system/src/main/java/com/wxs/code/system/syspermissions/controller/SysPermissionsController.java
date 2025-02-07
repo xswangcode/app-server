@@ -40,7 +40,7 @@ public class SysPermissionsController extends CoreController<SysPermissions> {
      */
     @GetMapping("list")
     @Operation(summary = "获取列表")
-    @SaCheckPermission(type = "system:sys_permissions:list")
+    @SaCheckPermission(value = "system:sys_permissions:list")
     protected RspMsg<List<SysPermissions>> list(SysPermissions entity, HttpServletRequest req) {
         return super.list(entity, req);
     }
@@ -56,8 +56,11 @@ public class SysPermissionsController extends CoreController<SysPermissions> {
      */
     @GetMapping("pagelist")
     @Operation(summary = "获取分页列表")
-    @SaCheckPermission(type = "system:sys_permissions:queryPageList")
-    protected RspMsg<IPage<SysPermissions>> queryPageList(SysPermissions entity, Integer pageNo, Integer pageSize, HttpServletRequest req) {
+    @SaCheckPermission(value = "system:sys_permissions:queryPageList")
+    protected RspMsg<IPage<SysPermissions>> queryPageList(SysPermissions entity,
+                                                          @RequestParam(required = false, defaultValue = "1") Integer pageNo,
+                                                          @RequestParam(required = false, defaultValue = "10") Integer pageSize,
+                                                          HttpServletRequest req) {
         return super.queryPageList(entity, pageNo, pageSize, req);
     }
 
@@ -70,7 +73,7 @@ public class SysPermissionsController extends CoreController<SysPermissions> {
      */
     @GetMapping("queryById")
     @Operation(operationId = "根据ID查询数据", summary = "根据ID查询数据")
-    @SaCheckPermission(type = "system:sys_permissions:queryById")
+    @SaCheckPermission(value = "system:sys_permissions:queryById")
     protected RspMsg<SysPermissions> queryById(String id, HttpServletRequest req) {
         return super.queryById(id, req);
     }
@@ -84,7 +87,7 @@ public class SysPermissionsController extends CoreController<SysPermissions> {
      */
     @Operation(summary = "批量删除")
     @DeleteMapping(value = "/deleteBatch")
-    @SaCheckPermission(type = "system:sys_permissions:deleteBatch")
+    @SaCheckPermission(value = "system:sys_permissions:deleteBatch")
     protected RspMsg<String> deleteBatch(String ids) {
         return super.deleteBatch(ids);
     }
@@ -97,7 +100,7 @@ public class SysPermissionsController extends CoreController<SysPermissions> {
      */
     @Operation(summary = "通过id删除")
     @DeleteMapping(value = "/delete")
-    @SaCheckPermission(type = "system:sys_permissions:delete")
+    @SaCheckPermission(value = "system:sys_permissions:delete")
     protected RspMsg<String> delete(String id) {
         return super.delete(id);
     }
@@ -111,7 +114,7 @@ public class SysPermissionsController extends CoreController<SysPermissions> {
      */
     @Operation(operationId = "单行编辑", summary = "单行编辑")
     @RequestMapping(value = "/edit", method = {RequestMethod.PUT, RequestMethod.POST})
-    @SaCheckPermission(type = "system:sys_permissions:edit")
+    @SaCheckPermission(value = "system:sys_permissions:edit")
     protected RspMsg<String> edit(SysPermissions entity, HttpServletRequest req) {
         return super.edit(entity, req);
     }
@@ -125,7 +128,7 @@ public class SysPermissionsController extends CoreController<SysPermissions> {
      */
     @Operation(summary = "单行新增")
     @RequestMapping(value = "/add", method = {RequestMethod.PUT, RequestMethod.POST})
-    @SaCheckPermission(type = "system:sys_permissions:add")
+    @SaCheckPermission(value = "system:sys_permissions:add")
     protected RspMsg<String> add(SysPermissions entity, HttpServletRequest req) {
         return super.add(entity, req);
     }
@@ -139,7 +142,7 @@ public class SysPermissionsController extends CoreController<SysPermissions> {
      */
     @Operation(summary = "批量新增")
     @RequestMapping(value = "/addBatch", method = {RequestMethod.PUT, RequestMethod.POST})
-    @SaCheckPermission(type = "system:sys_permissions:addBatch")
+    @SaCheckPermission(value = "system:sys_permissions:addBatch")
     protected RspMsg<String> addBatch(List<SysPermissions> entity, HttpServletRequest req) {
         return super.addBatch(entity, req);
     }

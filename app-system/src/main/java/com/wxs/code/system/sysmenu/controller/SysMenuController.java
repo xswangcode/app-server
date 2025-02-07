@@ -41,7 +41,7 @@ public class SysMenuController extends CoreController<SysMenu> {
      */
     @GetMapping("list")
     @Operation(summary = "获取列表")
-    @SaCheckPermission(type = "system:sys_menu:list")
+    @SaCheckPermission(value = "system:sys_menu:list")
     protected RspMsg<List<SysMenu>> list(SysMenu entity, HttpServletRequest req) {
         return super.list(entity, req);
     }
@@ -57,8 +57,11 @@ public class SysMenuController extends CoreController<SysMenu> {
      */
     @GetMapping("pagelist")
     @Operation(summary = "获取分页列表")
-    @SaCheckPermission(type = "system:sys_menu:queryPageList")
-    protected RspMsg<IPage<SysMenu>> queryPageList(SysMenu entity, Integer pageNo, Integer pageSize, HttpServletRequest req) {
+    @SaCheckPermission(value = "system:sys_menu:queryPageList")
+    protected RspMsg<IPage<SysMenu>> queryPageList(SysMenu entity,
+                                                   @RequestParam(required = false, defaultValue = "1") Integer pageNo,
+                                                   @RequestParam(required = false, defaultValue = "10") Integer pageSize,
+                                                   HttpServletRequest req) {
         return super.queryPageList(entity, pageNo, pageSize, req);
     }
 
@@ -71,7 +74,7 @@ public class SysMenuController extends CoreController<SysMenu> {
      */
     @GetMapping("queryById")
     @Operation(operationId = "根据ID查询数据", summary = "根据ID查询数据")
-    @SaCheckPermission(type = "system:sys_menu:queryById")
+    @SaCheckPermission(value = "system:sys_menu:queryById")
     protected RspMsg<SysMenu> queryById(String id, HttpServletRequest req) {
         return super.queryById(id, req);
     }
@@ -85,7 +88,7 @@ public class SysMenuController extends CoreController<SysMenu> {
      */
     @Operation(summary = "批量删除")
     @DeleteMapping(value = "/deleteBatch")
-    @SaCheckPermission(type = "system:sys_menu:deleteBatch")
+    @SaCheckPermission(value = "system:sys_menu:deleteBatch")
     protected RspMsg<String> deleteBatch(String ids) {
         return super.deleteBatch(ids);
     }
@@ -98,7 +101,7 @@ public class SysMenuController extends CoreController<SysMenu> {
      */
     @Operation(summary = "通过id删除")
     @DeleteMapping(value = "/delete")
-    @SaCheckPermission(type = "system:sys_menu:delete")
+    @SaCheckPermission(value = "system:sys_menu:delete")
     protected RspMsg<String> delete(String id) {
         return super.delete(id);
     }
@@ -112,7 +115,7 @@ public class SysMenuController extends CoreController<SysMenu> {
      */
     @Operation(operationId = "单行编辑", summary = "单行编辑")
     @RequestMapping(value = "/edit", method = {RequestMethod.PUT, RequestMethod.POST})
-    @SaCheckPermission(type = "system:sys_menu:edit")
+    @SaCheckPermission(value = "system:sys_menu:edit")
     protected RspMsg<String> edit(SysMenu entity, HttpServletRequest req) {
         return super.edit(entity, req);
     }
@@ -126,7 +129,7 @@ public class SysMenuController extends CoreController<SysMenu> {
      */
     @Operation(summary = "单行新增")
     @RequestMapping(value = "/add", method = {RequestMethod.PUT, RequestMethod.POST})
-    @SaCheckPermission(type = "system:sys_menu:add")
+    @SaCheckPermission(value = "system:sys_menu:add")
     protected RspMsg<String> add(SysMenu entity, HttpServletRequest req) {
         return super.add(entity, req);
     }
@@ -140,7 +143,7 @@ public class SysMenuController extends CoreController<SysMenu> {
      */
     @Operation(summary = "批量新增")
     @RequestMapping(value = "/addBatch", method = {RequestMethod.PUT, RequestMethod.POST})
-    @SaCheckPermission(type = "system:sys_menu:addBatch")
+    @SaCheckPermission(value = "system:sys_menu:addBatch")
     protected RspMsg<String> addBatch(List<SysMenu> entity, HttpServletRequest req) {
         return super.addBatch(entity, req);
     }

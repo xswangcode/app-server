@@ -41,7 +41,7 @@ public class SysLogController extends CoreController<SysLog> {
      */
     @GetMapping("list")
     @Operation(summary = "获取列表")
-    @SaCheckPermission(type = "system:sys_log:list")
+    @SaCheckPermission(value = "system:sys_log:list")
     protected RspMsg<List<SysLog>> list(SysLog entity, HttpServletRequest req) {
         return super.list(entity, req);
     }
@@ -57,8 +57,11 @@ public class SysLogController extends CoreController<SysLog> {
      */
     @GetMapping("pagelist")
     @Operation(summary = "获取分页列表")
-    @SaCheckPermission(type = "system:sys_log:queryPageList")
-    protected RspMsg<IPage<SysLog>> queryPageList(SysLog entity, Integer pageNo, Integer pageSize, HttpServletRequest req) {
+    @SaCheckPermission(value = "system:sys_log:queryPageList")
+    protected RspMsg<IPage<SysLog>> queryPageList(SysLog entity,
+                                                  @RequestParam(required = false, defaultValue = "1") Integer pageNo,
+                                                  @RequestParam(required = false, defaultValue = "10") Integer pageSize,
+                                                  HttpServletRequest req) {
         return super.queryPageList(entity, pageNo, pageSize, req);
     }
 
@@ -71,7 +74,7 @@ public class SysLogController extends CoreController<SysLog> {
      */
     @GetMapping("queryById")
     @Operation(operationId = "根据ID查询数据", summary = "根据ID查询数据")
-    @SaCheckPermission(type = "system:sys_log:queryById")
+    @SaCheckPermission(value = "system:sys_log:queryById")
     protected RspMsg<SysLog> queryById(String id, HttpServletRequest req) {
         return super.queryById(id, req);
     }
@@ -85,7 +88,7 @@ public class SysLogController extends CoreController<SysLog> {
      */
     @Operation(summary = "批量删除")
     @DeleteMapping(value = "/deleteBatch")
-    @SaCheckPermission(type = "system:sys_log:deleteBatch")
+    @SaCheckPermission(value = "system:sys_log:deleteBatch")
     protected RspMsg<String> deleteBatch(String ids) {
         return super.deleteBatch(ids);
     }
@@ -98,7 +101,7 @@ public class SysLogController extends CoreController<SysLog> {
      */
     @Operation(summary = "通过id删除")
     @DeleteMapping(value = "/delete")
-    @SaCheckPermission(type = "system:sys_log:delete")
+    @SaCheckPermission(value = "system:sys_log:delete")
     protected RspMsg<String> delete(String id) {
         return super.delete(id);
     }
@@ -112,7 +115,7 @@ public class SysLogController extends CoreController<SysLog> {
      */
     @Operation(operationId = "单行编辑", summary = "单行编辑")
     @RequestMapping(value = "/edit", method = {RequestMethod.PUT, RequestMethod.POST})
-    @SaCheckPermission(type = "system:sys_log:edit")
+    @SaCheckPermission(value = "system:sys_log:edit")
     protected RspMsg<String> edit(SysLog entity, HttpServletRequest req) {
         return super.edit(entity, req);
     }
@@ -126,7 +129,7 @@ public class SysLogController extends CoreController<SysLog> {
      */
     @Operation(summary = "单行新增")
     @RequestMapping(value = "/add", method = {RequestMethod.PUT, RequestMethod.POST})
-    @SaCheckPermission(type = "system:sys_log:add")
+    @SaCheckPermission(value = "system:sys_log:add")
     protected RspMsg<String> add(SysLog entity, HttpServletRequest req) {
         return super.add(entity, req);
     }
@@ -140,7 +143,7 @@ public class SysLogController extends CoreController<SysLog> {
      */
     @Operation(summary = "批量新增")
     @RequestMapping(value = "/addBatch", method = {RequestMethod.PUT, RequestMethod.POST})
-    @SaCheckPermission(type = "system:sys_log:addBatch")
+    @SaCheckPermission(value = "system:sys_log:addBatch")
     protected RspMsg<String> addBatch(List<SysLog> entity, HttpServletRequest req) {
         return super.addBatch(entity, req);
     }

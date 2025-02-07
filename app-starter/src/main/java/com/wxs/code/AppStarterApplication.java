@@ -44,6 +44,9 @@ public class AppStarterApplication {
                 InetAddress.getLocalHost().getHostAddress(),
                 env.getProperty("server.port"));
 
+        for (String beanDefinitionName : ctx.getBeanDefinitionNames()) {
+            log.info(beanDefinitionName);
+        }
 
     }
 
