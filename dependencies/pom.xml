@@ -125,6 +125,7 @@
 
         <quartz.version>2.3.0</quartz.version>
         <satoken.version>1.39.0</satoken.version>
+        <commons-pool2.version>2.12.0</commons-pool2.version>
 
         <!--以下为特殊处理, 统一版本处理漏洞等-->
         <commons-text.version>1.10.0</commons-text.version>
@@ -266,6 +267,20 @@
                 <artifactId>redisson-spring-boot-starter</artifactId>
                 <version>${redisson.version}</version>
             </dependency>
+            <!-- Sa-Token 整合 Redis （使用 jackson 序列化方式） -->
+            <dependency>
+                <groupId>cn.dev33</groupId>
+                <artifactId>sa-token-redis-jackson</artifactId>
+                <version>${satoken.version}</version>
+            </dependency>
+            <!-- 提供Redis连接池 -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-pool2</artifactId>
+                <version>${commons-pool2.version}</version>
+            </dependency>
+
+
             <dependency>
                 <groupId>com.jfinal</groupId>
                 <artifactId>jfinal</artifactId>

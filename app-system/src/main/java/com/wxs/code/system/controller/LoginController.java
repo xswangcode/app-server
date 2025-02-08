@@ -61,9 +61,10 @@ public class LoginController {
     }
 
     @Operation(summary = "登出系统账户")
-    @RequestMapping("logout")
+    @PostMapping("logout")
     public RspMsg logout() {
         StpUtil.logout();
+        StpUtil.getTokenLastActiveTime();
         return RspMsg.ok();
     }
 

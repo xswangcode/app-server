@@ -3,7 +3,7 @@
  *
  *  @author: xswang
  *  @email: wxs_code@126.com
- *  @version: 1.0
+ *  @version: 1.1
  *  @last update: 2024/12/16 下午3:27
  *  @date: 2024-12-17 15:26
  *
@@ -22,17 +22,12 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.util.Objects;
 
-
 public class SystemUtil {
 
-    private static ISysUserService userSvc;
-
     public static ISysUserService getUserSvc() {
-        synchronized (SystemUtil.class) {
-            if (userSvc == null)
-                userSvc = SpringUtils.get(ISysUserService.class);
-            if (userSvc == null)
-                throw new SystemException("未找到用户服务");
+        ISysUserService userSvc = UserSvcHolder.INSTANCE;
+        if (userSvc == null) {
+            throw new SystemException("未找到用户服务");
         }
         return userSvc;
     }
@@ -40,7 +35,15 @@ public class SystemUtil {
     // 获取当前请求用户的信息
     public static SysUser getCurrentUser() {
         Long loginId = StpUtil.getLoginIdAsLong();
+        if (loginId == null) {
+            return null;
+        }
         return getUserSvc().getById(loginId);
+    }
+
+    public static Long getUserId() {
+        SysUser user = getCurrentUser();
+        return user != null ? user.getId() : null;
     }
 
     /**
@@ -51,19 +54,18 @@ public class SystemUtil {
         return request.getRemoteHost();
     }
 
-    public static Long getUserId() {
-        SysUser user = getCurrentUser();
-        return user.getId();
-    }
-
     public static String getUserName() {
         SysUser user = getCurrentUser();
-        return user.getName();
+        return user != null ? user.getName() : null;
     }
 
     public static String getUserEmail() {
         SysUser user = getCurrentUser();
-        return user.getEmail();
+        return user != null ? user.getEmail() : null;
+    }
+
+    private static class UserSvcHolder {
+        private static final ISysUserService INSTANCE = SpringUtils.get(ISysUserService.class);
     }
 
 }
