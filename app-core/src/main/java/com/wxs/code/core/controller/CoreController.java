@@ -40,7 +40,7 @@ public abstract class CoreController<T extends BaseEntity> extends BaseControlle
      * @param req    http请求
      * @return
      */
-    protected RspMsg<List<T>> list(@ModelAttribute T entity, HttpServletRequest req) {
+    public RspMsg<List<T>> list(@ModelAttribute T entity, HttpServletRequest req) {
         LambdaQueryWrapper<T> wrapper = Wrappers.lambdaQuery(entity);
         List<T> list = service.list(wrapper);
         return RspMsg.OK(list);
@@ -56,7 +56,7 @@ public abstract class CoreController<T extends BaseEntity> extends BaseControlle
      * @return
      */
 
-    protected RspMsg<IPage<T>> queryPageList(T entity,
+    public RspMsg<IPage<T>> queryPageList(T entity,
                                              @RequestParam(name = "pageNo", defaultValue = "1") Integer pageNo,
                                              @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize,
                                              HttpServletRequest req) {
@@ -74,7 +74,7 @@ public abstract class CoreController<T extends BaseEntity> extends BaseControlle
      * @return
      */
 
-    protected RspMsg<T> queryById(@RequestParam(name = "id") String id, HttpServletRequest req) {
+    public RspMsg<T> queryById(@RequestParam(name = "id") String id, HttpServletRequest req) {
 
         T entity = service.getById(id);
         return RspMsg.OK(entity);
@@ -87,7 +87,7 @@ public abstract class CoreController<T extends BaseEntity> extends BaseControlle
      *            eg: 1,2,3,4
      * @return
      */
-    protected RspMsg<String> deleteBatch(@RequestParam(name = "ids") String ids) {
+    public RspMsg<String> deleteBatch(@RequestParam(name = "ids") String ids) {
         service.removeByIds(Arrays.asList(ids.split(",")));
         return RspMsg.OK("批量删除成功!");
     }
@@ -98,7 +98,7 @@ public abstract class CoreController<T extends BaseEntity> extends BaseControlle
      * @param id 实例id
      * @return
      */
-    protected RspMsg<String> delete(@RequestParam(name = "id") String id) {
+    public RspMsg<String> delete(@RequestParam(name = "id") String id) {
         service.removeById(id);
         return RspMsg.OK("删除成功!");
     }
@@ -110,7 +110,7 @@ public abstract class CoreController<T extends BaseEntity> extends BaseControlle
      * @param req    http请求
      * @return
      */
-    protected RspMsg<String> edit(@RequestBody T entity,
+    public RspMsg<String> edit(@RequestBody T entity,
                                   HttpServletRequest req) {
         service.updateById(entity);
         return RspMsg.OK("编辑成功!");
@@ -123,7 +123,7 @@ public abstract class CoreController<T extends BaseEntity> extends BaseControlle
      * @param req    http请求
      * @return
      */
-    protected RspMsg<String> add(@RequestBody T entity,
+    public RspMsg<String> add(@RequestBody T entity,
                                  HttpServletRequest req) {
         service.save(entity);
         return RspMsg.OK("新增成功!");
@@ -136,7 +136,7 @@ public abstract class CoreController<T extends BaseEntity> extends BaseControlle
      * @param req
      * @return
      */
-    protected RspMsg<String> addBatch(@RequestBody List<T> entity,
+    public RspMsg<String> addBatch(@RequestBody List<T> entity,
                                       HttpServletRequest req) {
         service.saveBatch(entity);
         return RspMsg.OK("批量新增成功!");

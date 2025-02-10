@@ -84,7 +84,9 @@ public class AutoLogAOP {
     private void process(AutoLog autoLog, LogConstant.LogLeval paramsLeval, String params, String response, Long spendTime) {
         SysUser user = SystemUtil.getCurrentUser();
         String ip = SystemUtil.getIpAddr();
+        String requestPath = SystemUtil.getRequestPath();
         SysLog syslog = SysLog.builder().logLevel(paramsLeval).type(autoLog.type()).params(params).response(response).spendTime(spendTime)
+                .path(requestPath)
                 .timespan(LocalDateTime.now()).createBy(user.getName()).createById(user.getId()).clientIp(ip).build();
         if (autoLog.value()) {
             logSvc.save(syslog);

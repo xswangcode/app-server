@@ -54,6 +54,14 @@ public class SystemUtil {
         return request.getRemoteHost();
     }
 
+    /**
+     * 获取当次请求的接口地址
+     */
+    public static String getRequestPath() {
+        HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
+        return request.getQueryString() != null ? request.getRequestURL() + "?" + request.getQueryString() : request.getRequestURL().toString();
+    }
+
     public static String getUserName() {
         SysUser user = getCurrentUser();
         return user != null ? user.getName() : null;

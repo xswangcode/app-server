@@ -38,13 +38,13 @@ public class TaskConfigController extends CoreController<TaskConfig> {
     @Override
     @Deprecated
     @Transactional(rollbackFor = Exception.class)
-    protected RspMsg<String> deleteBatch(String ids) {
+    public RspMsg<String> deleteBatch(String ids) {
         return RspMsg.deprecated();
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    protected RspMsg<String> delete(String id) {
+    public RspMsg<String> delete(String id) {
         TaskConfig byId = service.getById(id);
         scheduleService.stop(byId);
         return super.delete(id);
@@ -52,7 +52,7 @@ public class TaskConfigController extends CoreController<TaskConfig> {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    protected RspMsg<String> edit(TaskConfig dto, HttpServletRequest req) {
+    public RspMsg<String> edit(TaskConfig dto, HttpServletRequest req) {
         TaskConfig old = service.getById(dto.getId());
         scheduleService.stop(old);
         super.edit(dto, req);
@@ -63,7 +63,7 @@ public class TaskConfigController extends CoreController<TaskConfig> {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    protected RspMsg<String> add(TaskConfig dto, HttpServletRequest req) {
+    public RspMsg<String> add(TaskConfig dto, HttpServletRequest req) {
         super.add(dto, req);
         dto = service.getById(dto.getId());
         scheduleService.start(dto);
@@ -73,8 +73,8 @@ public class TaskConfigController extends CoreController<TaskConfig> {
     @Override
     @Transactional(rollbackFor = Exception.class)
     @Deprecated
-    protected RspMsg<String> addBatch(@RequestBody List<TaskConfig> dto, HttpServletRequest req) {
-        return RspMsg.deprecated();
+    public RspMsg<String> addBatch(@RequestBody List<TaskConfig> dto, HttpServletRequest req) {
+        return deleteBatch(null);
     }
 
 }

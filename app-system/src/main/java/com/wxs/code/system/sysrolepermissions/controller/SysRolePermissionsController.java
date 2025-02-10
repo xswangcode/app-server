@@ -41,7 +41,7 @@ public class SysRolePermissionsController extends CoreController<SysRolePermissi
     @GetMapping("list")
     @Operation(summary = "获取列表")
     @SaCheckPermission(value = "system:sys_role_permissions:list")
-    protected RspMsg<List<SysRolePermissions>> list(SysRolePermissions entity, HttpServletRequest req) {
+    public RspMsg<List<SysRolePermissions>> list(SysRolePermissions entity, HttpServletRequest req) {
         return super.list(entity, req);
     }
 
@@ -57,7 +57,7 @@ public class SysRolePermissionsController extends CoreController<SysRolePermissi
     @GetMapping("pagelist")
     @Operation(summary = "获取分页列表")
     @SaCheckPermission(value = "system:sys_role_permissions:queryPageList")
-    protected RspMsg<IPage<SysRolePermissions>> queryPageList(SysRolePermissions entity,
+    public RspMsg<IPage<SysRolePermissions>> queryPageList(SysRolePermissions entity,
                                                               @RequestParam(required = false, defaultValue = "1") Integer pageNo,
                                                               @RequestParam(required = false, defaultValue = "10") Integer pageSize,
                                                               HttpServletRequest req) {
@@ -74,7 +74,7 @@ public class SysRolePermissionsController extends CoreController<SysRolePermissi
     @GetMapping("queryById")
     @Operation(operationId = "根据ID查询数据", summary = "根据ID查询数据")
     @SaCheckPermission(value = "system:sys_role_permissions:queryById")
-    protected RspMsg<SysRolePermissions> queryById(String id, HttpServletRequest req) {
+    public RspMsg<SysRolePermissions> queryById(String id, HttpServletRequest req) {
         return super.queryById(id, req);
     }
 
@@ -88,7 +88,7 @@ public class SysRolePermissionsController extends CoreController<SysRolePermissi
     @Operation(summary = "批量删除")
     @DeleteMapping(value = "/deleteBatch")
     @SaCheckPermission(value = "system:sys_role_permissions:deleteBatch")
-    protected RspMsg<String> deleteBatch(String ids) {
+    public RspMsg<String> deleteBatch(String ids) {
         return super.deleteBatch(ids);
     }
 
@@ -101,7 +101,7 @@ public class SysRolePermissionsController extends CoreController<SysRolePermissi
     @Operation(summary = "通过id删除")
     @DeleteMapping(value = "/delete")
     @SaCheckPermission(value = "system:sys_role_permissions:delete")
-    protected RspMsg<String> delete(String id) {
+    public RspMsg<String> delete(String id) {
         return super.delete(id);
     }
 
@@ -115,7 +115,7 @@ public class SysRolePermissionsController extends CoreController<SysRolePermissi
     @Operation(operationId = "单行编辑", summary = "单行编辑")
     @RequestMapping(value = "/edit", method = {RequestMethod.PUT, RequestMethod.POST})
     @SaCheckPermission(value = "system:sys_role_permissions:edit")
-    protected RspMsg<String> edit(SysRolePermissions entity, HttpServletRequest req) {
+    public RspMsg<String> edit(SysRolePermissions entity, HttpServletRequest req) {
         return super.edit(entity, req);
     }
 
@@ -129,7 +129,7 @@ public class SysRolePermissionsController extends CoreController<SysRolePermissi
     @Operation(summary = "单行新增")
     @RequestMapping(value = "/add", method = {RequestMethod.PUT, RequestMethod.POST})
     @SaCheckPermission(value = "system:sys_role_permissions:add")
-    protected RspMsg<String> add(SysRolePermissions entity, HttpServletRequest req) {
+    public RspMsg<String> add(SysRolePermissions entity, HttpServletRequest req) {
         return super.add(entity, req);
     }
 
@@ -143,7 +143,7 @@ public class SysRolePermissionsController extends CoreController<SysRolePermissi
     @Operation(summary = "批量新增")
     @RequestMapping(value = "/addBatch", method = {RequestMethod.PUT, RequestMethod.POST})
     @SaCheckPermission(value = "system:sys_role_permissions:addBatch")
-    protected RspMsg<String> addBatch(List<SysRolePermissions> entity, HttpServletRequest req) {
+    public RspMsg<String> addBatch(List<SysRolePermissions> entity, HttpServletRequest req) {
         return super.addBatch(entity, req);
     }
 

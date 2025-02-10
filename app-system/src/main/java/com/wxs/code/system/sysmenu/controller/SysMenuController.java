@@ -20,6 +20,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.models.annotations.OpenAPI30;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -42,7 +43,7 @@ public class SysMenuController extends CoreController<SysMenu> {
     @GetMapping("list")
     @Operation(summary = "获取列表")
     @SaCheckPermission(value = "system:sys_menu:list")
-    protected RspMsg<List<SysMenu>> list(SysMenu entity, HttpServletRequest req) {
+    public RspMsg<List<SysMenu>> list(SysMenu entity, HttpServletRequest req) {
         return super.list(entity, req);
     }
 
@@ -58,7 +59,8 @@ public class SysMenuController extends CoreController<SysMenu> {
     @GetMapping("pagelist")
     @Operation(summary = "获取分页列表")
     @SaCheckPermission(value = "system:sys_menu:queryPageList")
-    protected RspMsg<IPage<SysMenu>> queryPageList(SysMenu entity,
+    @Cacheable(value = "sys_menu", key = "#entity.toString()+':'+#pageNo+':'+#pageSize", unless = "#result.getResult().getTotal() <= 0")
+    public RspMsg<IPage<SysMenu>> queryPageList(SysMenu entity,
                                                    @RequestParam(required = false, defaultValue = "1") Integer pageNo,
                                                    @RequestParam(required = false, defaultValue = "10") Integer pageSize,
                                                    HttpServletRequest req) {
@@ -75,7 +77,7 @@ public class SysMenuController extends CoreController<SysMenu> {
     @GetMapping("queryById")
     @Operation(operationId = "根据ID查询数据", summary = "根据ID查询数据")
     @SaCheckPermission(value = "system:sys_menu:queryById")
-    protected RspMsg<SysMenu> queryById(String id, HttpServletRequest req) {
+    public RspMsg<SysMenu> queryById(String id, HttpServletRequest req) {
         return super.queryById(id, req);
     }
 
@@ -89,7 +91,7 @@ public class SysMenuController extends CoreController<SysMenu> {
     @Operation(summary = "批量删除")
     @DeleteMapping(value = "/deleteBatch")
     @SaCheckPermission(value = "system:sys_menu:deleteBatch")
-    protected RspMsg<String> deleteBatch(String ids) {
+    public RspMsg<String> deleteBatch(String ids) {
         return super.deleteBatch(ids);
     }
 
@@ -102,7 +104,7 @@ public class SysMenuController extends CoreController<SysMenu> {
     @Operation(summary = "通过id删除")
     @DeleteMapping(value = "/delete")
     @SaCheckPermission(value = "system:sys_menu:delete")
-    protected RspMsg<String> delete(String id) {
+    public RspMsg<String> delete(String id) {
         return super.delete(id);
     }
 
@@ -116,7 +118,7 @@ public class SysMenuController extends CoreController<SysMenu> {
     @Operation(operationId = "单行编辑", summary = "单行编辑")
     @RequestMapping(value = "/edit", method = {RequestMethod.PUT, RequestMethod.POST})
     @SaCheckPermission(value = "system:sys_menu:edit")
-    protected RspMsg<String> edit(SysMenu entity, HttpServletRequest req) {
+    public RspMsg<String> edit(SysMenu entity, HttpServletRequest req) {
         return super.edit(entity, req);
     }
 
@@ -130,7 +132,7 @@ public class SysMenuController extends CoreController<SysMenu> {
     @Operation(summary = "单行新增")
     @RequestMapping(value = "/add", method = {RequestMethod.PUT, RequestMethod.POST})
     @SaCheckPermission(value = "system:sys_menu:add")
-    protected RspMsg<String> add(SysMenu entity, HttpServletRequest req) {
+    public RspMsg<String> add(SysMenu entity, HttpServletRequest req) {
         return super.add(entity, req);
     }
 
@@ -144,7 +146,7 @@ public class SysMenuController extends CoreController<SysMenu> {
     @Operation(summary = "批量新增")
     @RequestMapping(value = "/addBatch", method = {RequestMethod.PUT, RequestMethod.POST})
     @SaCheckPermission(value = "system:sys_menu:addBatch")
-    protected RspMsg<String> addBatch(List<SysMenu> entity, HttpServletRequest req) {
+    public RspMsg<String> addBatch(List<SysMenu> entity, HttpServletRequest req) {
         return super.addBatch(entity, req);
     }
 

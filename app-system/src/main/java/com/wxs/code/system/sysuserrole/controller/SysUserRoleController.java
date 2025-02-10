@@ -41,7 +41,7 @@ public class SysUserRoleController extends CoreController<SysUserRole> {
     @GetMapping("list")
     @Operation(summary = "获取列表")
     @SaCheckPermission(value = "system:sys_user_role:list")
-    protected RspMsg<List<SysUserRole>> list(SysUserRole entity, HttpServletRequest req) {
+    public RspMsg<List<SysUserRole>> list(SysUserRole entity, HttpServletRequest req) {
         return super.list(entity, req);
     }
 
@@ -57,7 +57,7 @@ public class SysUserRoleController extends CoreController<SysUserRole> {
     @GetMapping("pagelist")
     @Operation(summary = "获取分页列表")
     @SaCheckPermission(value = "system:sys_user_role:queryPageList")
-    protected RspMsg<IPage<SysUserRole>> queryPageList(SysUserRole entity,
+    public RspMsg<IPage<SysUserRole>> queryPageList(SysUserRole entity,
                                                        @RequestParam(required = false, defaultValue = "1") Integer pageNo,
                                                        @RequestParam(required = false, defaultValue = "10") Integer pageSize,
                                                        HttpServletRequest req) {
@@ -74,7 +74,7 @@ public class SysUserRoleController extends CoreController<SysUserRole> {
     @GetMapping("queryById")
     @Operation(operationId = "根据ID查询数据", summary = "根据ID查询数据")
     @SaCheckPermission(value = "system:sys_user_role:queryById")
-    protected RspMsg<SysUserRole> queryById(String id, HttpServletRequest req) {
+    public RspMsg<SysUserRole> queryById(String id, HttpServletRequest req) {
         return super.queryById(id, req);
     }
 
@@ -88,7 +88,7 @@ public class SysUserRoleController extends CoreController<SysUserRole> {
     @Operation(summary = "批量删除")
     @DeleteMapping(value = "/deleteBatch")
     @SaCheckPermission(value = "system:sys_user_role:deleteBatch")
-    protected RspMsg<String> deleteBatch(String ids) {
+    public RspMsg<String> deleteBatch(String ids) {
         return super.deleteBatch(ids);
     }
 
@@ -101,7 +101,7 @@ public class SysUserRoleController extends CoreController<SysUserRole> {
     @Operation(summary = "通过id删除")
     @DeleteMapping(value = "/delete")
     @SaCheckPermission(value = "system:sys_user_role:delete")
-    protected RspMsg<String> delete(String id) {
+    public RspMsg<String> delete(String id) {
         return super.delete(id);
     }
 
@@ -115,7 +115,7 @@ public class SysUserRoleController extends CoreController<SysUserRole> {
     @Operation(operationId = "单行编辑", summary = "单行编辑")
     @RequestMapping(value = "/edit", method = {RequestMethod.PUT, RequestMethod.POST})
     @SaCheckPermission(value = "system:sys_user_role:edit")
-    protected RspMsg<String> edit(SysUserRole entity, HttpServletRequest req) {
+    public RspMsg<String> edit(SysUserRole entity, HttpServletRequest req) {
         return super.edit(entity, req);
     }
 
@@ -129,7 +129,7 @@ public class SysUserRoleController extends CoreController<SysUserRole> {
     @Operation(summary = "单行新增")
     @RequestMapping(value = "/add", method = {RequestMethod.PUT, RequestMethod.POST})
     @SaCheckPermission(value = "system:sys_user_role:add")
-    protected RspMsg<String> add(SysUserRole entity, HttpServletRequest req) {
+    public RspMsg<String> add(SysUserRole entity, HttpServletRequest req) {
         return super.add(entity, req);
     }
 
@@ -143,7 +143,7 @@ public class SysUserRoleController extends CoreController<SysUserRole> {
     @Operation(summary = "批量新增")
     @RequestMapping(value = "/addBatch", method = {RequestMethod.PUT, RequestMethod.POST})
     @SaCheckPermission(value = "system:sys_user_role:addBatch")
-    protected RspMsg<String> addBatch(List<SysUserRole> entity, HttpServletRequest req) {
+    public RspMsg<String> addBatch(List<SysUserRole> entity, HttpServletRequest req) {
         return super.addBatch(entity, req);
     }
 

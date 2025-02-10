@@ -40,6 +40,9 @@ public class SysLog extends BaseEntity {
         @Schema(name = "clientIp", description = "客户端地址")
         private String clientIp;
 
+        @Schema(name = "path", description = "接口地址")
+        private String path;
+
         @Schema(name = "type", description = "日志类型")
         private LogConstant.LogType type;
 

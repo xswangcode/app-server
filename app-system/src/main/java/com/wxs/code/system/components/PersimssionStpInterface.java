@@ -13,6 +13,7 @@ package com.wxs.code.system.components;
 
 
 import cn.dev33.satoken.stp.StpInterface;
+import com.wxs.code.constant.RedisConstants;
 import com.wxs.code.core.utils.ConfigUtil;
 import com.wxs.code.system.syspermissions.entity.SysPermissions;
 import com.wxs.code.system.syspermissions.service.ISysPermissionsService;
@@ -23,6 +24,7 @@ import com.wxs.code.system.sysrolepermissions.service.ISysRolePermissionsService
 import com.wxs.code.system.sysuserrole.entity.SysUserRole;
 import com.wxs.code.system.sysuserrole.service.ISysUserRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
 import java.util.Collections;
@@ -49,6 +51,7 @@ public class PersimssionStpInterface implements StpInterface {
     private ISysRolePermissionsService rolePermissionsSvc;
 
     @Override
+    @Cacheable(value = RedisConstants.GET_PERMISSION_LIST_KEY, key = "#loginId + ':' + #loginType")
     public List<String> getPermissionList(Object loginId, String loginType) {
         if (ConfigUtil.appConfig().getDebug().getEnable())
             return List.of("*");
@@ -63,6 +66,7 @@ public class PersimssionStpInterface implements StpInterface {
     }
 
     @Override
+    @Cacheable(value = RedisConstants.GET_ROLE_LIST_KEY, key = "#loginId + ':' + #loginType")
     public List<String> getRoleList(Object loginId, String loginType) {
         if (ConfigUtil.appConfig().getDebug().getEnable())
             return List.of("*");
@@ -72,7 +76,6 @@ public class PersimssionStpInterface implements StpInterface {
             return Collections.emptyList();
         }
         List<SysRole> roles = roleSvc.getByIds(userRoles.stream().map(SysUserRole::getRoleId).toList());
-
         List<String> roleCodes = roles.stream().map(SysRole::getRoleCode).collect(Collectors.toList());
 
         return roleCodes;
