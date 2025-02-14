@@ -20,6 +20,7 @@ import com.wxs.code.core.entity.BaseEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
@@ -29,6 +30,7 @@ import java.time.LocalDateTime;
 @ToString
 @Builder
 @TableName("sys_log")
+@EqualsAndHashCode(callSuper = false)
 @Schema(description = "系统日志表")
 public class SysLog extends BaseEntity {
 

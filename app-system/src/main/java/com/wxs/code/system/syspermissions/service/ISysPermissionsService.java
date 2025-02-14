@@ -310,6 +310,7 @@ public interface ISysPermissionsService extends IService<SysPermissions> {
      * @param updateWrapper
      */
     @Override
+    @Deprecated
     @CacheEvict(value = {RedisConstants.GET_PERMISSION_LIST_KEY, RedisConstants.GET_ROLE_LIST_KEY}, key = "#StpUtil.getLoginId() + ':' + #StpUtil.getLoginType()")
     default boolean saveOrUpdate(SysPermissions entity, Wrapper<SysPermissions> updateWrapper) {
         return IService.super.saveOrUpdate(entity, updateWrapper);

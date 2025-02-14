@@ -17,12 +17,14 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.wxs.code.core.entity.BaseEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 
 @Data
 @ToString
 @TableName("sys_user_role")
+@EqualsAndHashCode(callSuper = false)
 @Schema(description = "系统用户角色表")
 public class SysUserRole extends BaseEntity {
 

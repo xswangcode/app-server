@@ -14,9 +14,11 @@ package com.wxs.code.generate.entity.DTO.DB;
 
 import com.wxs.code.core.entity.BaseEntity;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 
 @Data
+@EqualsAndHashCode(callSuper = false)
 public class TableField extends BaseEntity {
     String field;
     String type;

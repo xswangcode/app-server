@@ -18,6 +18,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.wxs.code.core.entity.BaseEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
@@ -26,6 +27,7 @@ import java.time.LocalDateTime;
 @Data
 @ToString
 @TableName("sys_permissions")
+@EqualsAndHashCode(callSuper = false)
 @Schema(description = "系统权限表")
 public class SysPermissions extends BaseEntity {
 

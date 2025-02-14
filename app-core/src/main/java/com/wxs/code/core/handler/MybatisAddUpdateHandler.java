@@ -13,6 +13,7 @@ package com.wxs.code.core.handler;
 
 import cn.dev33.satoken.stp.StpUtil;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
+import com.wxs.code.core.constant.CoreConstants;
 import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.stereotype.Component;
 
@@ -49,10 +50,10 @@ public class MybatisAddUpdateHandler implements MetaObjectHandler {
             metaObject.setValue(UPDATE_BY_ID, StpUtil.getLoginId());
         // 校验是否有创建人字段
         if(metaObject.hasSetter(CREATE_BY))
-            metaObject.setValue(CREATE_BY, StpUtil.getSession().get("username"));
+            metaObject.setValue(CREATE_BY, StpUtil.getSession().get(CoreConstants.USER_EXTRA_USERNAME));
         // 校验是否有更新人字段
         if(metaObject.hasSetter(UPDATE_BY))
-            metaObject.setValue(UPDATE_BY, StpUtil.getSession().get("username"));
+            metaObject.setValue(UPDATE_BY, StpUtil.getSession().get(CoreConstants.USER_EXTRA_USERNAME));
     }
 
     @Override
@@ -65,6 +66,6 @@ public class MybatisAddUpdateHandler implements MetaObjectHandler {
             metaObject.setValue(UPDATE_BY_ID, StpUtil.getLoginId());
         // 校验是否有更新人字段
         if(metaObject.hasSetter(UPDATE_BY))
-            metaObject.setValue(UPDATE_BY, StpUtil.getSession().get("username"));
+            metaObject.setValue(UPDATE_BY, StpUtil.getSession().get(CoreConstants.USER_EXTRA_USERNAME));
     }
 }

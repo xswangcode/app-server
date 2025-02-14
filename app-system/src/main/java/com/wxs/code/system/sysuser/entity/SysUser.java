@@ -19,6 +19,7 @@ import com.wxs.code.core.entity.BaseEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
@@ -28,6 +29,7 @@ import java.time.LocalDateTime;
 @ToString
 @TableName("sys_user")
 @Builder
+@EqualsAndHashCode(callSuper = false)
 @Schema(description = "系统用户表")
 public class SysUser extends BaseEntity {
 

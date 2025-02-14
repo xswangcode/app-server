@@ -17,12 +17,14 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.wxs.code.core.entity.BaseEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 
 @Data
 @ToString
 @TableName("sys_role_permissions")
+@EqualsAndHashCode(callSuper = false)
 @Schema(description = "系统角色权限表")
 public class SysRolePermissions extends BaseEntity {
 
