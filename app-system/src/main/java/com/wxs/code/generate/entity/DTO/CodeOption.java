@@ -28,7 +28,7 @@ public class CodeOption {
     @Schema(name = "table", description = "表名,eg: task_config", defaultValue = "task_config")
     String table; // 表名
     //自动通过表名转换，不需要传入
-    @Schema(name = "moduleName", description = "模块名，自动通过表名转换，不需要传入,eg: TaskConfig")
+    @Schema(name = "moduleName", description = "模块名，自动通过表名转换，不需要传入")
     String moduleName; // 模块名
     @Schema(name = "packageName", description = "包名,eg: com.wxs.code", defaultValue = "com.wxs.code")
     String packageName; // 包名
@@ -45,7 +45,8 @@ public class CodeOption {
     String version = "1.0"; // 版本号
     @Schema(name = "remark", description = "备注,eg: 模块描述")
     String remark; // 模块描述
-    @Builder.Default
+
     Date time = new Date(); // 默认当前时间
+
     EntityOption entityOption;
 }
