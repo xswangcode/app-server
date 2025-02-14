@@ -20,5 +20,7 @@ package com.wxs.code.constant;
 public class RedisConstants {
     public final static String GET_PERMISSION_LIST_KEY = "PERMISSIONS";
     public final static String GET_ROLE_LIST_KEY = "ROLES";
+    public final static String GET_SYS_DICT_KEY = "SYS_DICT";
+    public final static String GET_SYS_DICT_ITEM_KEY = "SYS_DICT_ITEM";
 
 }

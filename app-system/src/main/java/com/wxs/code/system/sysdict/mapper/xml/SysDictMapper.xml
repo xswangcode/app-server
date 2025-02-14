@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~  @description: SysDictMapper.xml
+  ~
+  ~  @author:  xswang
+  ~  @email: wxs_code@126.com
+  ~  @version: 1.0
+  ~  @last update: 2025-02-14 15:58:29
+  ~  @date: 2025-02-14 15:58:29
+  ~
+  -->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxs.code.system.sysdict.mapper.SysDictMapper">
+
+</mapper>
