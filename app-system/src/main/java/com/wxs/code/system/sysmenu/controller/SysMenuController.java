@@ -20,7 +20,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.models.annotations.OpenAPI30;
 import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -59,7 +58,6 @@ public class SysMenuController extends CoreController<SysMenu> {
     @GetMapping("pagelist")
     @Operation(summary = "获取分页列表")
     @SaCheckPermission(value = "system:sys_menu:queryPageList")
-    @Cacheable(value = "sys_menu", key = "#entity.toString()+':'+#pageNo+':'+#pageSize", unless = "#result.getResult().getTotal() <= 0")
     public RspMsg<IPage<SysMenu>> queryPageList(SysMenu entity,
                                                    @RequestParam(required = false, defaultValue = "1") Integer pageNo,
                                                    @RequestParam(required = false, defaultValue = "10") Integer pageSize,

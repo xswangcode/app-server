@@ -10,6 +10,11 @@ app:
   debug:
     enable: false # 开启调试模式
 
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password: band@redis123
+    database: 3
 
 
 
@@ -25,15 +30,18 @@ spring:
     username: bandlink
     password: band@123
     driver-class-name: com.mysql.cj.jdbc.Driver
-  data:
-    redis:
-      host: ${app.server.host}
-      port: 6379
-      password: band@redis123
-      timeout: 5s  # /读超时
-      connect-timeout: 5s # 连接超时
-      database: 3
-
+  redis:
+    redisson:
+      config: |
+        singleServerConfig:  # https://redisson.org/docs/configuration/#single-yaml-config-format
+            password: ${app.redis.password}  # Redis 服务器密码，如果不需要密码则设置为 null
+            clientName: APP_REDIS_SERVER  # 客户端名称，可以为空
+            address: "redis://${app.redis.host}:${app.redis.port}"  # Redis 服务器的地址
+            subscriptionConnectionMinimumIdleSize: 1  # 订阅连接的最小空闲连接数
+            subscriptionConnectionPoolSize: 50  # 订阅连接池大小
+            connectionMinimumIdleSize: 24  # 普通连接的最小空闲连接数
+            connectionPoolSize: 64  # 普通连接池大小
+            database: ${app.redis.database}  # 使用的 Redis 数据库编号
 
 #mybatis plus 设置
 mybatis-plus:
