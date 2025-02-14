@@ -14,6 +14,7 @@
 package com.wxs.code.system.sysuser.service.Impl;
 
 
+import cn.dev33.satoken.session.SaSession;
 import cn.dev33.satoken.stp.StpUtil;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.wxs.code.core.api.VO.RspMsg;
@@ -85,6 +86,11 @@ public class SysUserServiceImpl extends BaseService<SysUser> implements ISysUser
         }
         SysUser user = userList.get(0);
         StpUtil.login(user.getId());
+        // Get the current session
+        SaSession session = StpUtil.getSession();
+
+        // Set user information in the session
+        session.set("userName", user.getName());
         return RspMsg.ok();
     }
 

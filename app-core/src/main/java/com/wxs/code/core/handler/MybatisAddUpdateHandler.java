@@ -11,6 +11,7 @@
 
 package com.wxs.code.core.handler;
 
+import cn.dev33.satoken.stp.StpUtil;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.stereotype.Component;
@@ -24,12 +25,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class MybatisAddUpdateHandler implements MetaObjectHandler {
 
-    private static final String CREATE_TIME = "createTime";
-    private static final String UPDATE_TIME = "updateTime";
-    private static final String CREATE_BY_ID = "createById";
-    private static final String UPDATE_BY_ID = "updateById";
-    private static final String CREATE_BY = "createBy";
-    private static final String UPDATE_BY = "updateBy";
+    private static final String CREATE_TIME = "create_time";
+    private static final String UPDATE_TIME = "update_time";
+    private static final String CREATE_BY_ID = "create_by_id";
+    private static final String UPDATE_BY_ID = "update_by_id";
+    private static final String CREATE_BY = "create_by";
+    private static final String UPDATE_BY = "update_by";
 
 
     @Override
@@ -42,16 +43,16 @@ public class MybatisAddUpdateHandler implements MetaObjectHandler {
             metaObject.setValue(UPDATE_TIME, System.currentTimeMillis());
         // 校验是否有创建人ID字段
         if(metaObject.hasSetter(CREATE_BY_ID))
-            metaObject.setValue(CREATE_BY_ID, "1");
+            metaObject.setValue(CREATE_BY_ID, StpUtil.getLoginId());
         // 校验是否有更新人ID字段
         if(metaObject.hasSetter(UPDATE_BY_ID))
-            metaObject.setValue(UPDATE_BY_ID, "1");
+            metaObject.setValue(UPDATE_BY_ID, StpUtil.getLoginId());
         // 校验是否有创建人字段
         if(metaObject.hasSetter(CREATE_BY))
-            metaObject.setValue(CREATE_BY, "admin");
+            metaObject.setValue(CREATE_BY, StpUtil.getSession().get("username"));
         // 校验是否有更新人字段
         if(metaObject.hasSetter(UPDATE_BY))
-            metaObject.setValue(UPDATE_BY, "admin");
+            metaObject.setValue(UPDATE_BY, StpUtil.getSession().get("username"));
     }
 
     @Override
@@ -61,9 +62,9 @@ public class MybatisAddUpdateHandler implements MetaObjectHandler {
             metaObject.setValue(UPDATE_TIME, System.currentTimeMillis());
         // 校验是否有更新人ID字段
         if(metaObject.hasSetter(UPDATE_BY_ID))
-            metaObject.setValue(UPDATE_BY_ID, "1");
+            metaObject.setValue(UPDATE_BY_ID, StpUtil.getLoginId());
         // 校验是否有更新人字段
         if(metaObject.hasSetter(UPDATE_BY))
-            metaObject.setValue(UPDATE_BY, "admin");
+            metaObject.setValue(UPDATE_BY, StpUtil.getSession().get("username"));
     }
 }
