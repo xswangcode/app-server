@@ -1,11 +1,11 @@
 /*
  *  @description: #(moduleName)Mapper.java
  *
- *  @author: xswang
- *  @email: wxs_code@126.com
- *  @version: 1.0
- *  @last update: 2024/12/17 下午3:15
- *  @date: 2024-12-17 15:26
+ *  @author:  #(author)
+ *  @email: #(email)
+ *  @version: #(version)
+ *  @last update: #date(time, "yyyy-MM-dd HH:mm:ss")
+ *  @date: #date(time, "yyyy-MM-dd HH:mm:ss")
  *
  */
 
