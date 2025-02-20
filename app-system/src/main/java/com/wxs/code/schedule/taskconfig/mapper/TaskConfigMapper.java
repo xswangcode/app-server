@@ -11,7 +11,7 @@
 
 package com.wxs.code.schedule.taskconfig.mapper;
 
-import com.wxs.code.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.wxs.code.schedule.taskconfig.entity.TaskConfig;
 import org.apache.ibatis.annotations.Mapper;
 

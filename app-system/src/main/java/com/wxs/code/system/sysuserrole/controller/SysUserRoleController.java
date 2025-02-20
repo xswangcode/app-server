@@ -16,6 +16,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.wxs.code.core.api.VO.RspMsg;
 import com.wxs.code.core.controller.CoreController;
 import com.wxs.code.system.sysuserrole.entity.SysUserRole;
+import com.wxs.code.system.sysuserrole.mapper.SysUserRoleMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.models.annotations.OpenAPI30;
@@ -28,7 +29,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/system/sysuserrole")
 @Tag(name = "系统用户角色表", description = "system模块-系统用户角色表")
-public class SysUserRoleController extends CoreController<SysUserRole> {
+public class SysUserRoleController extends CoreController<SysUserRole, SysUserRoleMapper> {
 
 
     /**

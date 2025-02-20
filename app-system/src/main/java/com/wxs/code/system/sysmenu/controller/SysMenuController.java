@@ -16,6 +16,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.wxs.code.core.api.VO.RspMsg;
 import com.wxs.code.core.controller.CoreController;
 import com.wxs.code.system.sysmenu.entity.SysMenu;
+import com.wxs.code.system.sysmenu.mapper.SysMenuMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.models.annotations.OpenAPI30;
@@ -29,7 +30,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/system/sysmenu")
 @Tag(name = "系统菜单表", description = "system模块-系统菜单表")
-public class SysMenuController extends CoreController<SysMenu> {
+public class SysMenuController extends CoreController<SysMenu, SysMenuMapper> {
 
 
     /**

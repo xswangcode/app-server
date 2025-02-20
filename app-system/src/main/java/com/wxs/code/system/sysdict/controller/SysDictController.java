@@ -14,10 +14,10 @@ package com.wxs.code.system.sysdict.controller;
 import cn.dev33.satoken.annotation.SaCheckPermission;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.wxs.code.core.api.VO.RspMsg;
-import io.swagger.v3.oas.annotations.Operation;
-import com.wxs.code.core.controller.BaseController;
 import com.wxs.code.core.controller.CoreController;
 import com.wxs.code.system.sysdict.entity.SysDict;
+import com.wxs.code.system.sysdict.mapper.SysDictMapper;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.models.annotations.OpenAPI30;
 import jakarta.servlet.http.HttpServletRequest;
@@ -29,7 +29,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/system/sysdict")
 @Tag(name = "数据字典主表", description = "system模块-数据字典主表")
-public class SysDictController extends CoreController<SysDict>{
+public class SysDictController extends CoreController<SysDict, SysDictMapper> {
 
 
     /**

@@ -16,10 +16,11 @@ package com.wxs.code.schedule.taskconfig.service.Impl;
 
 import com.wxs.code.core.service.BaseService;
 import com.wxs.code.schedule.taskconfig.entity.TaskConfig;
+import com.wxs.code.schedule.taskconfig.mapper.TaskConfigMapper;
 import com.wxs.code.schedule.taskconfig.service.ITaskConfigService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class TaskConfigServiceImpl extends BaseService<TaskConfig> implements ITaskConfigService {
+public class TaskConfigServiceImpl extends BaseService<TaskConfig, TaskConfigMapper> implements ITaskConfigService {
 
 }

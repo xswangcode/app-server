@@ -16,10 +16,11 @@ package com.wxs.code.system.sysmenu.service.Impl;
 
 import com.wxs.code.core.service.BaseService;
 import com.wxs.code.system.sysmenu.entity.SysMenu;
+import com.wxs.code.system.sysmenu.mapper.SysMenuMapper;
 import com.wxs.code.system.sysmenu.service.ISysMenuService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class SysMenuServiceImpl extends BaseService<SysMenu> implements ISysMenuService {
+public class SysMenuServiceImpl extends BaseService<SysMenu, SysMenuMapper> implements ISysMenuService {
 
 }

@@ -12,11 +12,10 @@
 package com.wxs.code.core.controller;
 
 
-import com.wxs.code.core.entity.BaseEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class BaseController<T extends BaseEntity> {
+public abstract class BaseController {
     //日志记录器
     protected static final Logger logger = LoggerFactory.getLogger(BaseController.class);
 

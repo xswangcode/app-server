@@ -11,9 +11,9 @@
 
 package com.wxs.code.core.service;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.wxs.code.core.entity.BaseEntity;
-import com.wxs.code.core.mapper.BaseMapper;
 
-public class BaseService<T extends BaseEntity> extends com.baomidou.mybatisplus.extension.service.impl.ServiceImpl<BaseMapper<T>, T>{
+public class BaseService<T extends BaseEntity, M extends BaseMapper<T>> extends com.baomidou.mybatisplus.extension.service.impl.ServiceImpl<M, T> {
 
 }

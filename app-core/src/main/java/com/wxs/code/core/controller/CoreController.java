@@ -13,6 +13,7 @@ package com.wxs.code.core.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -28,10 +29,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.Arrays;
 import java.util.List;
 
-public abstract class CoreController<T extends BaseEntity> extends BaseController {
+public abstract class CoreController<T extends BaseEntity, M extends BaseMapper<T>> extends BaseController {
 
     @Autowired
-    protected BaseService<T> service;
+    protected BaseService<T, M> service;
+
 
     /**
      * 查询接口
@@ -41,6 +43,7 @@ public abstract class CoreController<T extends BaseEntity> extends BaseControlle
      * @return
      */
     public RspMsg<List<T>> list(@ModelAttribute T entity, HttpServletRequest req) {
+
         LambdaQueryWrapper<T> wrapper = Wrappers.lambdaQuery(entity);
         List<T> list = service.list(wrapper);
         return RspMsg.OK(list);
@@ -57,9 +60,9 @@ public abstract class CoreController<T extends BaseEntity> extends BaseControlle
      */
 
     public RspMsg<IPage<T>> queryPageList(T entity,
-                                             @RequestParam(name = "pageNo", defaultValue = "1") Integer pageNo,
-                                             @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize,
-                                             HttpServletRequest req) {
+                                          @RequestParam(name = "pageNo", defaultValue = "1") Integer pageNo,
+                                          @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize,
+                                          HttpServletRequest req) {
         LambdaQueryWrapper<T> wrapper = Wrappers.lambdaQuery(entity);
         IPage<T> page = new Page<>(pageNo, pageSize);
         page = service.page(page, wrapper);
@@ -111,7 +114,7 @@ public abstract class CoreController<T extends BaseEntity> extends BaseControlle
      * @return
      */
     public RspMsg<String> edit(@RequestBody T entity,
-                                  HttpServletRequest req) {
+                               HttpServletRequest req) {
         service.updateById(entity);
         return RspMsg.OK("编辑成功!");
     }
@@ -124,7 +127,7 @@ public abstract class CoreController<T extends BaseEntity> extends BaseControlle
      * @return
      */
     public RspMsg<String> add(@RequestBody T entity,
-                                 HttpServletRequest req) {
+                              HttpServletRequest req) {
         service.save(entity);
         return RspMsg.OK("新增成功!");
     }
@@ -137,9 +140,10 @@ public abstract class CoreController<T extends BaseEntity> extends BaseControlle
      * @return
      */
     public RspMsg<String> addBatch(@RequestBody List<T> entity,
-                                      HttpServletRequest req) {
+                                   HttpServletRequest req) {
         service.saveBatch(entity);
         return RspMsg.OK("批量新增成功!");
     }
+
 
 }

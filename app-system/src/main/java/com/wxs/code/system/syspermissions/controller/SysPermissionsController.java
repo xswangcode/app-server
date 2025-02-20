@@ -17,6 +17,7 @@ import com.wxs.code.constant.RedisConstants;
 import com.wxs.code.core.api.VO.RspMsg;
 import com.wxs.code.core.controller.CoreController;
 import com.wxs.code.system.syspermissions.entity.SysPermissions;
+import com.wxs.code.system.syspermissions.mapper.SysPermissionsMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.models.annotations.OpenAPI30;
@@ -31,7 +32,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/system/syspermissions")
 @Tag(name = "系统权限表", description = "system模块-系统权限表")
-public class SysPermissionsController extends CoreController<SysPermissions> {
+public class SysPermissionsController extends CoreController<SysPermissions, SysPermissionsMapper> {
 
     /**
      * 查询接口

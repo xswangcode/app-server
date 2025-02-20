@@ -18,6 +18,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.wxs.code.constant.RedisConstants;
 import com.wxs.code.core.service.BaseService;
 import com.wxs.code.system.sysrolepermissions.entity.SysRolePermissions;
+import com.wxs.code.system.sysrolepermissions.mapper.SysRolePermissionsMapper;
 import com.wxs.code.system.sysrolepermissions.service.ISysRolePermissionsService;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
@@ -26,7 +27,7 @@ import java.io.Serializable;
 import java.util.List;
 
 @Service
-public class SysRolePermissionsServiceImpl extends BaseService<SysRolePermissions> implements ISysRolePermissionsService {
+public class SysRolePermissionsServiceImpl extends BaseService<SysRolePermissions, SysRolePermissionsMapper> implements ISysRolePermissionsService {
 
     /**
      * @param roleIds

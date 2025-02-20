@@ -22,13 +22,14 @@ import com.wxs.code.core.constant.CoreConstants;
 import com.wxs.code.core.service.BaseService;
 import com.wxs.code.system.sysuser.entity.DTO.SysUserRegisterDTO;
 import com.wxs.code.system.sysuser.entity.SysUser;
+import com.wxs.code.system.sysuser.mapper.SysUserMapper;
 import com.wxs.code.system.sysuser.service.ISysUserService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class SysUserServiceImpl extends BaseService<SysUser> implements ISysUserService {
+public class SysUserServiceImpl extends BaseService<SysUser, SysUserMapper> implements ISysUserService {
 
     @Override
     public RspMsg resetPassword(String userId, String oldPassword, String newPassword) {

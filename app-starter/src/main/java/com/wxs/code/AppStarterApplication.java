@@ -45,7 +45,7 @@ public class AppStarterApplication {
                 env.getProperty("server.port"));
 
         for (String beanDefinitionName : ctx.getBeanDefinitionNames()) {
-            log.info(beanDefinitionName);
+            log.info(ctx.getBean(beanDefinitionName).getClass().getName());
         }
 
     }

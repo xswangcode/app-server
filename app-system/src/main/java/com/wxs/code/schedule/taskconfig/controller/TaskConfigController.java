@@ -15,6 +15,7 @@ import com.wxs.code.core.api.VO.RspMsg;
 import com.wxs.code.core.controller.CoreController;
 import com.wxs.code.schedule.service.ScheduleService;
 import com.wxs.code.schedule.taskconfig.entity.TaskConfig;
+import com.wxs.code.schedule.taskconfig.mapper.TaskConfigMapper;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.models.annotations.OpenAPI30;
 import jakarta.servlet.http.HttpServletRequest;
@@ -31,7 +32,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/schedule/taskconfig")
 @Tag(name = "定时任务配置表", description = "schedule模块-定时任务配置表")
-public class TaskConfigController extends CoreController<TaskConfig> {
+public class TaskConfigController extends CoreController<TaskConfig, TaskConfigMapper> {
     @Autowired
     ScheduleService scheduleService;
 

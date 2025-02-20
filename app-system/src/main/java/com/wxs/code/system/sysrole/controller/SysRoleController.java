@@ -16,6 +16,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.wxs.code.core.api.VO.RspMsg;
 import com.wxs.code.core.controller.CoreController;
 import com.wxs.code.system.sysrole.entity.SysRole;
+import com.wxs.code.system.sysrole.mapper.SysRoleMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.models.annotations.OpenAPI30;
@@ -28,7 +29,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/system/sysrole")
 @Tag(name = "系统角色表", description = "system模块-系统角色表")
-public class SysRoleController extends CoreController<SysRole> {
+public class SysRoleController extends CoreController<SysRole, SysRoleMapper> {
 
 
     /**

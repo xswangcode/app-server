@@ -16,6 +16,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.wxs.code.core.api.VO.RspMsg;
 import com.wxs.code.core.controller.CoreController;
 import com.wxs.code.system.syslog.entity.SysLog;
+import com.wxs.code.system.syslog.mapper.SysLogMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.models.annotations.OpenAPI30;
@@ -29,7 +30,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/system/syslog")
 @Tag(name = "系统日志表", description = "system模块-系统日志表")
-public class SysLogController extends CoreController<SysLog> {
+public class SysLogController extends CoreController<SysLog, SysLogMapper> {
 
 
     /**

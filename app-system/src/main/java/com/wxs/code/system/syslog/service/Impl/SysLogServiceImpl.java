@@ -16,10 +16,11 @@ package com.wxs.code.system.syslog.service.Impl;
 
 import com.wxs.code.core.service.BaseService;
 import com.wxs.code.system.syslog.entity.SysLog;
+import com.wxs.code.system.syslog.mapper.SysLogMapper;
 import com.wxs.code.system.syslog.service.ISysLogService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class SysLogServiceImpl extends BaseService<SysLog> implements ISysLogService {
+public class SysLogServiceImpl extends BaseService<SysLog, SysLogMapper> implements ISysLogService {
 
 }

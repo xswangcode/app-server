@@ -15,15 +15,13 @@ package com.wxs.code.system.sysdict.service.Impl;
 
 
 import com.wxs.code.core.service.BaseService;
-import com.wxs.code.system.sysdictitem.entity.SysDictItem;
-import org.springframework.stereotype.Service;
-import com.wxs.code.system.sysdict.service.ISysDictService;
 import com.wxs.code.system.sysdict.entity.SysDict;
-
-import java.util.List;
+import com.wxs.code.system.sysdict.mapper.SysDictMapper;
+import com.wxs.code.system.sysdict.service.ISysDictService;
+import org.springframework.stereotype.Service;
 
 @Service
-public class SysDictServiceImpl extends BaseService<SysDict> implements ISysDictService {
+public class SysDictServiceImpl extends BaseService<SysDict, SysDictMapper> implements ISysDictService {
 
 
 
