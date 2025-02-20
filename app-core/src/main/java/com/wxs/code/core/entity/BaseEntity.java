@@ -16,6 +16,9 @@ import java.lang.reflect.Field;
 
 public class BaseEntity implements Serializable {
 
+
+    private static final long serialVersionUID = 1L;
+
     public boolean ifEmpty() {
         try {
             for (Field field : this.getClass().getDeclaredFields()) {

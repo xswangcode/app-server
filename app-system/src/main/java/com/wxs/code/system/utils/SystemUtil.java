@@ -72,6 +72,35 @@ public class SystemUtil {
         return user != null ? user.getEmail() : null;
     }
 
+    /**
+     *
+     */
+    /**
+     * 将类名转换成下划线格式
+     *
+     * @param className the class name to convert
+     * @return the underscore formatted string
+     */
+    public static String toUnderscoreFormat(String className) {
+        if (className == null || className.isEmpty()) {
+            return "";
+        }
+
+        StringBuilder sb = new StringBuilder();
+        sb.append(Character.toLowerCase(className.charAt(0)));
+
+        for (int i = 1; i < className.length(); i++) {
+            char currentChar = className.charAt(i);
+            if (Character.isUpperCase(currentChar)) {
+                sb.append('_').append(Character.toLowerCase(currentChar));
+            } else {
+                sb.append(currentChar);
+            }
+        }
+
+        return sb.toString();
+    }
+
     private static class UserSvcHolder {
         private static final ISysUserService INSTANCE = SpringUtils.get(ISysUserService.class);
     }

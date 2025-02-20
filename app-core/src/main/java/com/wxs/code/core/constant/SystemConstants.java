@@ -9,10 +9,15 @@
  *
  */
 
-package com.wxs.code.constant;
+package com.wxs.code.core.constant;
 
 
 public class SystemConstants {
-    public static final String REDIS_KEY = "";
+    /**
+     * 数据字典类
+     */
+    public static final class SYS_DICT {
+        public static final String CACHE_TABLES = "CACHE_TABLES"; // 系统需要全表缓存的表名
+    }
 
 }

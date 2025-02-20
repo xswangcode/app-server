@@ -22,5 +22,11 @@ public class RedisConstants {
     public final static String GET_ROLE_LIST_KEY = "ROLES";
     public final static String GET_SYS_DICT_KEY = "SYS_DICT";
     public final static String GET_SYS_DICT_ITEM_KEY = "SYS_DICT_ITEM";
+    public final static String CACHE_TABLES_KEY = "CACHE_TABLES"; /* 缓存到数据的全包缓存表名 */
+    public final static String SYS_DICT_KEY = "SYS_DICT"; /* 数据字典主表前缀 */
+
+
+
+
 
 }

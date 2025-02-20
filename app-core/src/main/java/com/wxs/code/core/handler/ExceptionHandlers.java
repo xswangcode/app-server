@@ -27,13 +27,13 @@ public class ExceptionHandlers {
     @ExceptionHandler(SystemException.class)
     @AutoLog(value = true, type = LogConstant.LogType.EXCEPTION, leval = LogConstant.LogLeval.ERROR, title = "系统运行异常")
     public RspMsg exceptionHandler_auto(SystemException e) {
-        return RspMsg.error(e.getMessage());
+        return RspMsg.error(e.getMessage() == null ? e.getCause().getMessage() : e.getMessage());
     }
 
     @ExceptionHandler(RuntimeException.class)
     @AutoLog(value = true, type = LogConstant.LogType.EXCEPTION, leval = LogConstant.LogLeval.ERROR, title = "未定义系统运行异常")
     public RspMsg exceptionHandler_ALL(RuntimeException e) {
-        return RspMsg.error(e.getMessage());
+        return RspMsg.error(e.getMessage() == null ? e.getCause().getMessage() : e.getMessage());
     }
 
     // 全局权限异常拦截

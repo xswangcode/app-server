@@ -11,7 +11,9 @@
 
 package com.wxs.code.core.utils;
 
+import org.dromara.hutool.core.bean.BeanUtil;
 import org.dromara.hutool.json.JSONUtil;
+import org.redisson.api.RBatch;
 import org.redisson.api.RBucket;
 import org.redisson.api.RedissonClient;
 
@@ -38,7 +40,7 @@ public class RedisUtil {
      * 工具方法
      */
 
-    public static String get(String key) {
+    public static String getJSON(String key) {
         RBucket<String> bucket = getInstance().getBucket(key);
         String str = bucket.get();
         if (str == null) {
@@ -47,7 +49,7 @@ public class RedisUtil {
         return getInstance().getBucket(key).get().toString();
     }
 
-    public static <T extends Object> T getOrDefault(String key, T object) {
+    public static <T extends Object> T getJSONOrDefault(String key, T object) {
         RBucket<String> bucket = getInstance().getBucket(key);
         String str = bucket.get();
         if (str == null) {
@@ -56,7 +58,7 @@ public class RedisUtil {
         return (T) getInstance().getBucket(key).get();
     }
 
-    public static <T> T get(String key, Class<T> clazz) {
+    public static <T> T getJSON(String key, Class<T> clazz) {
         RBucket<String> bucket = getInstance().getBucket(key);
         String str = bucket.get();
         if (str == null) {
@@ -65,12 +67,12 @@ public class RedisUtil {
         return JSONUtil.toBean(str, clazz);
     }
 
-    public static void set(String key, Object val) {
+    public static void setJSON(String key, Object val) {
         String jsonStr = JSONUtil.toJsonStr(val);
         getInstance().getBucket(key).set(jsonStr);
     }
 
-    public static void set(String key, Object val, Duration duration) {
+    public static void setJSON(String key, Object val, Duration duration) {
         String jsonStr = JSONUtil.toJsonStr(val);
         getInstance().getBucket(key).set(jsonStr, duration);
     }
@@ -82,10 +84,60 @@ public class RedisUtil {
      * @param val
      * @param seconds
      */
-    public static void set(String key, Object val, Long seconds) {
+    public static void setJSON(String key, Object val, Long seconds) {
         String jsonStr = JSONUtil.toJsonStr(val);
         getInstance().getBucket(key).set(jsonStr, Duration.ofSeconds(seconds));
     }
+
+
+    public static Object get(String key) {
+        RBucket<Object> bucket = getInstance().getBucket(key);
+        Object obj = bucket.get();
+        if (obj == null) {
+            return null;
+        }
+        return obj;
+    }
+
+    public static <T extends Object> T getOrDefault(String key, T defval) {
+        RBucket<Object> bucket = getInstance().getBucket(key);
+        Object obj = bucket.get();
+        if (obj == null) {
+            return defval;
+        }
+        return (T) obj;
+    }
+
+    public static <T extends Object> T get(String key, Class<T> clazz) {
+        RBucket bucket = getInstance().getBucket(key);
+        Object obj = bucket.get();
+        if (obj == null) {
+            return null;
+        }
+        return BeanUtil.toBean(obj, clazz);
+    }
+
+    public static void set(String key, Object val) {
+        getInstance().getBucket(key).set(val);
+    }
+
+    public static void set(String key, Object val, Duration duration) {
+        getInstance().getBucket(key).set(val, duration);
+    }
+
+    /**
+     * 设置键值和过期时间（秒）
+     *
+     * @param key
+     * @param val
+     * @param seconds
+     */
+    public static void set(String key, Object val, Long seconds) {
+        getInstance().getBucket(key).set(val, Duration.ofSeconds(seconds));
+    }
+
+
+
 
     /**
      * @param key
@@ -93,6 +145,20 @@ public class RedisUtil {
     public static boolean exists(String key) {
         return getInstance().getBucket(key).isExists();
     }
+
+    /**
+     * 获取批量设置工具
+     *
+     * @param
+     */
+    public static RBatch getBatch() {
+        return getInstance().createBatch();
+    }
+
+    public static boolean del(String key) {
+        return getInstance().getBucket(key).delete();
+    }
+
 
     private static class SingletonHolder {
         private static final RedissonClient INSTANCE = SpringUtils.get(RedissonClient.class);
