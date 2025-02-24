@@ -5,6 +5,7 @@ import com.wxs.code.core.constant.SystemConstants;
 import com.wxs.code.core.utils.RedisUtil;
 import com.wxs.code.system.sysdict.service.IDictService;
 import com.wxs.code.system.sysdictitem.entity.SysDictItem;
+import lombok.extern.slf4j.Slf4j;
 import org.dromara.hutool.core.bean.BeanUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 @Component
+@Slf4j
 public class StartupRunner implements CommandLineRunner {
 
 
@@ -26,10 +28,6 @@ public class StartupRunner implements CommandLineRunner {
 
 
     private List<SysDictItem> getCacheTables() {
-        List tbs = RedisUtil.get(RedisConstants.CACHE_TABLES_KEY, List.class);
-        if (tbs != null && !tbs.isEmpty()) {
-            return tbs;
-        }
         List<SysDictItem> sysDictItems = dictService.listDictItemByCode(SystemConstants.SYS_DICT.CACHE_TABLES);
         RedisUtil.set(RedisConstants.CACHE_TABLES_KEY, sysDictItems);
         return sysDictItems;
@@ -43,7 +41,7 @@ public class StartupRunner implements CommandLineRunner {
         Class clazz = item.getValue1() == null ? null : Class.forName(item.getValue1());
 
         List<Map<String, Object>> maps = jdbcTemplate.queryForList("select * from " + table);
-        if (maps == null || maps.isEmpty()) {
+        if (maps.isEmpty()) {
             return;
         }
         for (Map map : maps) {
@@ -55,12 +53,9 @@ public class StartupRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        // 在这里编写应用启动后需要执行的任务
-        System.out.println("应用启动后执行的任务");
-
         List<SysDictItem> cacheTables = getCacheTables();
         for (SysDictItem item : cacheTables) {
-            System.out.println("缓存表：" + item.getCode());
+            log.info("缓存表：{}", item.getCode());
             // 执行缓存表的初始化操作
             cacheTable(item);
         }

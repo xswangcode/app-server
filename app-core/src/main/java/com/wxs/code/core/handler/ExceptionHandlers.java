@@ -18,10 +18,12 @@ import com.wxs.code.core.annotation.AutoLog;
 import com.wxs.code.core.api.VO.RspMsg;
 import com.wxs.code.core.constant.LogConstant;
 import com.wxs.code.core.exception.SystemException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
+@Slf4j
 public class ExceptionHandlers {
 
     @ExceptionHandler(SystemException.class)
@@ -33,6 +35,7 @@ public class ExceptionHandlers {
     @ExceptionHandler(RuntimeException.class)
     @AutoLog(value = true, type = LogConstant.LogType.EXCEPTION, leval = LogConstant.LogLeval.ERROR, title = "未定义系统运行异常")
     public RspMsg exceptionHandler_ALL(RuntimeException e) {
+        log.error("未定义系统运行异常===> \n{0}", e);
         return RspMsg.error(e.getMessage() == null ? e.getCause().getMessage() : e.getMessage());
     }
 

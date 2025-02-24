@@ -18,6 +18,8 @@ import org.redisson.api.RBucket;
 import org.redisson.api.RedissonClient;
 
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * redis工具类
@@ -136,6 +138,44 @@ public class RedisUtil {
         getInstance().getBucket(key).set(val, Duration.ofSeconds(seconds));
     }
 
+    /**
+     * 通过键模板查询keys
+     *
+     * @param keyPattern
+     */
+    public static Iterable<String> getKeysByPattern(String keyPattern) {
+        RedissonClient instance = getInstance();
+        return instance.getKeys().getKeysByPattern(keyPattern);
+    }
+
+
+    /**
+     * 通过键模板查询entity
+     *
+     * @param keyPattern
+     */
+    public static <T> List<T> getByPattern(String keyPattern, Class<T> clazz) {
+        Iterable<String> keys = getInstance().getKeys().getKeysByPattern(keyPattern);
+        List<T> result = new ArrayList<>();
+        keys.forEach(key -> {
+            Object it = getInstance().getBucket(key).get();
+            if (it != null) {
+                T t = BeanUtil.toBean(it, clazz);
+                result.add(t);
+            }
+        });
+        return result;
+    }
+
+    /**
+     * 通过键模板删除keys
+     *
+     * @param keyPattern
+     */
+    public static long deleteByPattern(String keyPattern) {
+        RedissonClient instance = getInstance();
+        return instance.getKeys().deleteByPattern(keyPattern);
+    }
 
 
 

@@ -1,13 +1,17 @@
 package com.wxs.code.system.aspect;
 
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.wxs.code.constant.RedisConstants;
 import com.wxs.code.core.api.VO.RspMsg;
 import com.wxs.code.core.constant.SystemConstants;
+import com.wxs.code.core.utils.QueryUtil;
 import com.wxs.code.core.utils.RedisUtil;
 import com.wxs.code.system.sysdict.service.IDictService;
 import com.wxs.code.system.sysdictitem.entity.SysDictItem;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.catalina.connector.RequestFacade;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -18,7 +22,9 @@ import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Component
 @Aspect
@@ -79,14 +85,13 @@ public class AutoCacheAOP {
      */
     private Object processCache(String methodName, String code, Object[] args, ProceedingJoinPoint joinPoint) throws Throwable {
         switch (methodName) {
-//            [add,   edit,  queryPageList, list, addBatch, delete, deleteBatch,  queryById]
             case "add":
             case "edit":
                 return handleAddEdit(joinPoint, code, args);
-            // todo 这里比较复杂待完成
-//            case "queryPageList":
-//            case "list":
-//                return handleQueryPageListList(joinPoint, methodName, code, args);
+            case "queryPageList":
+                return handleQueryPageListList(joinPoint, code, args);
+            case "list":
+                return handleListList(joinPoint, code, args);
             case "addBatch":
                 return handleAddBatch(joinPoint, code, args);
             case "delete":
@@ -124,7 +129,7 @@ public class AutoCacheAOP {
         // 调用原方法
         Object result = joinPoint.proceed();
 
-        List entity = (List) args[0];
+        List<?> entity = (List<?>) args[0];
         for (Object o : entity) {
             String key = generateCacheKey(code, BeanUtil.beanToMap(o).get("id").toString());
             RedisUtil.set(key, o);
@@ -154,7 +159,7 @@ public class AutoCacheAOP {
         // 调用原方法
         Object result = joinPoint.proceed();
 
-        List entity = (List) args[0];
+        List<?> entity = (List<?>) args[0];
         for (Object o : entity) {
             String key = generateCacheKey(code, BeanUtil.beanToMap(o).get("id").toString());
             RedisUtil.del(key);
@@ -162,22 +167,80 @@ public class AutoCacheAOP {
         return result;
     }
 
+
     /**
-     * 全表查詢AOP
+     * 条件查询AOP（仅等值匹配）
+     */
+    private Object handleListList(ProceedingJoinPoint joinPoint, String code, Object[] args) throws Throwable {
+
+        Object entity = args[0];
+        Class<?> clazz = entity.getClass();
+        List<?> byPattern = RedisUtil.getByPattern(code + ":*", clazz);
+        Map<String, Object> paramMap = QueryUtil.parseHttpRequests((RequestFacade) args[1]);
+        // 过滤：仅保留满足条件的对象
+        List<?> data = byPattern.stream().filter(item -> QueryUtil.matches(item, paramMap)).collect(Collectors.toList());
+
+        // 无数据走数据库
+        if (data.isEmpty()) {
+            Object _rsp = joinPoint.proceed();
+            // 重置缓存
+            if (_rsp instanceof RspMsg) {
+                RspMsg<?> rsp = (RspMsg<?>) _rsp;
+                Object result = rsp.getResult();
+                if (rsp.isSuccess() && result instanceof List && !((List<?>) result).isEmpty())
+                    for (Object o : ((List<?>) result)) {
+                        String key = generateCacheKey(code, BeanUtil.beanToMap(o).get("id").toString());
+                        RedisUtil.set(key, o);
+                    }
+            }
+            return _rsp;
+        }
+        QueryUtil.sort(data, paramMap);
+        return RspMsg.OK(data);
+    }
+
+    /**
+     * 分页查询AOP（仅等值匹配）
      */
     private Object handleQueryPageListList(ProceedingJoinPoint joinPoint, String code, Object[] args) throws Throwable {
+        Object entity = args[0];
+        Class<?> clazz = entity.getClass();
+        List<?> byPattern = RedisUtil.getByPattern(code + ":*", clazz);
+        Map<String, Object> paramMap = QueryUtil.parseHttpRequests((RequestFacade) args[3]);
+        // 过滤：仅保留满足条件的对象
+        List<?> filteredList = byPattern.stream().filter(item -> QueryUtil.matches(item, paramMap)).collect(Collectors.toList());
 
+        // 无数据走数据库
+        if (filteredList.isEmpty()) {
+            Object _rsp = joinPoint.proceed();
+            // 重置缓存
+            if (_rsp instanceof RspMsg<?> rsp) {
+                Object result = rsp.getResult();
+                if (rsp.isSuccess() && result instanceof IPage<?> && !((IPage<?>) result).getRecords().isEmpty()) {
+                    List<?> data = ((IPage<?>) result).getRecords();
+                    for (Object o : data) {
+                        String key = generateCacheKey(code, BeanUtil.beanToMap(o).get("id").toString());
+                        RedisUtil.set(key, o);
+                    }
+                }
+                return _rsp;
+            }
+        }
 
-//        String key = generateCacheKey(code, "*");
-//
-//        Object cache = RedisUtil.get(key);
-//        if(cache == null){
-//            RedisUtil.set(key, result);
-//        }
-        // 调用原方法
-        Object result = joinPoint.proceed();
+        int pageNO = Integer.parseInt(args[1].toString());
+        int pageSize = Integer.parseInt(args[2].toString());
+        int from = (pageNO - 1) * pageSize;
+        int to = pageNO * pageSize;
+        from = Math.min(from, filteredList.size());
+        to = Math.min(to, filteredList.size());
 
-        return result;
+        QueryUtil.sort(filteredList, paramMap);
+        List<?> data = filteredList.subList(from, to);
+        IPage page = new Page<>(pageNO, pageSize);
+        page.setTotal(filteredList.size());
+        page.setRecords(data);
+        return RspMsg.OK(page);
+
     }
 
 
@@ -186,12 +249,10 @@ public class AutoCacheAOP {
      */
     private RspMsg handleQueryById(ProceedingJoinPoint joinPoint, String code, Object[] args) throws Throwable {
 
-
         String id = String.valueOf(args[0]);
         String key = generateCacheKey(code, id);
         Object cache = RedisUtil.get(key);
-        if (cache != null)
-            return RspMsg.OK(cache);
+        if (cache != null) return RspMsg.OK(cache);
         // 调用原方法
         RspMsg rspmsg = (RspMsg) joinPoint.proceed();
         if (rspmsg.isSuccess()) {
@@ -221,8 +282,7 @@ public class AutoCacheAOP {
      * @param args
      */
     private void handleDelete(String code, Object[] args) {
-        if (args.length == 0)
-            return;
+        if (args.length == 0) return;
         RedisUtil.del(code + ":" + args[0]);
     }
 
