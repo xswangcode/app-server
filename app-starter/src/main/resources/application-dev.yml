@@ -19,7 +19,7 @@ app:
 
 
 server:
-  port: 28081
+  port: 28080
 
 spring:
   application:
@@ -70,19 +70,23 @@ springdoc:
   api-docs:
     path: /v3/api-docs
   group-configs:
-    - group: 'default'
-      paths-to-match: '/*/**'
-      packages-to-scan: com.wxs.code
-    - group: 'api'
-      paths-to-match: '/*/**'
-      packages-to-scan: com.wxs.code.api
-    - group: 'system'
+    - group: 'A_system'
+      displayName: '内部接口'
       paths-to-match: '/*/**'
       packages-to-scan:
         - com.wxs.code.system
         - com.wxs.code.schedule
         - com.wxs.code.generate
         - com.wxs.code.biz
+    - group: 'B_default'
+      displayName: '默认'
+      paths-to-match: '/*/**'
+      packages-to-scan: com.wxs.code
+    - group: 'C_api'
+      displayName: '对外接口'
+      paths-to-match: '/*/**'
+      packages-to-scan: com.wxs.code.api
+
   default-flat-param-object: true
 # knife4j的增强配置，不需要增强可以不配
 knife4j:

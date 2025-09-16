@@ -14,6 +14,10 @@
  Date: 24/02/2025 17:17:50
 */
 
+create database  `app-server`;
+
+use  `app-server`;
+
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 

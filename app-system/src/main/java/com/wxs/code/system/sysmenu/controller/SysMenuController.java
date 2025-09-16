@@ -17,10 +17,12 @@ import com.wxs.code.core.api.VO.RspMsg;
 import com.wxs.code.core.controller.CoreController;
 import com.wxs.code.system.sysmenu.entity.SysMenu;
 import com.wxs.code.system.sysmenu.mapper.SysMenuMapper;
+import com.wxs.code.system.sysmenu.service.ISysMenuService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.models.annotations.OpenAPI30;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,7 +33,23 @@ import java.util.List;
 @RequestMapping("/system/sysmenu")
 @Tag(name = "系统菜单表", description = "system模块-系统菜单表")
 public class SysMenuController extends CoreController<SysMenu, SysMenuMapper> {
+    @Autowired
+    ISysMenuService baseService;
 
+
+    @Operation(summary = "查询所有菜单树", description = "查询菜单树")
+    @GetMapping("getMenuTreeList")
+    public RspMsg<List<SysMenu>> getAllMenuList() {
+        return RspMsg.ok(baseService.getAllMenuList());
+    }
+
+
+    @Operation(summary = "未登录时候查询菜单树", description = "查询菜单树")
+    @CrossOrigin
+    @GetMapping("getMenuCommon")
+    public RspMsg<List<SysMenu>> getAllMenuListWithoutToken() {
+        return RspMsg.ok(baseService.getMenuCommon());
+    }
 
     /**
      * 查询接口
@@ -79,6 +97,7 @@ public class SysMenuController extends CoreController<SysMenu, SysMenuMapper> {
     public RspMsg<SysMenu> queryById(String id, HttpServletRequest req) {
         return super.queryById(id, req);
     }
+
 
     /**
      * 批量删除

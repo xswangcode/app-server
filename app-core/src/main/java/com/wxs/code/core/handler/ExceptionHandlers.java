@@ -49,6 +49,6 @@ public class ExceptionHandlers {
     // 全局权限异常拦截
     @ExceptionHandler(NotLoginException.class)
     public RspMsg handlerNotLoginException(NotLoginException e) {
-        return RspMsg.error(e.getMessage());
+        return RspMsg.error(401, e.getMessage()+"，请先登录");
     }
 }
